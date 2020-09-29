@@ -30,6 +30,7 @@ alias config "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
+fzf_key_bindings
 starship init fish | source
 navi widget fish | source
 
