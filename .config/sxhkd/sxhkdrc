@@ -73,6 +73,8 @@ super + y
 super + g
 	bspc node -s biggest
 
+super + a
+    alacritty --class AlacrittyFloating,AlacrittyFloating -e nvim ~/.agenda.md
 #
 # state/flags
 #
