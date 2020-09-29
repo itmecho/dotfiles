@@ -120,14 +120,6 @@ autocmd BufNewFile,BufRead *.j2 set ft=jinja
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd BufWritePre * call RemoveTrailingWhiteSpace()
 
-augroup rust
-    autocmd! rust
-    autocmd FileType rust nnoremap <buffer> <leader>ca :!cargo add<Space>
-    autocmd FileType rust nnoremap <buffer> <leader>cc :call RnrExec("cargo clippy")<CR>
-    autocmd FileType rust nnoremap <buffer> <leader>ct :call RnrExec("cargo test")<CR>
-    autocmd FileType rust nnoremap <buffer> <leader>cr :call RnrExec("cargo run")<CR>
-augroup END
-
 " Abbreviations
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -154,12 +146,23 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <C-P> <Esc>:Files<CR>
 inoremap <A-t> <Esc>:call RnrTermToggle()<CR>
 
-nnoremap <silent> <esc> :noh<CR><esc>
-nnoremap <leader>. :Files<CR>
-nnoremap <leader>, :Buffers<CR>
-nnoremap <leader>op :NERDTreeToggle<CR>
-nnoremap <leader>ot :call RnrToggle()<CR>
+" File Open
+nnoremap <leader>fo :Files<CR>
+" File Buffers
+nnoremap <leader>fb :Buffers<CR>
+" File Tree
+nnoremap <leader>ft :NERDTreeToggle<CR>
+
+" Search Project
 nnoremap <leader>sp :Ack<Space>
+" Search Tags
+nnoremap <leader>st :Tags<CR>
+
+" Terminal Toggle
+nnoremap <silent> <leader>tt :call RnrToggle()<CR>
+
+
+nnoremap <silent> <esc> :noh<CR><esc>
 nnoremap <leader>st :Tags<CR>
 nnoremap <leader>gy :Goyo 50%<cr>
 nnoremap <leader>S :set spell!<CR>
