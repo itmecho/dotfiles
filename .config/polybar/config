@@ -7,7 +7,7 @@ monitor = ${env:MONITOR:}
 enable-ipc = true
 
 modules-left = date cpu memory filesystem vpn alerts updates updates-loop
-modules-right = music pulseaudio battery
+modules-right = pulseaudio battery
 background = ${colours.background}
 foreground = ${colours.text}
 
