@@ -65,16 +65,3 @@ function! RnrExec(cmd)
   normal! G
   wincmd p
 endfunction
-
-" With this maps you can now toggle the terminal
-nnoremap <leader>t :call RnrToggle()<cr>
-tnoremap <leader>t <C-\><C-n>:call RnrToggle()<cr>
-nnoremap <F7> :call RnrToggle()<cr>
-tnoremap <F7> <C-\><C-n>:call RnrToggle()<cr>
-
-" This an example on how specify command with different types of files.
-    augroup rust
-        autocmd!
-        autocmd BufRead,BufNewFile *.rust set filetype=rust
-        autocmd FileType rust nnoremap <leader>ct :call RnrExec('cargo test')<cr>
-    augroup END
