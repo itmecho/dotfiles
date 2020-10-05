@@ -59,6 +59,8 @@ let mapleader = ' '
 
 " Plugin configuration
 let g:airline_theme = 'dracula'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 let g:ale_set_highlights = 0
 let g:ale_rust_cargo_use_check = 1
