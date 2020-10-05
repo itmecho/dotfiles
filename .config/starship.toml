@@ -1,16 +1,16 @@
 add_newline = false
 
-prompt_order = [
-    "directory",
-    "git_branch",
-    "git_state",
-    "git_status",
-    "kubernetes",
-    "cmd_duration",
-    "line_break",
-    "jobs",
-    "character",
-]
+format = """
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$kubernetes\
+$cmd_duration\
+$line_break\
+$jobs\
+$character\
+"""
 
 [kubernetes]
 disabled = false
