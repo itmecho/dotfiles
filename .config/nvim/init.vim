@@ -1,16 +1,16 @@
 call plug#begin('~/.config/nvim/plugged')
-
-Plug 'vim-airline/vim-airline'
-Plug 'airblade/vim-rooter'
-Plug 'tpope/vim-commentary'
+" LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'jiangmiao/auto-pairs'
+
+Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'dense-analysis/ale'
+Plug 'itmecho/bufterm.nvim'
 
 " Language plugins
 Plug 'rust-lang/rust.vim'
@@ -33,6 +33,7 @@ set hidden
 set ignorecase
 set incsearch
 set mouse=""
+set noswapfile
 set number
 set relativenumber
 set scrolloff=50
@@ -40,6 +41,7 @@ set shiftwidth=4
 set shortmess+=c
 set signcolumn=yes
 set smartcase
+set smartindent
 set softtabstop=0
 set spelllang=en_gb
 set splitbelow
@@ -60,20 +62,21 @@ let mapleader = ' '
 
 " Plugin configuration
 let g:airline_theme = 'dracula'
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#nvimlsp#enabled = 1
 
-let g:ale_set_highlights = 0
-let g:ale_rust_cargo_use_check = 1
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 let g:diagnostic_enable_underline = 1
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_show_sign = 1
 
-let g:fzf_layout = { 'down': '40%' }
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8, 'border': 'sharp' } }
+let $FZF_DEFAULT_OPTS='--reverse'
 
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
+" let g:netrw_liststyle = 3
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
@@ -82,14 +85,30 @@ if executable("rg")
     let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 endif
 
+call sign_define("LspDiagnosticsErrorSign", {"text" : "!", "texthl" : "LspDiagnosticsError"})
+call sign_define("LspDiagnosticsWarningSign", {"text" : "?", "texthl" : "LspDiagnosticsWarning"})
+call sign_define("LspDiagnosticsInformationSign", {"text" : "I", "texthl" : "LspDiagnosticsInformation"})
+call sign_define("LspDiagnosticsHintSign", {"text" : "H", "texthl" : "LspDiagnosticsHint"})
+
 " Functions
 function! RemoveTrailingWhiteSpace()
-    :normal mw
-    :%s/\s\+$//e
-    :normal `w
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
 endfunction
 
-source $HOME/.config/nvim/rnr.vim
+function! ProjectSearch(...)
+    if a:0 == 1
+        let query = a:1
+    else
+        call inputsave()
+        let query = input('Search: ')
+        call inputrestore()
+    endif
+    execute 'silent grep! ''' . query . ''''
+    call feedkeys('<CR>')
+    execute 'copen'
+endfunction
 
 autocmd BufWritePre * call RemoveTrailingWhiteSpace()
 
@@ -117,32 +136,39 @@ endif
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <C-P> <Esc><cmd>Files<CR>
-inoremap <A-t> <Esc><cmd>call RnrTermToggle()<CR>
 
 " File Open
 nnoremap <C-p> <cmd>Files<CR>
 " File Buffers
 nnoremap <leader>; <cmd>Buffers<CR>
 
+" Diagnostics
+nnoremap <leader>dn :NextDiagnosticCycle<CR>
+nnoremap <leader>dp :PrevDiagnosticCycle<CR>
+
 " Search Project
-nnoremap <leader>sp <cmd>Rg<CR>
+nnoremap <leader>sp <cmd>call ProjectSearch()<CR>
+vnoremap <leader>sp y:call ProjectSearch('<C-R>"')<CR>
+
 " Search Tags
 nnoremap <leader>st <cmd>Tags<CR>
 
 " Terminal Toggle
-nnoremap <silent> <leader>tt <cmd>call RnrToggle()<CR>
-tnoremap <silent> <leader>tt <C-\><C-n><cmd>call RnrToggle()<CR>
+nnoremap <silent> <leader>tt <cmd>BufTermToggle<CR>
+tnoremap <silent> <leader>tt <cmd>BufTermToggle<CR>
 
 " LSP Bindings
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K          <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>vi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <leader>vt <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> <leader>vr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>vs <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <leader>vS <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> <leader>vD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <leader>vf <cmd>lua vim.lsp.buf.formatting_sync()<CR>
+nnoremap <silent> <leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Hard Mode
 inoremap <up> <nop>
