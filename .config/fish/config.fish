@@ -1,7 +1,7 @@
 #!/usr/bin/fish
 
 set fish_greeting
-set -gx PATH               $PATH $HOME/bin $GOPATH/bin $HOME/.local/bin $HOME/.pulumi/bin $HOME/.cargo/bin
+set -gx PATH $HOME/bin $GOPATH/bin $HOME/.local/bin $HOME/.pulumi/bin $HOME/.cargo/bin $PATH
 
 export SHELL=/usr/bin/fish
 export GOPATH=$HOME/src/go
