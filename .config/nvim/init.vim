@@ -76,7 +76,6 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8, 'border': 'sharp' 
 let $FZF_DEFAULT_OPTS='--reverse'
 
 let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
@@ -149,6 +148,10 @@ nnoremap <leader>dp :PrevDiagnosticCycle<CR>
 " Search Project
 nnoremap <leader>sp <cmd>call ProjectSearch()<CR>
 vnoremap <leader>sp y:call ProjectSearch('<C-R>"')<CR>
+
+" Search Interactively
+nnoremap <leader>si <cmd>Rg<cr>
+vnoremap <leader>si y:Rg '<C-R>"'<CR>
 
 " Search Tags
 nnoremap <leader>st <cmd>Tags<CR>

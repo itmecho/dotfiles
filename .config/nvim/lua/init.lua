@@ -4,6 +4,8 @@ local on_attach = function(client)
     require'diagnostic'.on_attach(client)
 end
 
+nvim_lsp.bashls.setup{on_attach = on_attach}
+
 nvim_lsp.gopls.setup{on_attach = on_attach}
 
 nvim_lsp.jdtls.setup{on_attach = on_attach}
