@@ -1,0 +1,5 @@
+% aws, list, ip
+@ common, aws
+
+# List aws instance names and ip addresses
+aws --profile <profile> --region <region> ec2 describe-instances --output json | jq -r '.Reservations[].Instances[] | "\(.Tags[] | select(.Key=="Name").Value)\t\(.PrivateIpAddress)"' | sort | column -t

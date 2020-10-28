@@ -1,0 +1,4 @@
+% kubectl, node, list
+
+# List nodes in the current context
+kubectl get nodes -o json | jq -r '.items[] | {"name": .metadata.name, "status": (.status.conditions[] | select(.type=="Ready") | if .status == "True" then "Ready" else "NotReady" end), "instance_group": .metadata.labels["kops.k8s.io/instancegroup"], "ip": (.status.addresses[] | select(.type == "InternalIP").address), "id": (.spec.providerID | split("/") | last)} | [.name,.status,.instance_group,.ip,.id] | @tsv' | column -tN NAME,STATUS,INSTANCEGROUP,IP,ID

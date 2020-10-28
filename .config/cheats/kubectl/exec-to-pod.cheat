@@ -1,0 +1,6 @@
+% kubectl, pod
+
+# Exec into a a pod running in the current context/namespace
+kubectl exec -ti <pod> -- /bin/sh
+
+$ pod: kubectl get pods | awk '/\// {print $1}'

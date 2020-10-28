@@ -1,0 +1,4 @@
+% common, aws
+
+$ region: aws ec2 describe-regions --query 'Regions[].RegionName' --output text | sed 's/\t/\n/g'
+$ profile: awk '/^\[profile/ {gsub("]","",$2); print $2}' ~/.aws/config
