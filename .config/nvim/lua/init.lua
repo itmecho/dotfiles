@@ -28,4 +28,8 @@ nvim_lsp.terraformls.setup{
     filetypes = { "terraform", "hcl" };
 }
 
-nvim_lsp.yamlls.setup{on_attach = on_attach}
+nvim_lsp.tsserver.setup{
+    on_attach = on_attach;
+}
+
+-- nvim_lsp.yamlls.setup{on_attach = on_attach}
