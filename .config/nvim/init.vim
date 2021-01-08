@@ -172,6 +172,7 @@ nnoremap <silent> <leader>vS <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> <leader>vD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>vf <cmd>lua vim.lsp.buf.formatting_sync()<CR>
 nnoremap <silent> <leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>vR <cmd>lua vim.lsp.buf.rename()<CR>
 
 " Hard Mode
 inoremap <up> <nop>
