@@ -54,7 +54,7 @@ bsp-layout set tall 2 --master-size 0.53
 
 if [ $(bspc query -M | wc -l) -eq 3 ]; then
     # Plugged into the dock so open work applications
-    firefox-developer-edition &
+    firefox &
     alacritty &
     slack &
     sleep 2 # because slack takes forever to start
