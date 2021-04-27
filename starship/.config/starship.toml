@@ -1,0 +1,20 @@
+add_newline = false
+
+format = """
+$directory\
+$git_branch\
+$kubernetes\
+$cmd_duration\
+$line_break\
+$jobs\
+$character\
+"""
+
+[kubernetes]
+disabled = false
+format = 'on [$context:$namespace]($style) '
+style = "purple"
+symbol = ""
+
+[git_branch]
+style = "bold yellow"
