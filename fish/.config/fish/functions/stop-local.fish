@@ -1,4 +1,8 @@
 function stop-local
+	if test (uname) != "Darwin"
+		echo "This only works on macos"
+		return
+	end
 	osascript -e 'quit app "Docker"'
 	kdev supervisor ctl stop all
 	kdev supervisor stop

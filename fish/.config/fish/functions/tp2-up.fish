@@ -1,4 +1,8 @@
 function tp2-up
+	if test (uname) != "Darwin"
+		echo "This only works on macos"
+		return
+	end
 	echo -e "\e[01m==> Update dnsmasq config\e[00m"
 	kdev dns update-local --mimictest iain
 	echo -e "\e[01m==> Creating loopback alias\e[00m"

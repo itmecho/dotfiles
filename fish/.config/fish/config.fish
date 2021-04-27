@@ -1,15 +1,16 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 set fish_greeting
+
+set -gx SHELL /usr/bin/fish
+test (uname) = "Darwin"; and set -gx SHELL /usr/local/bin/fish
 
 set -gx BARX_NO_REMOTE_CACHE 1
 set -gx NVM_DIR $HOME/.local/nvm
 set -gx TERM xterm-256color
-set -gx SHELL /usr/bin/fish
 set -gx EDITOR nvim
 set -gx GOPATH $HOME/src/go
 set -gx CLOUDPATH $HOME/src/CloudExperiments
-set -gx KDEV_KUBE_CONTEXT docker-desktop
 set -gx FZF_DEFAULT_COMMAND 'fd -H'
 set -gx FZF_DEFAULT_OPTS ' --no-exact'
 set -gx GPG_TTY (tty)
@@ -22,15 +23,25 @@ set -U fish_user_paths \
    /usr/local/opt/node@12/bin
 
 source ~/.config/fish/aliases.fish
-
-gpg-connect-agent updatestartuptty /bye >/dev/null
+source ~/.local/venv/bin/activate.fish
 
 fzf_key_bindings
 starship init fish | source
 
-source "/opt/google-cloud-sdk/path.fish.inc"
-source ~/.local/venv/bin/activate.fish
+if test (uname) = "Darwin"
+	# MacOS specific config
+	set -gx KDEV_KUBE_CONTEXT docker-desktop
 
-test -z $DISPLAY
-and test (tty) = "/dev/tty1"
-and startx
+	source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+else
+	# Linux specific config
+	set -gx KDEV_KUBE_CONTEXT minikube
+
+	source "/opt/google-cloud-sdk/path.fish.inc"
+
+	gpg-connect-agent updatestartuptty /bye >/dev/null
+
+	if test -z $DISPLAY; and test (tty) = "/dev/tty1"
+		startx
+	end
+end

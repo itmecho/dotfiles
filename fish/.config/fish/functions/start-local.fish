@@ -1,4 +1,8 @@
 function start-local
+	if test (uname) != "Darwin"
+		echo "This only works on macos"
+		return
+	end
 	open /Applications/Docker.app
 	kdev supervisor start
 	kdev supervisor ctl start all
