@@ -43,7 +43,7 @@ Print
     scrot "screenshot-%F-%H%M%S.png" -e 'mv $f ~/Pictures/' && notify-send "Screenshot Captured"
 
 shift + Print
-    sleep 0.2 && scrot -s "screenshot-%F-%H%M%S.png" -e 'mv $f ~/Pictures/' && notify-send "Screenshot Captured"
+    sleep 0.2 && scrot -s --freeze "screenshot-%F-%H%M%S.png" -e 'mv $f ~/Pictures/' && notify-send -a scrot -i camera-photo "Screenshot captured"
 
 #
 # bspwm hotkeys
