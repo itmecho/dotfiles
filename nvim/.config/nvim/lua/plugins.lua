@@ -32,10 +32,9 @@ return require("packer").startup(
         -- Fish
         use "blankname/vim-fish"
 
-        -- Prettier
-        use {"prettier/vim-prettier", run = "yarn install"}
-
-        -- " Color Schemes
+        -- Color Schemes
         use {"dracula/vim", as = "dracula"}
+        use "arcticicestudio/nord-vim"
+        use "folke/tokyonight.nvim"
     end
 )

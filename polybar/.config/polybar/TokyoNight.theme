@@ -1,0 +1,4 @@
+; vim:ft=dosini
+
+background = #24283b
+text = #c0caf5

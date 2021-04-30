@@ -1,6 +1,34 @@
 #!/bin/sh
 
-export SXHKD_SHELL=/bin/sh
+# Supported Themes
+#   dracula
+#   nord
+#   tokyonight
+export THEME=tokyonight
+
+case $THEME in
+	dracula)
+		export THEME_BG=282a36
+		export THEME_FG=f8f8f2
+		export THEME_GREEN=50fa7b
+		export THEME_YELLOW=f1fa8c
+		export THEME_BLUE=bd93f9
+		;;
+	nord)
+		export THEME_BG=2e3440
+		export THEME_FG=d8dee9
+		export THEME_GREEN=a3be8c
+		export THEME_YELLOW=ebcb8b
+		export THEME_BLUE=81a1c1
+		;;
+	tokyonight)
+		export THEME_BG=24283b
+		export THEME_FG=c0caf5
+		export THEME_GREEN=9ece6a
+		export THEME_YELLOW=e0af68
+		export THEME_BLUE=7aa2f7
+		;;
+esac
 
 wmname LG3D
 
@@ -20,7 +48,7 @@ dunst &
 nm-applet &
 picom -f &
 polybar main &
-sxhkd &
+SXHKD_SHELL=/bin/sh sxhkd &
 
 nitrogen --restore
 

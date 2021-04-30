@@ -11,7 +11,7 @@ fi
 updates=$(("$updates_arch" + "$updates_aur"))
 
 if [ $updates -gt 0 ]; then
-    echo "%{F#50fa7b}  %{F-}$updates"
+    echo "%{F#${THEME_GREEN}}  %{F-}$updates"
 else
-    echo "%{F#bd93f9}  %{F-}"
+    echo "%{F#${THEME_BLUE}}  %{F-}"
 fi

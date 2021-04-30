@@ -28,7 +28,7 @@ case-indicator {
 }
 
 element {
-    padding: 10;
+    padding: 10 25;
     border: 1 0 0 0;
 }
 
@@ -36,4 +36,4 @@ element selected {
     background-color: #434c5e;
 }
 
-/* vim:set ft=css */
+/* vim:set ft=css: */

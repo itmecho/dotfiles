@@ -7,8 +7,7 @@ if [ ! -f ${state} ]; then
 fi
 
 if [ $(cat ${state}) -eq 1 ]; then
-	echo "%{F#50fa7b} %{F-}"
-	echo " "
+	echo "%{F#${THEME_GREEN}} %{F-}"
 else
-	echo "%{F#f1fa8c} %{F-}"
+	echo "%{F#${THEME_YELLOW}} %{F-}"
 fi

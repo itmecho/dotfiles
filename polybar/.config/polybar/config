@@ -1,18 +1,14 @@
-; TODO template for work/home
-[colours]
-include-file = $HOME/.config/polybar/dracula.theme
-
 [bar/main]
 monitor = ${env:MONITOR:}
 enable-ipc = true
 
 modules-left = cpu memory filesystem xautolock updates updates-loop
 modules-right = pulseaudio date
-background = ${colours.background}
-foreground = ${colours.text}
+background = ${env:THEME_BG}
+foreground = ${env:THEME_FG}
 
 border-size = 10
-border-color = ${colours.background}
+border-color = ${env:THEME_BG}
 
 tray-position = left
 tray-padding = 12
@@ -36,7 +32,7 @@ time = %H:%M:%S
 date-alt = %Y-%m-%d
 time-alt = %H:%M:%S
 
-format-foreground = ${colours.text}
+; format-foreground = ${colours.text}
 
 [module/cpu]
 type = internal/cpu

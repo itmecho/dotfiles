@@ -1,6 +1,6 @@
 vim.cmd("filetype plugin indent on")
 vim.cmd("syntax on")
-vim.cmd("colorscheme dracula")
+vim.cmd("colorscheme " .. vim.env.THEME:lower())
 
 vim.g.ale_disable_lsp = 1
 vim.g.ale_linters_explicit = 1

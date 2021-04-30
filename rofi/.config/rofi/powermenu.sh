@@ -1,9 +1,22 @@
 #!/bin/sh
 
-choice=$(echo -e "襤\nﰇ" | rofi -dmenu -theme powermenu -i -columns 2 -no-custom)
+options=$(cat <<EOF
+Power off
+Reboot
+Exit bspwm
+EOF
+)
 
-if [[ "${choice}" == "襤" ]]; then
-    systemctl poweroff
-elif [[ "${choice}" == "ﰇ" ]]; then
-    systemctl reboot
-fi
+choice=$(echo "${options}" | rofi -theme $THEME -dmenu -i)
+
+case $choice in
+	'Power off')
+		systemctl poweroff
+		;;
+	'Reboot')
+		systemctl poweroff
+		;;
+	'Exit bspwm')
+		systemctl poweroff
+		;;
+esac

@@ -1,8 +1,8 @@
 /* Useful reference: https://www.mankier.com/5/rofi-theme#Layouti */
 
 * {
-    background-color: #44475a;
-    color: #f8f8f2;
+    background-color: #1D202F;
+    color: #c0caf5;
     margin: 0;
     padding: 0;
     font: "Roboto 12";
@@ -15,7 +15,8 @@
 
 prompt {
     padding: 10 25;
-    background-color: #bd93f9;
+    background-color: #7aa2f7;
+	color: #24283b;
 }
 
 entry {
@@ -29,10 +30,11 @@ case-indicator {
 element {
     padding: 10 25;
     border: 1 0 0 0;
+	border-color: #24283b;
 }
 
 element selected {
-    background-color: #6272a4;
+    background-color: #24283b;
 }
 
 /* vim:set ft=css: */

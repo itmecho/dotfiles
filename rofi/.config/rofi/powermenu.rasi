@@ -1,4 +1,4 @@
-@import "nord.rasi"
+@import "tokyonight.rasi"
 * {
     background-color: #434c5e;
 }
@@ -20,7 +20,7 @@ listview {
 
 element {
     padding: 34 0;
-    font: "mononoki Nerd Font 64";
+    font: "VictorMono Nerd Font 32";
     orientation: horizontal;
     horizontal-align: 0.5;
     vertical-align: 0.5;
