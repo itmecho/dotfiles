@@ -1,4 +1,4 @@
-#!/usr/bin/env fish
+#!/usr/bin/fish
 
 set fish_greeting
 
@@ -15,18 +15,17 @@ set -gx FZF_DEFAULT_COMMAND 'fd -H'
 set -gx FZF_DEFAULT_OPTS ' --no-exact'
 set -gx GPG_TTY (tty)
 
-set -U fish_user_paths \
+set -g fish_user_paths \
    $GOPATH/bin \
    $HOME/.local/bin \
    $HOME/.cargo/bin \
-   $HOME/.istioctl/bin \
-   /usr/local/opt/node@12/bin
-
-source ~/.config/fish/aliases.fish
-source ~/.local/venv/bin/activate.fish
+   $HOME/.yarn/bin \
+   $HOME/.istioctl/bin
 
 fzf_key_bindings
 starship init fish | source
+
+source ~/.config/fish/aliases.fish
 
 if test (uname) = "Darwin"
 	# MacOS specific config
