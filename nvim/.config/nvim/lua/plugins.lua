@@ -5,25 +5,39 @@ return require("packer").startup(
         -- Packer
         use {"wbthomason/packer.nvim", opt = true}
 
-        -- " LSP
+        -- LSP
         use "neovim/nvim-lspconfig"
         use "hrsh7th/nvim-compe"
         use "nvim-lua/lsp_extensions.nvim"
+        use "glepnir/lspsaga.nvim"
+        use "folke/lsp-trouble.nvim"
+
+        -- Treesitter
+        use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+
+        -- Telescope
         use {
             "nvim-telescope/telescope.nvim",
             requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
         }
         use "nvim-telescope/telescope-fzy-native.nvim"
-        use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-        use "glepnir/lspsaga.nvim"
-        use "glepnir/dashboard-nvim"
-        use "folke/lsp-trouble.nvim"
-        use "folke/which-key.nvim"
 
+        -- Astronauta
         use "tjdevries/astronauta.nvim"
+
+        -- Statusline
+        use "hoob3rt/lualine.nvim"
+
+        -- Misc UI
+        use "glepnir/dashboard-nvim"
+        use "folke/which-key.nvim"
+        use "kyazdani42/nvim-web-devicons"
+
+        -- QoL
         use "tpope/vim-commentary"
         use "tpope/vim-fugitive"
-        use "kyazdani42/nvim-web-devicons"
+
+        -- Neoterm
         use "itmecho/neoterm.nvim"
 
         -- Dart
