@@ -40,10 +40,18 @@ XF86MonBrightness{Up,Down}
 
 # Printscreen
 Print
-    scrot "screenshot-%F-%H%M%S.png" -e 'mv $f ~/Pictures/' && notify-send "Screenshot Captured"
+	name=$(date "+$HOME/Pictures/Screenshot-%F-%H:%I:%S.png"); \
+	maim $name && \
+	notify-send -a maim -i camera-photo "Screenshot Captured" "Saved to $name"
 
 shift + Print
-    sleep 0.2 && scrot -s --freeze "screenshot-%F-%H%M%S.png" -e 'mv $f ~/Pictures/' && notify-send -a scrot -i camera-photo "Screenshot captured"
+	name=$(date "+$HOME/Pictures/Screenshot-%F-%H:%I:%S.png"); \
+	maim -s -u -l -c 0,0,0,0.5 $name && \
+	notify-send -a maim -i camera-photo "Screenshot Captured" "Saved to $name"
+
+super + shift + Print
+	maim -s -u | xclip -selection clipboard -t image/png -i && \
+	notify-send -a maim -i camera-photo "Screenshot Captured" "Saved to clipboard"
 
 #
 # bspwm hotkeys
