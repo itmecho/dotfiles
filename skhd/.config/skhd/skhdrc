@@ -78,7 +78,7 @@
 
 # focus window
 # alt - h : yabai -m window --focus west
-cmd - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+cmd - return : /Applications/Alacritty.app/Contents/MacOS/alacritty -o font.size=16.0
 
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
