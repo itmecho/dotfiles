@@ -1,0 +1,6 @@
+export THEME=nord
+export THEME_BG=2e3440
+export THEME_FG=d8dee9
+export THEME_GREEN=a3be8c
+export THEME_YELLOW=ebcb8b
+export THEME_BLUE=81a1c1
