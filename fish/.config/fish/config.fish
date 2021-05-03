@@ -27,6 +27,10 @@ starship init fish | source
 
 source ~/.config/fish/aliases.fish
 
+# Default to tokynight theme
+set -q THEME; or set -gx THEME tokyonight
+source $HOME/.config/themes/$THEME.theme
+
 if test (uname) = "Darwin"
 	# MacOS specific config
 	set -gx KDEV_KUBE_CONTEXT docker-desktop
