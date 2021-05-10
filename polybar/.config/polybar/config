@@ -65,8 +65,6 @@ label-full =   %percentage%%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-sink = bluez_sink.E8_07_BF_19_EF_09.a2dp_sink
-
 use-ui-max = true
 
 label-volume = 墳 %percentage%%
