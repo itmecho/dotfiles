@@ -171,6 +171,6 @@ super + {Left,Down,Up,Right}
 # Custom
 #
 super + alt + 1
-	firefox &; \
+	firefox-beta &; \
 	slack &; \
 	alacritty &
