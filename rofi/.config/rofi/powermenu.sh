@@ -14,9 +14,9 @@ case $choice in
 		systemctl poweroff
 		;;
 	'Reboot')
-		systemctl poweroff
+		systemctl reboot
 		;;
 	'Exit bspwm')
-		systemctl poweroff
+		pkill bspwm
 		;;
 esac
