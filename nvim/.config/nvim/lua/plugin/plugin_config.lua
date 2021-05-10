@@ -43,11 +43,11 @@ require("compe").setup(
         documentation = true,
         source = {
             path = false,
-            buffer = false,
+            buffer = true,
             calc = false,
             vsnip = false,
             nvim_lsp = true,
-            nvim_lua = false,
+            nvim_lua = true,
             spell = false,
             tags = false,
             snippets_nvim = false,
