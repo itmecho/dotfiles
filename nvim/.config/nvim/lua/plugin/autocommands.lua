@@ -9,7 +9,6 @@ require("itmecho.utils").set_autocommands(
     {
         {"BufWritePost", "plugins.lua", "PackerCompile"},
         {"BufWritePre", "*", "call v:lua.RemoveTrailingWhiteSpace()"},
-        {"BufWritePre", "*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.html", "Prettier"},
         {"ColorScheme", "*", "lua require('nvim-web-devicons').setup()"},
         {"User", "LspProgressUpdate", "redrawstatus!"}
     }

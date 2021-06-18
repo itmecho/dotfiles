@@ -22,15 +22,16 @@ require("which-key").register(
     {
         ["<esc>"] = {"<cmd>noh<CR><esc>", "Escape & Clear Highlights"},
         ["n"] = {"nzzzv", "Next Search Item Centered"},
-        ["K"] = {"<cmd>Lspsaga hover_doc<CR>", "Hover Docs"},
+        ["K"] = {"<cmd>lua vim.lsp.buf.hover()<CR>", "Hover Docs"},
         ["<C-p>"] = {"<cmd>Telescope find_files<cr>", "Find Files"},
         ["<C-j>"] = {"<cmd>cnext<cr>", "Next Quickfix Item"},
         ["<C-k>"] = {"<cmd>cprev<cr>", "Previous Quickfix Item"},
         ["<C-]>"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "Go To Definition"},
+        ["<C-_>"] = {"<cmd>Telescope current_buffer_fuzzy_find<CR>", "Search current file"},
         ["<leader>"] = {
             f = {
                 name = "+find",
-                f = {"<cmd>Telescope find_files<cr>", "Find Files"},
+                f = {"<cmd>Telescope find_files hidden=true<cr>", "Find Files"},
                 b = {"<cmd>lua require('itmecho.telescope').file_browser()<CR>", "Find Files"},
                 s = {"<cmd>lua require('itmecho.telescope').search_string()<CR>", "Search for string"},
                 i = {"<cmd>Telescope live_grep<cr>", "Search Interactive"},
@@ -58,26 +59,36 @@ require("which-key").register(
             },
             g = {
                 name = "+git",
-                s = {"<cmd>Gstatus<CR>", "Git Status"},
-                l = {"<cmd>G pull<CR>", "Git Pull"},
-                p = {"<cmd>G push<CR>", "Git Push"},
+                s = {"<cmd>Neogit<CR>", "Git Status"},
+                l = {"<cmd>!git pull<CR>", "Git Pull"},
+                p = {"<cmd>!git push<CR>", "Git Push"},
                 b = {"<cmd>lua require('itmecho.telescope').git_branches()<CR>", "Git Branches"}
             },
-            v = {
+            l = {
                 name = "+lsp",
-                d = {"<cmd>Lspsaga preview_definition<CR>", "Preview Definition"},
-                s = {"<cmd>Lspsaga signature_help<CR>", "Signature Help"},
-                r = {"yiw:Lspsaga rename<CR><c-r>0", "Rename"},
-                R = {"<cmd>lua vim.lsp.buf.references()<CR>", "Find References"},
-                a = {"<cmd>Lspsaga code_action<CR>", "Code Actions"}
+                d = {"<cmd>Telescope lsp_definitions<CR>", "Definitions"},
+                r = {"yiw:lua vim.lsp.buf.rename()<CR><c-r>0", "Rename"},
+                R = {"<cmd>Telescope lsp_references<CR>", "Find References"},
+                a = {"<cmd>Telescope lsp_code_actions<CR>", "Code Actions"},
+                s = {"<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols"},
+                S = {"<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols"},
+                D = {"<cmd>Telescope lsp_document_diagnostics<CR>", "Diagnostics"}
             },
             d = {
                 name = "diagnostics",
-                n = {"<cmd>Lspsaga diagnostic_jump_next<CR>", "Next Diagnostic"},
-                p = {"<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous Diagnostic"},
+                n = {"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "Next Diagnostic"},
+                p = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "Previous Diagnostic"},
                 l = {"<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", "List Diagnostics"},
                 d = {"<cmd>LspTroubleDocumentToggle<CR>", "Document Diagnostics"},
                 w = {"<cmd>LspTroubleWorkspaceToggle<CR>", "Workspace Diagnostics"}
+            },
+            x = {
+                name = "+debug",
+                x = {"<cmd>lua require('dap').toggle_breakpoint()<cr>", "Toggle Breakpoint"},
+                c = {"<cmd>lua require('dap').continue()<cr>", "Continue"},
+                s = {"<cmd>lua require('dap').stop()<cr>", "Stop"},
+                v = {"<cmd>lua require('dap.ui.variables').hover()<cr>", "Variable Hover"},
+                V = {"<cmd>lua require('itmecho.dap').toggle_sidebar()<cr>", "Variables Sidebar"}
             },
             o = {"<cmd>lua require('itmecho.telescope').orca()<CR>", "Orca"},
             S = {"<cmd>set spell!<CR>", "Toggle Spell"}

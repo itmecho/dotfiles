@@ -9,8 +9,10 @@ return require("packer").startup(
         use "neovim/nvim-lspconfig"
         use "hrsh7th/nvim-compe"
         use "nvim-lua/lsp_extensions.nvim"
-        use "glepnir/lspsaga.nvim"
         use "folke/lsp-trouble.nvim"
+
+        -- DAP
+        use "mfussenegger/nvim-dap"
 
         -- Treesitter
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
@@ -28,6 +30,9 @@ return require("packer").startup(
         -- Statusline
         use "hoob3rt/lualine.nvim"
 
+        -- Git
+        use "TimUntersberger/neogit"
+
         -- Misc UI
         use "glepnir/dashboard-nvim"
         use "folke/which-key.nvim"
@@ -35,7 +40,7 @@ return require("packer").startup(
 
         -- QoL
         use "tpope/vim-commentary"
-        use "tpope/vim-fugitive"
+        -- use "tpope/vim-fugitive"
 
         -- Neoterm
         use "itmecho/neoterm.nvim"
@@ -45,6 +50,9 @@ return require("packer").startup(
 
         -- Fish
         use "blankname/vim-fish"
+
+        -- Prettier
+        use "prettier/vim-prettier"
 
         -- Color Schemes
         use {"dracula/vim", as = "dracula"}

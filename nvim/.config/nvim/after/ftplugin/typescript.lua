@@ -1,7 +1,10 @@
+vim.bo.textwidth = 100
 vim.bo.expandtab = true
 vim.bo.tabstop = 2
 vim.bo.shiftwidth = 2
 vim.bo.softtabstop = 2
+
+vim.wo.colorcolumn = "101"
 
 function TSLint()
     local view = vim.fn.winsaveview()
@@ -10,9 +13,14 @@ function TSLint()
     vim.cmd("checktime")
 end
 
+function ESLint()
+    vim.cmd [[cexpr system('yarn -s lint -f unix --quiet')]]
+end
+
 require("itmecho.utils").set_autocommands(
     "itmecho_typescript",
     {
-        {"BufWritePost", "*.ts,*.tsx", "call v:lua.TSLint()"}
+        {"BufWritePre", "*", "Prettier"}
+        -- {"BufWritePost", "*.ts,*.tsx", "call v:lua.TSLint()"}
     }
 )

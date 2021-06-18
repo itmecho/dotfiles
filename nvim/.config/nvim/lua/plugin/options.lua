@@ -1,5 +1,6 @@
 vim.o.cmdheight = 2
 vim.o.completeopt = "menuone,noinsert,noselect"
+vim.o.errorformat = "%A%f:%l:%c:%m,%-G%.%#"
 vim.o.hidden = true
 vim.o.ignorecase = true
 vim.o.incsearch = true
@@ -17,6 +18,7 @@ vim.o.splitright = true
 vim.o.statusline = "%!v:lua.StatusLine()"
 vim.o.tabstop = 4
 vim.o.termguicolors = true
+vim.o.timeoutlen = 350
 vim.o.updatetime = 300
 vim.o.wildignore = ".git/*,.venv/*,*.pyc"
 
