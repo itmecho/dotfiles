@@ -112,7 +112,7 @@ M.cd_to_project = function()
                     "<cr>",
                     function(bufnr)
                         local path = "~/src/CloudExperiments/" .. state.get_selected_entry(bufnr).value
-                        vim.cmd("cd " .. path)
+                        vim.cmd("tcd " .. path)
                         actions.close(prompt_bufnr)
                         local parts = vim.fn.split(path, "/")
                         vim.g.itmecho_project = parts[#parts]

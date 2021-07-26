@@ -5,14 +5,15 @@ keymap("i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
 keymap("i", "<C-Space>", "compe#complete()", {expr = true})
 keymap("i", "<CR>", "compe#confirm('<CR>')", {expr = true})
 
+keymap("n", "<leader>to", "<cmd>NeotermOpen<CR>")
+keymap("n", "<leader>tc", "<cmd>NeotermClose<CR>")
+keymap("n", "<leader>tt", "<cmd>NeotermToggle<CR>")
 keymap("n", "<leader>ts", ":NeotermRun ", {silent = false})
-keymap("n", "<leader>T", "<cmd>NeotermToggle<CR>")
-keymap("n", "<leader>tt", "<cmd>NeotermInteractive<CR>")
 keymap("n", "<leader>tr", "<cmd>NeotermRerun<CR>")
 keymap("n", "<leader>tx", "<cmd>NeotermExit<CR>")
-keymap("t", "<leader>T", "<cmd>NeotermToggle<CR>")
+keymap("t", "<leader>tc", "<cmd>NeotermClose<CR>")
+keymap("t", "<leader>tt", "<cmd>NeotermToggle<CR>")
 keymap("t", "<leader>tn", "<C-\\><C-n>")
-keymap("t", "<leader>tt", "<cmd>NeotermInteractive<CR>")
 keymap("t", "<leader>tx", "<cmd>NeotermExit<CR>")
 
 keymap("v", ">", ">gv")
@@ -24,6 +25,8 @@ require("which-key").register(
         ["n"] = {"nzzzv", "Next Search Item Centered"},
         ["K"] = {"<cmd>lua vim.lsp.buf.hover()<CR>", "Hover Docs"},
         ["<C-p>"] = {"<cmd>Telescope find_files<cr>", "Find Files"},
+        ["<C-h>"] = {"<cmd>tabprevious<cr>", "Previous Tab"},
+        ["<C-l>"] = {"<cmd>tabnext<cr>", "Next Tab"},
         ["<C-j>"] = {"<cmd>cnext<cr>", "Next Quickfix Item"},
         ["<C-k>"] = {"<cmd>cprev<cr>", "Previous Quickfix Item"},
         ["<C-]>"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "Go To Definition"},
@@ -31,7 +34,10 @@ require("which-key").register(
         ["<leader>"] = {
             f = {
                 name = "+find",
-                f = {"<cmd>Telescope find_files hidden=true<cr>", "Find Files"},
+                f = {
+                    "<cmd>lua require('telescope.builtin.files').find_files({find_command={'fd','--type','f','--hidden','--exclude','.git'}})<cr>",
+                    "Find Files"
+                },
                 b = {"<cmd>lua require('itmecho.telescope').file_browser()<CR>", "Find Files"},
                 s = {"<cmd>lua require('itmecho.telescope').search_string()<CR>", "Search for string"},
                 i = {"<cmd>Telescope live_grep<cr>", "Search Interactive"},
@@ -60,19 +66,21 @@ require("which-key").register(
             g = {
                 name = "+git",
                 s = {"<cmd>Neogit<CR>", "Git Status"},
-                l = {"<cmd>!git pull<CR>", "Git Pull"},
-                p = {"<cmd>!git push<CR>", "Git Push"},
-                b = {"<cmd>lua require('itmecho.telescope').git_branches()<CR>", "Git Branches"}
+                l = {":Neogit pull<CR>p", "Git Pull"},
+                p = {":Neogit push<CR>p", "Git Push"},
+                P = {":Neogit push<CR>-up", "Git Push & Set Upstream"},
+                b = {"<cmd>Neogit branch<CR>", "Git Branches"}
             },
             l = {
                 name = "+lsp",
                 d = {"<cmd>Telescope lsp_definitions<CR>", "Definitions"},
-                r = {"yiw:lua vim.lsp.buf.rename()<CR><c-r>0", "Rename"},
+                r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "Rename"},
                 R = {"<cmd>Telescope lsp_references<CR>", "Find References"},
                 a = {"<cmd>Telescope lsp_code_actions<CR>", "Code Actions"},
                 s = {"<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols"},
                 S = {"<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols"},
-                D = {"<cmd>Telescope lsp_document_diagnostics<CR>", "Diagnostics"}
+                D = {"<cmd>Telescope lsp_document_diagnostics<CR>", "Diagnostics"},
+                i = {"<cmd>Telescope lsp_implementations<CR>", "Implementations"}
             },
             d = {
                 name = "diagnostics",
@@ -90,8 +98,11 @@ require("which-key").register(
                 v = {"<cmd>lua require('dap.ui.variables').hover()<cr>", "Variable Hover"},
                 V = {"<cmd>lua require('itmecho.dap').toggle_sidebar()<cr>", "Variables Sidebar"}
             },
-            o = {"<cmd>lua require('itmecho.telescope').orca()<CR>", "Orca"},
-            S = {"<cmd>set spell!<CR>", "Toggle Spell"}
+            S = {
+                name = "Sparx",
+                g = {"<cmd>NeotermRun barx gazelle<cr>", "Gazelle"},
+                o = {"<cmd>lua require('itmecho.telescope').orca()<CR>", "Orca"}
+            }
         }
     }
 )

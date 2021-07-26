@@ -16,6 +16,7 @@ return require("packer").startup(
 
         -- Treesitter
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+        use {"nvim-treesitter/nvim-treesitter-textobjects"}
 
         -- Telescope
         use {
@@ -31,10 +32,13 @@ return require("packer").startup(
         use "hoob3rt/lualine.nvim"
 
         -- Git
-        use "TimUntersberger/neogit"
+        use {
+            "TimUntersberger/neogit",
+            requires = {"nvim-lua/plenary.nvim", "sindrets/diffview.nvim"}
+        }
+        use "pwntester/octo.nvim"
 
         -- Misc UI
-        use "glepnir/dashboard-nvim"
         use "folke/which-key.nvim"
         use "kyazdani42/nvim-web-devicons"
 
@@ -43,7 +47,8 @@ return require("packer").startup(
         -- use "tpope/vim-fugitive"
 
         -- Neoterm
-        use "itmecho/neoterm.nvim"
+        -- use "itmecho/neoterm.nvim"
+        use "~/src/neoterm.nvim"
 
         -- Dart
         use "dart-lang/dart-vim-plugin"

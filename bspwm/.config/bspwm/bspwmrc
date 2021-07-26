@@ -18,7 +18,7 @@ pkill xautolock
 bspc config window_gap 0
 
 bspc monitor DVI-D-0 -d 1
-bspc monitor HDMI-A-0 -d 2 3 4 5 6 7 8 9
+bspc monitor DisplayPort-0 -d 2 3 4 5 6 7 8 9
 bspc config window_gap 20
 
 dunst &

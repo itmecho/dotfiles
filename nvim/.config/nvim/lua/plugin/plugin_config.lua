@@ -1,3 +1,11 @@
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+        update_in_insert = true
+    }
+)
+
 require("nvim-treesitter.configs").setup(
     {
         highlight = {
@@ -5,6 +13,26 @@ require("nvim-treesitter.configs").setup(
         },
         indent = {
             enable = true
+        },
+        textobjects = {
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["iP"] = "@parameter.inner"
+                }
+            },
+            swap = {
+                enable = true,
+                swap_next = {
+                    ["gsn"] = "@parameter.inner"
+                },
+                swap_previous = {
+                    ["gsp"] = "@parameter.inner"
+                }
+            }
         }
     }
 )
@@ -34,6 +62,13 @@ require("telescope").setup(
 require("telescope").load_extension("fzy_native")
 
 require("nvim-web-devicons").setup()
+
+require("neogit").setup(
+    {
+        disable_commit_confirmation = true,
+        integrations = {diffview = true}
+    }
+)
 
 local dap = require("dap")
 dap.adapters.go = function(callback, config)
@@ -88,22 +123,5 @@ require("compe").setup(
         }
     }
 )
-
-vim.g.dashboard_default_executive = "telescope"
-vim.g.dashboard_custom_header = {
-    "::::    ::: :::::::::: ::::::::  :::     ::: ::::::::::: ::::    :::: ",
-    ":+:+:   :+: :+:       :+:    :+: :+:     :+:     :+:     +:+:+: :+:+:+",
-    ":+:+:+  +:+ +:+       +:+    +:+ +:+     +:+     +:+     +:+ +:+:+ +:+",
-    "+#+ +:+ +#+ +#++:++#  +#+    +:+ +#+     +:+     +#+     +#+  +:+  +#+",
-    "+#+  +#+#+# +#+       +#+    +#+  +#+   +#+      +#+     +#+       +#+",
-    "#+#   #+#+# #+#       #+#    #+#   #+#+#+#       #+#     #+#       #+#",
-    "###    #### ########## ########      ###     ########### ###       ###"
-}
-vim.g.dashboard_custom_section = {
-    a = {description = {"  Open Project       "}, command = "lua require('itmecho.telescope').cd_to_project()"},
-    b = {description = {"  Find File          "}, command = "Telescope find_files"},
-    c = {description = {"  Recently Used Files"}, command = "Telescope oldfiles"},
-    d = {description = {"  Neovim Config      "}, command = "Telescope find_files cwd=~/.config/nvim"}
-}
 
 vim.g["prettier#quickfix_enabled"] = false

@@ -32,6 +32,7 @@ set -q THEME; or set -gx THEME tokyonight
 source $HOME/.config/themes/$THEME.theme
 
 bind \ea $HOME/.config/tmux/manage.fish
+bind \ew "tmux new-session -s work -c $CLOUDPATH"
 
 if test (uname) = "Darwin"
 	# MacOS specific config

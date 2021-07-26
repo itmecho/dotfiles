@@ -61,8 +61,12 @@ require("lualine").setup(
         },
         sections = {
             lualine_a = {"mode"},
-            lualine_b = {"filetype"},
-            lualine_c = {"filename"},
+            lualine_b = {
+                {"filetype", colored = 1}
+            },
+            lualine_c = {
+                {"filename", path = 1}
+            },
             lualine_x = {
                 {lsp_segment},
                 {"diagnostics", sources = {"nvim_lsp"}}

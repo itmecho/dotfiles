@@ -14,7 +14,10 @@ nvim_lsp.dartls.setup {
 }
 
 nvim_lsp.gopls.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 300
+    }
 }
 
 nvim_lsp.rust_analyzer.setup {
