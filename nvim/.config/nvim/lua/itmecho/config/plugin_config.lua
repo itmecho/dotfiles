@@ -1,11 +1,3 @@
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-        update_in_insert = true
-    }
-)
-
 require("nvim-treesitter.configs").setup(
     {
         highlight = {
@@ -70,30 +62,7 @@ require("neogit").setup(
     }
 )
 
-local dap = require("dap")
-dap.adapters.go = function(callback, config)
-    require("neoterm").run('dlv dap -l 127.0.0.1:32400 --log --log-output="dap"')
-    vim.defer_fn(
-        function()
-            callback({type = "server", host = "127.0.0.1", port = 32400})
-        end,
-        200
-    )
-end
--- dap.adapters.go = {
---     type = "server",
---     port = 32400
--- }
-
-dap.configurations.go = {
-    {
-        type = "go",
-        name = "Debug",
-        request = "launch",
-        program = "./cmd",
-        args = {"--dev-mode"}
-    }
-}
+require("rust-tools").setup({})
 
 require("compe").setup(
     {
@@ -110,7 +79,7 @@ require("compe").setup(
         max_menu_width = 100,
         documentation = true,
         source = {
-            path = false,
+            path = true,
             buffer = true,
             calc = false,
             vsnip = false,
@@ -119,7 +88,7 @@ require("compe").setup(
             spell = false,
             tags = false,
             snippets_nvim = false,
-            treesitter = false
+            treesitter = true
         }
     }
 )

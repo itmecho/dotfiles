@@ -48,7 +48,7 @@ require("which-key").register(
                 n = {"<cmd>bnext<cr>", "Next Buffer"},
                 p = {"<cmd>bprevious<cr>", "Previous Buffer"},
                 l = {"<cmd>Telescope buffers<cr>", "List Buffers"},
-                c = {"<cmd>bufdo bd<cr>", "Close Buffer"}
+                c = {"<cmd>%bd|e#|bd#<cr>", "Clean buffers"}
             },
             p = {
                 name = "+project",
@@ -80,7 +80,8 @@ require("which-key").register(
                 s = {"<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols"},
                 S = {"<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols"},
                 D = {"<cmd>Telescope lsp_document_diagnostics<CR>", "Diagnostics"},
-                i = {"<cmd>Telescope lsp_implementations<CR>", "Implementations"}
+                i = {"<cmd>Telescope lsp_implementations<CR>", "Implementations"},
+                x = {":lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:edit<CR>", "Restart LSP"}
             },
             d = {
                 name = "diagnostics",
@@ -101,6 +102,7 @@ require("which-key").register(
             S = {
                 name = "Sparx",
                 g = {"<cmd>NeotermRun barx gazelle<cr>", "Gazelle"},
+                p = {"<cmd>NeotermRun barx proto<cr>", "Proto"},
                 o = {"<cmd>lua require('itmecho.telescope').orca()<CR>", "Orca"}
             }
         }

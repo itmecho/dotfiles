@@ -1,9 +1,7 @@
-vim.cmd("packadd packer.nvim")
-
-return require("packer").startup(
-    function()
+require("packer").startup(
+    function(use)
         -- Packer
-        use {"wbthomason/packer.nvim", opt = true}
+        use {"wbthomason/packer.nvim"}
 
         -- LSP
         use "neovim/nvim-lspconfig"
@@ -24,9 +22,6 @@ return require("packer").startup(
             requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
         }
         use "nvim-telescope/telescope-fzy-native.nvim"
-
-        -- Astronauta
-        use "tjdevries/astronauta.nvim"
 
         -- Statusline
         use "hoob3rt/lualine.nvim"
@@ -58,6 +53,12 @@ return require("packer").startup(
 
         -- Prettier
         use "prettier/vim-prettier"
+
+        -- Rust
+        use "simrat39/rust-tools.nvim"
+
+        -- TOML
+        use "cespare/vim-toml"
 
         -- Color Schemes
         use {"dracula/vim", as = "dracula"}

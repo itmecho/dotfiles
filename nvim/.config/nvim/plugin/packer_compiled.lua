@@ -69,10 +69,6 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["astronauta.nvim"] = {
-    loaded = true,
-    path = "/home/iain/.local/share/nvim/site/pack/packer/start/astronauta.nvim"
-  },
   ["dart-vim-plugin"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/dart-vim-plugin"
@@ -138,9 +134,8 @@ _G.packer_plugins = {
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/octo.nvim"
   },
   ["packer.nvim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/iain/.local/share/nvim/site/pack/packer/opt/packer.nvim"
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -149,6 +144,10 @@ _G.packer_plugins = {
   ["popup.nvim"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/popup.nvim"
+  },
+  ["rust-tools.nvim"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/rust-tools.nvim"
   },
   ["telescope-fzy-native.nvim"] = {
     loaded = true,
@@ -173,6 +172,10 @@ _G.packer_plugins = {
   ["vim-prettier"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/vim-prettier"
+  },
+  ["vim-toml"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/vim-toml"
   },
   ["which-key.nvim"] = {
     loaded = true,
