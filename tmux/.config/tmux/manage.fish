@@ -20,7 +20,7 @@ switch $cmd
 	case "Create Session"
 		set -l name (rofi -dmenu -lines 0 -p 'Session name')
 		test -z $name; and exit
-		tmux new-session -d -s $name
+		tmux new-session -d -c $HOME -s $name
 		go-to-session $name
 	case "Switch Session"
 		set -l name (select-session)

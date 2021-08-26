@@ -1,5 +1,18 @@
 require("nvim-treesitter.configs").setup(
     {
+        ensure_installed = {
+            "dockerfile",
+            "fish",
+            "go",
+            "html",
+            "javascript",
+            "lua",
+            "rust",
+            "toml",
+            "tsx",
+            "typescript",
+            "yaml"
+        },
         highlight = {
             enable = true
         },
@@ -61,6 +74,19 @@ require("neogit").setup(
         integrations = {diffview = true}
     }
 )
+
+require("gitsigns").setup()
+
+require("colorizer").setup()
+
+require("indent_blankline").setup(
+    {
+        char = "|",
+        buftype_exclude = {"terminal"}
+    }
+)
+
+require("lspkind").init()
 
 require("rust-tools").setup({})
 

@@ -1,11 +1,12 @@
 vim.o.cmdheight = 2
 vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.errorformat = "%A%f:%l:%c:%m,%-G%.%#"
+vim.o.guifont = "VictorMono Nerd Font:h18"
 vim.o.hidden = true
 vim.o.ignorecase = true
 vim.o.incsearch = true
 vim.o.list = true
-vim.o.listchars = "eol:↵,tab:» "
+-- vim.o.listchars = "eol:↵,tab:» "
 vim.o.mouse = ""
 vim.o.shiftwidth = 4
 vim.o.shortmess = vim.o.shortmess .. "c"

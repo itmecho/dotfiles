@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 require("itmecho.config.autocommands")
 require("itmecho.config.binds")
 require("itmecho.config.lsp")

@@ -69,7 +69,9 @@ require("which-key").register(
                 l = {":Neogit pull<CR>p", "Git Pull"},
                 p = {":Neogit push<CR>p", "Git Push"},
                 P = {":Neogit push<CR>-up", "Git Push & Set Upstream"},
-                b = {"<cmd>Neogit branch<CR>", "Git Branches"}
+                b = {"<cmd>Telescope git_branches<CR>", "Git Branches"},
+                B = {"<cmd>Neogit branch<CR>", "Git Branch Menu"},
+                x = {"<cmd>lua require('gitsigns').blame_line()<CR>", "Git Blame"}
             },
             l = {
                 name = "+lsp",

@@ -6,21 +6,18 @@ vim.bo.softtabstop = 2
 
 vim.wo.colorcolumn = "101"
 
-function TSLint()
-    local view = vim.fn.winsaveview()
-    vim.cmd("silent execute '!./node_modules/.bin/tslint --fix -c tslint.json ' . expand('%:p')")
-    vim.fn.winrestview(view)
-    vim.cmd("checktime")
+if vim.fn.isdirectory(vim.env.PWD .. "/node_modules") then
+    vim.env.PATH = vim.env.PATH .. ":./node_modules/.bin"
 end
 
 function ESLint()
-    vim.cmd [[cexpr system('yarn -s lint -f unix --quiet')]]
+    vim.cmd [[cexpr system('pnpm lint -- -f unix --quiet')]]
 end
 
-require("itmecho.utils").set_autocommands(
-    "itmecho_typescript",
-    {
-        {"BufWritePre", "*", "Prettier"}
-        -- {"BufWritePost", "*.ts,*.tsx", "call v:lua.TSLint()"}
-    }
-)
+-- require("itmecho.utils").set_autocommands(
+--     "itmecho_typescript",
+--     {
+--         {"BufWritePre", "*", "Prettier"}
+--         -- {"BufWritePost", "*.ts,*.tsx", "call v:lua.TSLint()"}
+--     }
+-- )

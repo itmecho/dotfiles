@@ -19,9 +19,7 @@ alias kx      'kubectx'
 alias l       'ls -lh'
 alias ll      'ls -lAh'
 alias ls      'lsd --group-dirs first'
+alias mkdir   'mkdir -p'
 alias uuidgen "uuidgen | tr '[:upper:]' '[:lower:]'"
 alias vi      'nvim'
 alias vim     'nvim'
-
-alias kdev $CLOUDPATH/kdev.sh
-alias barx $CLOUDPATH/barx.sh

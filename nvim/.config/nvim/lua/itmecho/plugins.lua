@@ -1,4 +1,4 @@
-require("packer").startup(
+return require("packer").startup(
     function(use)
         -- Packer
         use {"wbthomason/packer.nvim"}
@@ -8,6 +8,11 @@ require("packer").startup(
         use "hrsh7th/nvim-compe"
         use "nvim-lua/lsp_extensions.nvim"
         use "folke/lsp-trouble.nvim"
+        use "ray-x/lsp_signature.nvim"
+        use "onsails/lspkind-nvim"
+
+        -- Formatting
+        use "sbdchd/neoformat"
 
         -- DAP
         use "mfussenegger/nvim-dap"
@@ -32,10 +37,13 @@ require("packer").startup(
             requires = {"nvim-lua/plenary.nvim", "sindrets/diffview.nvim"}
         }
         use "pwntester/octo.nvim"
+        use "lewis6991/gitsigns.nvim"
 
         -- Misc UI
         use "folke/which-key.nvim"
         use "kyazdani42/nvim-web-devicons"
+        use "lukas-reineke/indent-blankline.nvim"
+        use "norcalli/nvim-colorizer.lua"
 
         -- QoL
         use "tpope/vim-commentary"
@@ -51,14 +59,14 @@ require("packer").startup(
         -- Fish
         use "blankname/vim-fish"
 
+        -- MDX
+        use "jxnblk/vim-mdx-js"
+
         -- Prettier
         use "prettier/vim-prettier"
 
         -- Rust
         use "simrat39/rust-tools.nvim"
-
-        -- TOML
-        use "cespare/vim-toml"
 
         -- Color Schemes
         use {"dracula/vim", as = "dracula"}

@@ -2,6 +2,7 @@ local nvim_lsp = require("lspconfig")
 
 local function on_attach()
     vim.bo.omnifunc = "v:lua.lsp.omnifunc"
+    require("lsp_signature").on_attach()
 end
 
 nvim_lsp.dartls.setup {

@@ -81,6 +81,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/dracula"
   },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+  },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
+  },
   ["lsp-trouble.nvim"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/lsp-trouble.nvim"
@@ -89,9 +97,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim"
   },
+  ["lsp_signature.nvim"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
+  },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/lualine.nvim"
+  },
+  neoformat = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/neoformat"
   },
   neogit = {
     loaded = true,
@@ -104,6 +124,10 @@ _G.packer_plugins = {
   ["nord-vim"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/nord-vim"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
   ["nvim-compe"] = {
     loaded = true,
@@ -169,13 +193,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/vim-fish"
   },
+  ["vim-mdx-js"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/vim-mdx-js"
+  },
   ["vim-prettier"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/vim-prettier"
-  },
-  ["vim-toml"] = {
-    loaded = true,
-    path = "/home/iain/.local/share/nvim/site/pack/packer/start/vim-toml"
   },
   ["which-key.nvim"] = {
     loaded = true,
