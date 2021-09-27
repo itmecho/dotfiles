@@ -103,7 +103,9 @@ require("compe").setup(
         max_abbr_width = 100,
         max_kind_width = 100,
         max_menu_width = 100,
-        documentation = true,
+        documentation = {
+            border = "single"
+        },
         source = {
             path = true,
             buffer = true,
@@ -120,3 +122,5 @@ require("compe").setup(
 )
 
 vim.g["prettier#quickfix_enabled"] = false
+
+-- vim.g.neoformat_enabled_typescript = {"prettier"}

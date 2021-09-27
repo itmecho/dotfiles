@@ -69,6 +69,10 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["cht.nvim"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/cht.nvim"
+  },
   ["dart-vim-plugin"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/dart-vim-plugin"
@@ -140,6 +144,10 @@ _G.packer_plugins = {
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/iain/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+  },
+  ["nvim-lspinstall"] = {
+    loaded = true,
+    path = "/home/iain/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
   },
   ["nvim-treesitter"] = {
     loaded = true,

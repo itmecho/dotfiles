@@ -1,3 +1,5 @@
+vim.api.nvim_set_var("neoformat_enabled_typescript", {"prettier"})
+
 -- bootstrap packer
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 

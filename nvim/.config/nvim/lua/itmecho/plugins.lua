@@ -10,6 +10,7 @@ return require("packer").startup(
         use "folke/lsp-trouble.nvim"
         use "ray-x/lsp_signature.nvim"
         use "onsails/lspkind-nvim"
+        use "kabouzeid/nvim-lspinstall"
 
         -- Formatting
         use "sbdchd/neoformat"
@@ -52,6 +53,7 @@ return require("packer").startup(
         -- Neoterm
         -- use "itmecho/neoterm.nvim"
         use "~/src/neoterm.nvim"
+        use "~/src/cht.nvim"
 
         -- Dart
         use "dart-lang/dart-vim-plugin"

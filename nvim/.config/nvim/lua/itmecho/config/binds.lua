@@ -4,6 +4,9 @@ keymap("i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 keymap("i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
 keymap("i", "<C-Space>", "compe#complete()", {expr = true})
 keymap("i", "<CR>", "compe#confirm('<CR>')", {expr = true})
+keymap("i", "<c-d>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
+keymap("i", "<c-s>", "<cmd>lua return require'snippets'.expand_or_advance(-1)<CR>")
+keymap("i", "<c-u>", "<c-r>=trim(system('uuidgen'))<CR>")
 
 keymap("n", "<leader>to", "<cmd>NeotermOpen<CR>")
 keymap("n", "<leader>tc", "<cmd>NeotermClose<CR>")
@@ -48,7 +51,7 @@ require("which-key").register(
                 n = {"<cmd>bnext<cr>", "Next Buffer"},
                 p = {"<cmd>bprevious<cr>", "Previous Buffer"},
                 l = {"<cmd>Telescope buffers<cr>", "List Buffers"},
-                c = {"<cmd>%bd|e#|bd#<cr>", "Clean buffers"}
+                c = {"<cmd>lua require('itmecho.utils').close_all_other_buffers()<cr>", "Clean buffers"}
             },
             p = {
                 name = "+project",

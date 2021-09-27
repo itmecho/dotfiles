@@ -32,4 +32,41 @@ M.keymap = function(mode, lhs, rhs, extra_opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
+M.close_all_other_buffers = function()
+    local bufs = vim.api.nvim_list_bufs()
+    local current_buf = vim.api.nvim_get_current_buf()
+    local count = 0
+    for _, buf in pairs(bufs) do
+        -- Only close listed buffers
+        local listed = vim.api.nvim_buf_get_option(buf, "buflisted")
+
+        -- Don't close current buffer
+        if buf ~= current_buf and listed then
+            vim.api.nvim_buf_delete(buf, {})
+            count = count + 1
+        end
+    end
+
+    print("closed " .. count .. " buffers")
+end
+
+function M.install_lsp_servers()
+    local lspinstall = require("lspinstall")
+    local installed_servers = lspinstall.installed_servers()
+    local wanted = {"go", "lua", "rust", "tailwindcss", "typescript"}
+
+    for _, server in pairs(wanted) do
+        local is_installed = false
+        for _, installed in pairs(installed_servers) do
+            if server == installed then
+                is_installed = true
+            end
+        end
+
+        if not is_installed then
+            require("lspinstall").install_server(server)
+        end
+    end
+end
+
 return M

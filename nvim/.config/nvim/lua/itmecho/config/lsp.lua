@@ -1,47 +1,39 @@
-local nvim_lsp = require("lspconfig")
+require("lspinstall").setup() -- important
 
-local function on_attach()
-    vim.bo.omnifunc = "v:lua.lsp.omnifunc"
-    require("lsp_signature").on_attach()
-end
+local servers = require("lspinstall").installed_servers()
+for _, server in pairs(servers) do
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-nvim_lsp.dartls.setup {
-    on_attach = on_attach
-}
-
-nvim_lsp.gopls.setup {
-    on_attach = on_attach,
-    flags = {
-        debounce_text_changes = 300
-    }
-}
-
-nvim_lsp.rust_analyzer.setup {
-    on_attach = on_attach
-}
-
-nvim_lsp.sumneko_lua.setup {
-    cmd = {
-        "/usr/bin/lua-language-server",
-        "-E",
-        "/usr/share/lua-language-server/main.lua"
-    },
-    on_attach = on_attach,
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = {"vim", "use"}
-            }
+    local config = {
+        capabilities = capabilities,
+        flags = {
+            debounce_text_changes = 300
         }
     }
-}
 
-nvim_lsp.tsserver.setup {
-    on_attach = on_attach,
-    flags = {
-        debounce_text_changes = 300
-    }
-}
+    if server == "lua" then
+        config["settings"] = {
+            Lua = {
+                runtime = {
+                    version = "LuaJIT",
+                    path = vim.split(package.path, ";")
+                },
+                diagnostics = {
+                    globals = {"vim"}
+                },
+                workspace = {
+                    library = {
+                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+                    }
+                }
+            }
+        }
+    end
+
+    require("lspconfig")[server].setup(config)
+end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(
