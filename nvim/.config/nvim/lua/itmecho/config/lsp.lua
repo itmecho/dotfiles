@@ -32,6 +32,16 @@ for _, server in pairs(servers) do
         }
     end
 
+    if server == "rust" then
+        config["settings"] = {
+            ["rust-analyzer"] = {
+                cargo = {
+                    runBuildScripts = true
+                }
+            }
+        }
+    end
+
     require("lspconfig")[server].setup(config)
 end
 

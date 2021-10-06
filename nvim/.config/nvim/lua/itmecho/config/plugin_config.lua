@@ -123,4 +123,4 @@ require("compe").setup(
 
 vim.g["prettier#quickfix_enabled"] = false
 
--- vim.g.neoformat_enabled_typescript = {"prettier"}
+vim.g.neoformat_try_node_exe = true

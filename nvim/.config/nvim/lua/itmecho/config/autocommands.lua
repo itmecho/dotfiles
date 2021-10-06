@@ -4,13 +4,21 @@ function RemoveTrailingWhiteSpace()
     vim.fn.winrestview(view)
 end
 
-require("itmecho.utils").set_autocommands(
+local u = require("itmecho.utils")
+
+u.set_autocommands(
     "itmecho_general",
     {
         {"BufWritePost", "plugins.lua", "PackerCompile"},
-        {"BufWritePre", "*", "call v:lua.RemoveTrailingWhiteSpace()"},
-        {"BufWritePre", "*", "Neoformat"},
         {"ColorScheme", "*", "lua require('nvim-web-devicons').setup()"},
         {"User", "LspProgressUpdate", "redrawstatus!"}
+    }
+)
+
+u.set_autocommands(
+    "formatting",
+    {
+        {"BufWritePre", "*", "call v:lua.RemoveTrailingWhiteSpace()"},
+        {"BufWritePre", "*", "Neoformat"}
     }
 )
