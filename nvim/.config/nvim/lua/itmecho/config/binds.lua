@@ -2,8 +2,6 @@ local keymap = require("itmecho.utils").keymap
 
 keymap("i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
 keymap("i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { expr = true })
-keymap("i", "<C-Space>", "compe#complete()", { expr = true })
-keymap("i", "<CR>", "compe#confirm('<CR>')", { expr = true })
 keymap("i", "<c-d>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
 keymap("i", "<c-s>", "<cmd>lua return require'snippets'.expand_or_advance(-1)<CR>")
 keymap("i", "<c-u>", "<c-r>=trim(system('uuidgen'))<CR>")
@@ -33,6 +31,10 @@ require("which-key").register({
 	["<C-k>"] = { "<cmd>cprev<cr>", "Previous Quickfix Item" },
 	["<C-]>"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go To Definition" },
 	["<C-_>"] = { "<cmd>Telescope current_buffer_fuzzy_find<CR>", "Search current file" },
+	["<M-j>"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "Harpoon File 1" },
+	["<M-k>"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Harpoon File 2" },
+	["<M-l>"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Harpoon File 3" },
+	["<M-;>"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "Harpoon File 4" },
 	["<leader>"] = {
 		f = {
 			name = "+find",
@@ -85,15 +87,18 @@ require("which-key").register({
 			S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols" },
 			D = { "<cmd>Telescope lsp_document_diagnostics<CR>", "Diagnostics" },
 			i = { "<cmd>Telescope lsp_implementations<CR>", "Implementations" },
-			x = { ":lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:edit<CR>", "Restart LSP" },
+			x = { "<cmd>LspRestart<CR>", "Restart LSP" },
 		},
 		d = {
 			name = "diagnostics",
-			n = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "Next Diagnostic" },
-			p = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "Previous Diagnostic" },
-			l = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", "List Diagnostics" },
-			d = { "<cmd>LspTroubleDocumentToggle<CR>", "Document Diagnostics" },
-			w = { "<cmd>LspTroubleWorkspaceToggle<CR>", "Workspace Diagnostics" },
+			n = { "<cmd>lua vim.lsp.diagnostic.goto_next({wrap = true})<CR>", "Next Diagnostic" },
+			p = {
+				"<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>",
+				"Previous Diagnostic",
+			},
+			l = { "<cmd>TroubleToggle<CR>", "List Diagnostics" },
+			d = { "<cmd>TroubleToggle lsp_document_diagnostics<CR>", "Document Diagnostics" },
+			w = { "<cmd>TroubleToggle lsp_workspace_diagnostics<CR>", "Workspace Diagnostics" },
 		},
 		x = {
 			name = "+debug",
@@ -108,6 +113,22 @@ require("which-key").register({
 			g = { "<cmd>NeotermRun barx gazelle<cr>", "Gazelle" },
 			p = { "<cmd>NeotermRun barx proto<cr>", "Proto" },
 			o = { "<cmd>lua require('itmecho.telescope').orca()<CR>", "Orca" },
+		},
+		h = {
+			name = "Harpoon",
+			h = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Toggle Menu" },
+			a = { "<cmd>lua require('harpoon.mark').add_file();require('notify')('Added file')<cr>", "Add File" },
+			["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "File #1" },
+			["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "File #1" },
+			["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "File #1" },
+			["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "File #1" },
+			t = {
+				name = "Terminal",
+				["1"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "File #1" },
+				["2"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<cr>", "File #1" },
+				["3"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<cr>", "File #1" },
+				["4"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<cr>", "File #1" },
+			},
 		},
 	},
 })

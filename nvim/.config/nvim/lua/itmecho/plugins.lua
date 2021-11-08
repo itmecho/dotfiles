@@ -4,12 +4,66 @@ return require("packer").startup(function(use)
 
 	-- LSP
 	use("neovim/nvim-lspconfig")
-	use("hrsh7th/nvim-compe")
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-nvim-lua")
+	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-path")
+	use({ "saadparwaiz1/cmp_luasnip", requires = { "L3MON4D3/LuaSnip" } })
+	use({
+		"hrsh7th/nvim-cmp",
+		requires = { "onsails/lspkind-nvim" },
+		config = function()
+			local cmp = require("cmp")
+			local lspkind = require("lspkind")
+
+			cmp.setup({
+				formatting = {
+					format = lspkind.cmp_format(),
+				},
+				mapping = {
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.close(),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+				},
+				sources = cmp.config.sources({
+					{ name = "luasnip" },
+					{ name = "nvim_lua" },
+					{ name = "nvim_lsp" },
+					{ name = "path" },
+					{ name = "buffer", keyword_length = 5 },
+				}),
+				snippet = {
+
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+			})
+		end,
+	})
+
 	use("nvim-lua/lsp_extensions.nvim")
-	use("folke/lsp-trouble.nvim")
+	use({
+		"folke/trouble.nvim",
+		config = function()
+			require("trouble").setup()
+		end,
+	})
 	use("ray-x/lsp_signature.nvim")
-	use("onsails/lspkind-nvim")
-	use("kabouzeid/nvim-lspinstall")
+	use("williamboman/nvim-lsp-installer")
+
+	-- Navigation
+	use({ "ThePrimeagen/harpoon", requires = { { "nvim-lua/plenary.nvim" }, { "nvim-lua/popup.nvim" } } })
+
+	-- Notifications
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({ timeout = 2000 })
+		end,
+	})
 
 	-- Formatting
 	use("sbdchd/neoformat")
@@ -18,35 +72,142 @@ return require("packer").startup(function(use)
 	use("mfussenegger/nvim-dap")
 
 	-- Treesitter
-	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+		requires = { "nvim-treesitter/nvim-treesitter-textobjects" },
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				ensure_installed = {
+					"dockerfile",
+					"fish",
+					"go",
+					"html",
+					"javascript",
+					"lua",
+					"rust",
+					"toml",
+					"tsx",
+					"typescript",
+					"yaml",
+				},
+				highlight = {
+					enable = true,
+				},
+				indent = {
+					enable = true,
+				},
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["iP"] = "@parameter.inner",
+						},
+					},
+					swap = {
+						enable = true,
+						swap_next = {
+							["gsn"] = "@parameter.inner",
+						},
+						swap_previous = {
+							["gsp"] = "@parameter.inner",
+						},
+					},
+				},
+			})
+		end,
+	})
 
 	-- Telescope
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+		requires = {
+			{ "nvim-lua/popup.nvim" },
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope-fzy-native.nvim" },
+		},
+		config = function()
+			require("telescope").setup({
+				color_devicons = true,
+				shorten_path = true,
+				mappings = {
+					i = {
+						["<C-q>"] = "send_to_qflist",
+					},
+				},
+				pickers = {
+					buffers = {
+						sort_lastused = true,
+						mappings = {
+							i = {
+								["<c-d>"] = "delete_buffer",
+							},
+						},
+					},
+				},
+			})
+			require("telescope").load_extension("fzy_native")
+		end,
 	})
-	use("nvim-telescope/telescope-fzy-native.nvim")
 
 	-- Statusline
-	use("hoob3rt/lualine.nvim")
+	use("nvim-lualine/lualine.nvim")
+	use("nvim-lua/lsp-status.nvim")
 
 	-- Git
 	use({
 		"TimUntersberger/neogit",
 		requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+		config = function()
+			require("neogit").setup({
+				disable_commit_confirmation = true,
+				integrations = { diffview = true },
+			})
+		end,
 	})
 	use("pwntester/octo.nvim")
-	use("lewis6991/gitsigns.nvim")
+	use({
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup()
+		end,
+	})
 
 	-- Misc UI
 	use("folke/which-key.nvim")
-	use("kyazdani42/nvim-web-devicons")
-	use("lukas-reineke/indent-blankline.nvim")
-	use("norcalli/nvim-colorizer.lua")
+	use({
+		"kyazdani42/nvim-web-devicons",
+		config = function()
+			require("nvim-web-devicons").setup()
+		end,
+	})
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("indent_blankline").setup({
+				char = "|",
+				buftype_exclude = { "terminal" },
+			})
+		end,
+	})
+	use({
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
+		end,
+	})
 
 	-- QoL
-	use("tpope/vim-commentary")
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
+	-- use("tpope/vim-commentary")
 	-- use "tpope/vim-fugitive"
 
 	-- Neoterm
@@ -67,7 +228,12 @@ return require("packer").startup(function(use)
 	use("prettier/vim-prettier")
 
 	-- Rust
-	use("simrat39/rust-tools.nvim")
+	use({
+		"simrat39/rust-tools.nvim",
+		config = function()
+			require("rust-tools").setup({})
+		end,
+	})
 
 	-- Color Schemes
 	use({ "dracula/vim", as = "dracula" })

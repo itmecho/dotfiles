@@ -50,23 +50,40 @@ M.close_all_other_buffers = function()
 	print("closed " .. count .. " buffers")
 end
 
-function M.install_lsp_servers()
-	local lspinstall = require("lspinstall")
-	local installed_servers = lspinstall.installed_servers()
-	local wanted = { "go", "lua", "rust", "tailwindcss", "typescript" }
+local function install_lsp_servers(update)
+	local installer = require("nvim-lsp-installer")
+	local servers = require("nvim-lsp-installer.servers")
+
+	local wanted = {
+		"eslint",
+		"gopls",
+		"rust_analyzer",
+		"sumneko_lua",
+		"svelte",
+		"tailwindcss",
+		"tsserver",
+	}
+
+	installer.display()
 
 	for _, server in pairs(wanted) do
-		local is_installed = false
-		for _, installed in pairs(installed_servers) do
-			if server == installed then
-				is_installed = true
+		local ok, srv = servers.get_server(server)
+		if ok then
+			if srv:is_installed() ~= true or update then
+				srv:install()
 			end
-		end
-
-		if not is_installed then
-			require("lspinstall").install_server(server)
+		else
+			print(server .. " is not a valid lsp server")
 		end
 	end
+end
+
+function M.install_lsp_servers()
+	install_lsp_servers(false)
+end
+
+function M.update_lsp_servers()
+	install_lsp_servers(true)
 end
 
 return M

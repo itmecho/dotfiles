@@ -16,3 +16,7 @@ u.set_autocommands("formatting", {
 	{ "BufWritePre", "*", "call v:lua.RemoveTrailingWhiteSpace()" },
 	{ "BufWritePre", "*", "Neoformat" },
 })
+
+u.set_autocommands("gotpl", {
+	{ "BufNewFile,BufRead", "*.html.tpl", "set ft=gohtmltmpl" },
+})

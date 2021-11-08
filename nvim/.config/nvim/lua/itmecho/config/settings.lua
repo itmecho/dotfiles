@@ -10,4 +10,8 @@ vim.g.diagnostic_show_sign = 1
 
 vim.g.dracula_italic = 0
 
+vim.g.neoformat_try_node_exe = true
+
 vim.g.netrw_banner = 0
+
+vim.g["prettier#quickfix_enabled"] = false

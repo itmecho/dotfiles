@@ -1,7 +1,7 @@
 vim.o.cmdheight = 2
 vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.errorformat = "%A%f:%l:%c:%m,%-G%.%#"
-vim.o.guifont = "VictorMono Nerd Font:h18"
+vim.o.guifont = "MonoLisa Nerd Font:h12"
 vim.o.hidden = true
 vim.o.ignorecase = true
 vim.o.incsearch = true
@@ -16,7 +16,6 @@ vim.o.softtabstop = 0
 vim.o.spelllang = "en_gb"
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.statusline = "%!v:lua.StatusLine()"
 vim.o.tabstop = 4
 vim.o.termguicolors = true
 vim.o.timeoutlen = 350

@@ -16,3 +16,4 @@ alias mkdir 'mkdir -p'
 alias uuidgen "uuidgen | tr '[:upper:]' '[:lower:]'"
 alias vi nvim
 alias vim nvim
+alias work 'tmux new-session -s work -c $CLOUDPATH'

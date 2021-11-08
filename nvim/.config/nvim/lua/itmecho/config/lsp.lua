@@ -1,8 +1,8 @@
-require("lspinstall").setup() -- important
+local lsp_installer = require("nvim-lsp-installer")
 
-local servers = require("lspinstall").installed_servers()
-for _, server in pairs(servers) do
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
+lsp_installer.on_server_ready(function(server)
+	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 	local config = {
@@ -42,9 +42,12 @@ for _, server in pairs(servers) do
 		}
 	end
 
-	require("lspconfig")[server].setup(config)
-end
+	server:setup(config)
+	vim.cmd([[do User LspAttachBuffers ]])
+end)
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	update_in_insert = true,
-})
+require("lspkind").init({ preset = "codicons" })
+
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- 	update_in_insert = true,
+-- })

@@ -14,6 +14,7 @@ pkill picom
 pkill polybar
 pkill sxhkd
 pkill xautolock
+pkill polkit-gnome-authentication-agent-1
 
 bspc config window_gap 0
 
@@ -26,6 +27,7 @@ nm-applet &
 picom -f &
 polybar main &
 SXHKD_SHELL=/bin/sh sxhkd &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 nitrogen --restore
 
