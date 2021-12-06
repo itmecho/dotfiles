@@ -29,18 +29,25 @@ return require("packer").startup(function(use)
 				},
 				sources = cmp.config.sources({
 					{ name = "luasnip" },
-					{ name = "nvim_lua" },
 					{ name = "nvim_lsp" },
+					{ name = "nvim_lua" },
 					{ name = "path" },
 					{ name = "buffer", keyword_length = 5 },
 				}),
 				snippet = {
-
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
 					end,
 				},
 			})
+		end,
+	})
+	use({
+		"simrat39/symbols-outline.nvim",
+		config = function()
+			vim.g.symbols_outline = {
+				width = 60,
+			}
 		end,
 	})
 
