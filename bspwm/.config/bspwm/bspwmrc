@@ -44,16 +44,6 @@ bspc config gapless_monocle         true
 bspc config pointer_follows_monitor true
 bspc config pointer_follows_focus   true
 
-bspc rule -a firefox desktop=1 follow=on
-bspc rule -a firefoxdeveloperedition desktop=1 follow=on
-bspc rule -a 'Firefox Beta' desktop=1 follow=on
-bspc rule -a 'Brave-browser' desktop=1 follow=on
-bspc rule -a Alacritty desktop=2 follow=on
-bspc rule -a Slack desktop=3 follow=on
-bspc rule -a KeePassXC desktop=3 follow=on
-bspc rule -a Spotify desktop=4 follow=on
-bspc rule -a pinentry-gtk-2 state=floating
-bspc rule -a AlacrittyFloating desktop=2 follow=on state=floating
-bspc rule -a Peek state=floating
+bspc config external_rules_command $HOME/.config/bspwm/ext-rules.sh
 
 bsp-layout set tall 2 --master-size 0.53
