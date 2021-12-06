@@ -244,6 +244,7 @@ return require("packer").startup(function(use)
 
 	-- Color Schemes
 	use({ "dracula/vim", as = "dracula" })
-	use("arcticicestudio/nord-vim")
+	-- use("arcticicestudio/nord-vim")
+	use("shaunsingh/nord.nvim")
 	use("folke/tokyonight.nvim")
 end)

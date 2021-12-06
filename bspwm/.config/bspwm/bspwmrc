@@ -4,7 +4,7 @@
 #   dracula
 #   nord
 #   tokyonight
-export THEME=tokyonight
+export THEME=nord
 . $HOME/.config/themes/$THEME.theme
 
 wmname LG3D
@@ -32,6 +32,8 @@ SXHKD_SHELL=/bin/sh sxhkd &
 nitrogen --restore
 
 xautolock -time 5 -locker ~/.config/bspwm/lock.sh -detectsleep &
+
+sed "s/^colors: \*.*/colors: *$THEME/" $HOME/.config/alacritty/alacritty.yml
 
 bspc config border_width        0
 bspc config single_monocle      true
