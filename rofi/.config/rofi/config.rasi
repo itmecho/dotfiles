@@ -1,6 +1,7 @@
 configuration {
-    modi: "window,run,drun,ssh";
-    show-icons: true;
-    theme: "tokyonight";
-    font: "Roboto 12";
+  modi: "window,run,drun,ssh";
+  show-icons: true;
+  font: "Roboto 12";
 }
+
+@theme "nord"
