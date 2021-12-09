@@ -1,0 +1,36 @@
+[user]
+	name = Iain Earl
+	email = iain@itmecho.com
+	signingkey = 6529BCA1CD093CF3
+[commit]
+	gpgsign = true
+[url "git@github.com:supersparks"]
+	insteadOf = https://github.com/supersparks
+[init]
+	defaultBranch = master
+
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[difftool "vimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = true
+[mergetool "vimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[alias]
+	new-branch = "!f() { git fetch origin develop:develop && git switch -c $1 develop; }; f"
+	prune-local = !git fetch -p && git branch -vv | rg gone | awk '{print $1}' | xargs -r git branch -D
+	rebase-develop = !git fetch origin develop:develop && git rebase -i develop
+	review = ! gh pr list -l team/leibniz --search 'review:required draft:false' --web
+	pr = !gh pr create -d --assignee itmecho -l team/leibniz --reviewer supersparks/leibniz
+	a = add
+	b = switch
+	c = commit
+	co = checkout
+	d = diff
