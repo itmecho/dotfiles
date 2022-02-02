@@ -34,3 +34,4 @@
 	c = commit
 	co = checkout
 	d = diff
+	cfu = commit --fixup
