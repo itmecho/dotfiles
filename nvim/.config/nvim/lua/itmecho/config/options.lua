@@ -18,8 +18,8 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.tabstop = 4
 vim.o.termguicolors = true
-vim.o.timeoutlen = 350
-vim.o.updatetime = 300
+-- vim.o.timeoutlen = 350
+-- vim.o.updatetime = 300
 vim.o.wildignore = ".git/*,.venv/*,*.pyc"
 
 if vim.fn.executable("rg") then

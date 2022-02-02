@@ -1,5 +1,21 @@
 local lsp_installer = require("nvim-lsp-installer")
 
+local function on_attach()
+	local ft = vim.api.nvim_buf_get_option(0, "filetype")
+	if ft ~= "lua" then
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+	end
+
+	vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help, { buffer = 0 })
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
+	vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
+	vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { buffer = 0 })
+	vim.keymap.set("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { buffer = 0 })
+	vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = 0 })
+	vim.keymap.set("n", "ga", "<cmd>Telescope lsp_code_actions theme=cursor<cr>", { buffer = 0 })
+end
+
 lsp_installer.on_server_ready(function(server)
 	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -10,9 +26,10 @@ lsp_installer.on_server_ready(function(server)
 		flags = {
 			debounce_text_changes = 300,
 		},
+		on_attach = on_attach,
 	}
 
-	if server == "lua" then
+	if server.name == "sumneko_lua" then
 		config["settings"] = {
 			Lua = {
 				runtime = {

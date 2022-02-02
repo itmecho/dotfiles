@@ -9,11 +9,4 @@ vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
 vim.cmd("command! -bang GoLines call v:lua.RunFormatCommand('golines -m 120 --base-formatter=gofmt')")
 
-require("which-key").register({
-	["<leader>"] = {
-		["<leader>"] = {
-			name = "+filetype-commands",
-			t = { "<cmd>lua require('itmecho.telescope').gotest()<cr>", "Go Test" },
-		},
-	},
-})
+vim.keymap.set("n", "<leader><leader>t", require("itmecho.telescope").gotest)

@@ -14,7 +14,8 @@ u.set_autocommands("itmecho_general", {
 
 u.set_autocommands("formatting", {
 	{ "BufWritePre", "*", "call v:lua.RemoveTrailingWhiteSpace()" },
-	{ "BufWritePre", "*", "Neoformat" },
+	-- { "BufWritePre", "*", "Neoformat" },
+	{ "BufWritePost", "*", "FormatWriteSync" },
 })
 
 u.set_autocommands("gotpl", {

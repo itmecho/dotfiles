@@ -42,14 +42,14 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-	use({
-		"simrat39/symbols-outline.nvim",
-		config = function()
-			vim.g.symbols_outline = {
-				width = 60,
-			}
-		end,
-	})
+	-- use({
+	-- 	"simrat39/symbols-outline.nvim",
+	-- 	config = function()
+	-- 		vim.g.symbols_outline = {
+	-- 			width = 60,
+	-- 		}
+	-- 	end,
+	-- })
 
 	use("nvim-lua/lsp_extensions.nvim")
 	use({
@@ -73,7 +73,9 @@ return require("packer").startup(function(use)
 	})
 
 	-- Formatting
-	use("sbdchd/neoformat")
+	-- use("sbdchd/neoformat")
+	-- use("mhartington/formatter.nvim")
+	use("~/src/formatter.nvim")
 
 	-- DAP
 	use("mfussenegger/nvim-dap")
@@ -135,9 +137,11 @@ return require("packer").startup(function(use)
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-fzy-native.nvim" },
+			{ "nvim-telescope/telescope-file-browser.nvim" },
 		},
 		config = function()
 			require("telescope").setup({
+				defaults = require("telescope.themes").get_ivy(),
 				color_devicons = true,
 				shorten_path = true,
 				mappings = {
@@ -146,6 +150,9 @@ return require("packer").startup(function(use)
 					},
 				},
 				pickers = {
+					find_files = {
+						find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
+					},
 					buffers = {
 						sort_lastused = true,
 						mappings = {
@@ -155,8 +162,20 @@ return require("packer").startup(function(use)
 						},
 					},
 				},
+				extensions = {
+					file_browser = {
+						mappings = {
+							i = {
+								["<c-o>"] = function()
+									print("hi")
+								end,
+							},
+						},
+					},
+				},
 			})
 			require("telescope").load_extension("fzy_native")
+			require("telescope").load_extension("file_browser")
 		end,
 	})
 
@@ -184,7 +203,7 @@ return require("packer").startup(function(use)
 	})
 
 	-- Misc UI
-	use("folke/which-key.nvim")
+	-- use("folke/which-key.nvim")
 	use({
 		"kyazdani42/nvim-web-devicons",
 		config = function()
@@ -244,7 +263,6 @@ return require("packer").startup(function(use)
 
 	-- Color Schemes
 	use({ "dracula/vim", as = "dracula" })
-	-- use("arcticicestudio/nord-vim")
 	use("shaunsingh/nord.nvim")
 	use("folke/tokyonight.nvim")
 end)
