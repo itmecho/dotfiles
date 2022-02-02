@@ -24,7 +24,7 @@ function tm
             if [ -z $TMUX ]
                 tmux attach-session -t $name $extra_args
             else
-                tmux switch-client -s $name
+                tmux switch-client -t $name
             end
         case $kill_session
             set -l session_list (tmux list-sessions -F '#S')
