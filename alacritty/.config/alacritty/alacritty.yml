@@ -306,7 +306,7 @@ schemes:
       cyan: "#6d96a5"
       white: "#aeb3bb"
 
-colors: *nord
+colors: *tokyonight
 
 # Visual Bell
 #

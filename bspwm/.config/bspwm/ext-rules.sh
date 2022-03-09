@@ -25,5 +25,6 @@ case $class in
 	Slack) toDesktop 3 ;;
 	pinentry-gtk-2) float ;;
 	Peek) float ;;
+	1password) float ;;
 	"") handleMissingClass ;;
 esac

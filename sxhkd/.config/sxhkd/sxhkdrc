@@ -172,10 +172,10 @@ super + s
 
 # Launchers
 super + alt + 1
-	brave &
-
-super + alt + 2
-	slack &
+	firefox &
 
 super + alt + 3
-	discord &
+	slack &
+
+super + alt + 4
+	spotify &

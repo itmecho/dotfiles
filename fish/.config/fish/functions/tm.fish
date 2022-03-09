@@ -20,7 +20,13 @@ function tm
     switch $action
         case $create
             read -P 'Session name: ' name
-            tmux new-session -d -s $name
+			set -l workdir $HOME
+			if [ -d $HOME/src/$name ]
+				echo "using $HOME/src/$name"
+				set workdir $HOME/src/$name
+			end
+			echo $workdir
+            tmux new-session -d -s $name -c $workdir
             if [ -z $TMUX ]
                 tmux attach-session -t $name $extra_args
             else
