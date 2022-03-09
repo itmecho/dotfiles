@@ -1,23 +1,25 @@
-function RemoveTrailingWhiteSpace()
-	local view = vim.fn.winsaveview()
-	vim.cmd([[keeppatterns %s/\s\+$//e]])
-	vim.fn.winrestview(view)
-end
-
-local u = require("itmecho.utils")
-
-u.set_autocommands("itmecho_general", {
-	{ "BufWritePost", "plugins.lua", "PackerCompile" },
-	{ "ColorScheme", "*", "lua require('nvim-web-devicons').setup()" },
-	{ "User", "LspProgressUpdate", "redrawstatus!" },
+local itmecho = vim.api.nvim_create_augroup("itmecho", {})
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "plugins.lua",
+  command = "source <afile> | PackerCompile",
+  group = itmecho,
 })
-
-u.set_autocommands("formatting", {
-	{ "BufWritePre", "*", "call v:lua.RemoveTrailingWhiteSpace()" },
-	-- { "BufWritePre", "*", "Neoformat" },
-	{ "BufWritePost", "*", "FormatWriteSync" },
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    require("nvim-web-devicons").setup()
+  end,
+  group = itmecho,
 })
-
-u.set_autocommands("gotpl", {
-	{ "BufNewFile,BufRead", "*.html.tpl", "set ft=gohtmltmpl" },
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LspProgressUpdate",
+  command = "redrawstatus!",
+  group = itmecho,
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    local view = vim.fn.winsaveview()
+    vim.cmd([[keeppatterns %s/\s\+$//e]])
+    vim.fn.winrestview(view)
+  end,
+  group = itmecho,
 })
