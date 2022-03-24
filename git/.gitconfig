@@ -35,3 +35,4 @@
 	co = checkout
 	d = diff
 	cfu = commit --fixup
+	w = worktree

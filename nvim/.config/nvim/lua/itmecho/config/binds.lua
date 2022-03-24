@@ -1,10 +1,15 @@
-vim.keymap.set("i", "<c-d>", function()
-  require("snippets").expand_or_advance(1)
+vim.keymap.set("i", "<c-j>", function()
+  require("luasnip").jump(1)
 end)
-vim.keymap.set("i", "<c-s>", function()
-  require("snippets").expand_or_advance(-1)
+vim.keymap.set("i", "<c-k>", function()
+  require("luasnip").jump(-1)
 end)
-vim.keymap.set("i", "<c-u>", "<c-r>=trim(system('uuidgen'))<CR>")
+vim.keymap.set("i", "<c-h>", function()
+  require("luasnip").change_choice(-1)
+end)
+vim.keymap.set("i", "<c-l>", function()
+  require("luasnip").change_choice(1)
+end)
 
 -- Terminal
 vim.keymap.set("n", "<leader>to", "<cmd>NeotermOpen<CR>")
@@ -20,6 +25,9 @@ vim.keymap.set("t", "<leader>tx", "<cmd>NeotermExit<CR>")
 
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
+
+vim.keymap.set("n", "<leader>J", "<cmd>lua require('itmecho.utils').journal()<CR>")
+vim.keymap.set("n", "<leader>T", "<cmd>lua require('itmecho.utils').todo()<CR>")
 
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR><esc>")
 vim.keymap.set("n", "n", "nzzzv")

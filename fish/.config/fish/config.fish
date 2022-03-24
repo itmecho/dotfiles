@@ -6,8 +6,8 @@ set -gx SHELL /usr/bin/fish
 test (uname) = "Darwin"; and set -gx SHELL /usr/local/bin/fish
 
 set -gx BARX_NO_REMOTE_CACHE 1
-set -gx NVM_DIR $HOME/.local/nvm
 set -gx TERM xterm-256color
+set -gx NVM_DIR $HOME/.local/nvm
 set -gx EDITOR nvim
 set -gx GOPATH $HOME/src/go
 set -gx CLOUDPATH $HOME/src/CloudExperiments
@@ -51,3 +51,5 @@ else
 		startx
 	end
 end
+
+source /opt/asdf-vm/asdf.fish

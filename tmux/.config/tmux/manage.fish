@@ -7,6 +7,10 @@ function go-to-session
 	tmux $subcommand -t $name
 end
 
+function list-other-sessions
+	tmux list-sessions | rg -v attached | cut -d':' -f1
+end
+
 function select-session
 	tmux list-sessions | rofi -dmenu | cut -d':' -f1
 end
@@ -20,12 +24,21 @@ switch $cmd
 	case "Create Session"
 		set -l name (rofi -dmenu -lines 0 -p 'Session name')
 		test -z $name; and exit
-		tmux new-session -d -c $HOME -s $name
+		if [ -d ~/src/$name ];
+			tmux new-session -d -c ~/src/$name -s $name
+		else
+			tmux new-session -d -c $HOME -s $name
+		end
 		go-to-session $name
 	case "Switch Session"
-		set -l name (select-session)
-		test -z $name; and exit
-		go-to-session $name
+		set -la names (list-other-sessions)
+		if [ (count $names) -eq 1 ];
+			go-to-session $names[1]
+		else
+			set -l name (select-session)
+			test -z $name; and exit
+			go-to-session $name
+		end
 	case "Kill Session"
 		set -l name (select-session)
 		tmux kill-session -t $name

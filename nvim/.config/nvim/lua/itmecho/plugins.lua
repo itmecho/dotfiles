@@ -66,11 +66,19 @@ return require("packer").startup(function(use)
             ]])
           end
         end,
+        debug = true,
         sources = {
-          nl.builtins.diagnostics.eslint.with({
+          nl.builtins.code_actions.eslint_d.with({
             cwd = function()
               return vim.loop.cwd()
             end,
+            timeout = 20000,
+          }),
+          nl.builtins.diagnostics.eslint_d.with({
+            cwd = function()
+              return vim.loop.cwd()
+            end,
+            timeout = 20000,
           }),
           nl.builtins.diagnostics.protolint,
           nl.builtins.formatting.black,
@@ -177,7 +185,8 @@ return require("packer").startup(function(use)
       { "nvim-telescope/telescope-file-browser.nvim" },
     },
     config = function()
-      require("telescope").setup({
+      local ts = require("telescope")
+      ts.setup({
         defaults = require("telescope.themes").get_ivy(),
         color_devicons = true,
         shorten_path = true,
@@ -211,8 +220,8 @@ return require("packer").startup(function(use)
           },
         },
       })
-      require("telescope").load_extension("fzy_native")
-      require("telescope").load_extension("file_browser")
+      ts.load_extension("fzy_native")
+      ts.load_extension("file_browser")
     end,
   })
 
@@ -237,6 +246,34 @@ return require("packer").startup(function(use)
     config = function()
       require("gitsigns").setup()
     end,
+  })
+
+  -- Neorg
+  use({
+    "nvim-neorg/neorg",
+    config = function()
+      require("neorg").setup({
+        load = {
+          ["core.defaults"] = {},
+          ["core.norg.dirman"] = {
+            config = {
+              workspaces = {
+                journal = "~/Documents/journal",
+                notes = "~/Documents/notes",
+              },
+            },
+          },
+          ["core.norg.completion"] = {
+            config = {
+              engine = "nvim-cmp",
+            },
+          },
+          ["core.norg.concealer"] = {},
+          ["core.integrations.nvim-cmp"] = {},
+        },
+      })
+    end,
+    requires = "nvim-lua/plenary.nvim",
   })
 
   -- Misc UI

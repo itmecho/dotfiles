@@ -23,8 +23,8 @@ vim.o.termguicolors = true
 vim.o.wildignore = ".git/*,.venv/*,*.pyc"
 
 if vim.fn.executable("rg") then
-	vim.o.grepprg = "rg --vimgrep --no-heading"
-	vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+  vim.o.grepprg = "rg --vimgrep --no-heading"
+  vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 vim.bo.expandtab = false
@@ -41,3 +41,4 @@ vim.wo.list = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes"
+vim.opt.laststatus = 3

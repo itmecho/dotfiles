@@ -7,5 +7,7 @@ require("itmecho.config.formatting")
 require("itmecho.config.lsp")
 require("itmecho.config.options")
 require("itmecho.config.settings")
-require("itmecho.config.snippets")
 require("itmecho.config.statusline")
+
+require("itmecho.global")
+require("itmecho.snippets")
