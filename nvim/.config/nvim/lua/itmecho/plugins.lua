@@ -277,7 +277,6 @@ return require("packer").startup(function(use)
   })
 
   -- Misc UI
-  -- use("folke/which-key.nvim")
   use({
     "kyazdani42/nvim-web-devicons",
     config = function()
@@ -320,6 +319,9 @@ return require("packer").startup(function(use)
 
   -- Fish
   use("blankname/vim-fish")
+
+  -- Kitty
+  use("fladson/vim-kitty")
 
   -- MDX
   use("jxnblk/vim-mdx-js")
