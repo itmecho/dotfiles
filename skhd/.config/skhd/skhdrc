@@ -78,7 +78,7 @@
 
 # focus window
 # alt - h : yabai -m window --focus west
-cmd - return : kitty -o include=macos.conf
+cmd - return : export OVERRIDE=macos && kitty
 
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
