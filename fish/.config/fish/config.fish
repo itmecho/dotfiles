@@ -39,6 +39,7 @@ if test (uname) = "Darwin"
 	set -gx KDEV_KUBE_CONTEXT docker-desktop
 
 	source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+	source /usr/local/opt/asdf/libexec/asdf.fish
 else
 	# Linux specific config
 	set -gx KDEV_KUBE_CONTEXT minikube
@@ -50,6 +51,6 @@ else
 	if test -z $DISPLAY; and test (tty) = "/dev/tty1"
 		startx
 	end
+	source /opt/asdf-vm/asdf.fish
 end
 
-source /opt/asdf-vm/asdf.fish
