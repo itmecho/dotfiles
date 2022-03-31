@@ -1,3 +1,4 @@
+local Path = require("plenary.path")
 local M = {}
 
 -- TODO Move this to a more appropriate file and make it global

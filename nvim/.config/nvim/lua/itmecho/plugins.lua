@@ -8,6 +8,12 @@ return require("packer").startup(function(use)
   use("hrsh7th/cmp-nvim-lua")
   use("hrsh7th/cmp-buffer")
   use("hrsh7th/cmp-path")
+  use({
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/itmecho/snippets" })
+    end,
+  })
   use({ "saadparwaiz1/cmp_luasnip", requires = { "L3MON4D3/LuaSnip" } })
   use({
     "hrsh7th/nvim-cmp",
@@ -27,13 +33,13 @@ return require("packer").startup(function(use)
           ["<C-e>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping.confirm({ select = false }),
         },
-        sources = cmp.config.sources({
+        sources = {
           { name = "luasnip" },
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
           { name = "path" },
           { name = "buffer", keyword_length = 5 },
-        }),
+        },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)

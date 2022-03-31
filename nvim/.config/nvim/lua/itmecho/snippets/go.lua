@@ -1,10 +1,4 @@
-local ls = require("luasnip")
-local s = ls.snippet
-local t = ls.text_node
-local i = ls.insert_node
-
-local fmta = require("luasnip.extras.fmt").fmta
-
+print("loading go snippets")
 return {
   s("dbg", {
     t('fmt.Printf("%+v\\n", '),
@@ -48,6 +42,21 @@ return {
       ]],
       {
         i(1),
+        i(0),
+      }
+    )
+  ),
+  s(
+    "type",
+    fmta(
+      [[
+        type <> <>{
+            <>
+        }
+      ]],
+      {
+        i(1),
+        c(2, { t("interface"), t("struct") }),
         i(0),
       }
     )

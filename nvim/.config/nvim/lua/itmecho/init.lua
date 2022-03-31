@@ -10,4 +10,4 @@ require("itmecho.config.settings")
 require("itmecho.config.statusline")
 
 require("itmecho.global")
-require("itmecho.snippets")
+-- require("itmecho.snippets")
