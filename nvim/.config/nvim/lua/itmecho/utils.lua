@@ -116,7 +116,7 @@ end
 function M.todo()
   require("itmecho.ui").open_float({ write_on_close = true })
   local home = os.getenv("HOME")
-  vim.cmd(string.format("edit %s/.todo.norg", home))
+  vim.cmd(string.format("edit %s/Documents/todo.norg", home))
 end
 
 function M.install_lsp_servers()

@@ -1,4 +1,3 @@
-print("loaded all snippets")
 return {
   s("uuidgen", {
     f(function()

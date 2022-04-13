@@ -1,4 +1,3 @@
-print("loading go snippets")
 return {
   s("dbg", {
     t('fmt.Printf("%+v\\n", '),

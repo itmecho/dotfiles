@@ -21,7 +21,7 @@ function handleMissingClass() {
 
 case $class in
 	firefox|Brave-Browser) toDesktop 1 ;;
-	Alacritty) toDesktop 2 ;;
+	Alacritty|kitty) toDesktop 2 ;;
 	Slack) toDesktop 3 ;;
 	pinentry-gtk-2) float ;;
 	Peek) float ;;

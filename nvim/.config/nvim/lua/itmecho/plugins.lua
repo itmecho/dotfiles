@@ -59,8 +59,11 @@ return require("packer").startup(function(use)
 
   use({
     "jose-elias-alvarez/null-ls.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
     config = function()
       local nl = require("null-ls")
+      local Path = require("plenary.path")
+
       nl.setup({
         on_attach = function(client)
           if client.resolved_capabilities.document_formatting then
@@ -72,7 +75,7 @@ return require("packer").startup(function(use)
             ]])
           end
         end,
-        debug = true,
+        -- debug = true,
         sources = {
           nl.builtins.code_actions.eslint_d.with({
             cwd = function()
@@ -88,8 +91,20 @@ return require("packer").startup(function(use)
           }),
           nl.builtins.diagnostics.protolint,
           nl.builtins.formatting.black,
+          nl.builtins.formatting.eslint_d.with({
+            condition = function()
+              return Path:new(vim.loop.cwd(), ".eslintrc.js")
+            end,
+            prefer_local = "node_modules/.bin",
+            cwd = function()
+              return vim.loop.cwd()
+            end,
+          }),
           nl.builtins.formatting.golines,
           nl.builtins.formatting.prettier.with({
+            condition = function()
+              return not Path:new(vim.loop.cwd(), ".eslintrc.js")
+            end,
             prefer_local = "node_modules/.bin",
             cwd = function()
               return vim.loop.cwd()
@@ -214,17 +229,6 @@ return require("packer").startup(function(use)
             },
           },
         },
-        extensions = {
-          file_browser = {
-            mappings = {
-              i = {
-                ["<c-o>"] = function()
-                  print("hi")
-                end,
-              },
-            },
-          },
-        },
       })
       ts.load_extension("fzy_native")
       ts.load_extension("file_browser")
@@ -266,6 +270,7 @@ return require("packer").startup(function(use)
               workspaces = {
                 journal = "~/Documents/journal",
                 notes = "~/Documents/notes",
+                presentations = "~/Documents/presentations",
               },
             },
           },
@@ -276,10 +281,11 @@ return require("packer").startup(function(use)
           },
           ["core.norg.concealer"] = {},
           ["core.integrations.nvim-cmp"] = {},
+          ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
         },
       })
     end,
-    requires = "nvim-lua/plenary.nvim",
+    requires = { "nvim-lua/plenary.nvim", "folke/zen-mode.nvim" },
   })
 
   -- Misc UI

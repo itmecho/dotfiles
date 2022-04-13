@@ -21,6 +21,7 @@ local function on_attach(client)
   vim.keymap.set("n", "ga", "<cmd>Telescope lsp_code_actions theme=cursor<cr>", { buffer = 0 })
   vim.keymap.set("n", "gs", "<cmd>Telescope lsp_document_symbols<cr>", { buffer = 0 })
   vim.keymap.set("n", "gS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { buffer = 0 })
+  vim.keymap.set("n", "gx", "<cmd>LspRestart<cr>", { buffer = 0 })
 end
 
 lsp_installer.on_server_ready(function(server)
@@ -36,14 +37,14 @@ lsp_installer.on_server_ready(function(server)
   }
 
   if server.name == "sumneko_lua" then
-    config["settings"] = {
+    config.settings = {
       Lua = {
         runtime = {
           version = "LuaJIT",
           path = vim.split(package.path, ";"),
         },
         diagnostics = {
-          globals = { "vim" },
+          globals = { "vim", "s", "i", "c", "fmt", "fmta" },
         },
         workspace = {
           library = {
@@ -55,14 +56,18 @@ lsp_installer.on_server_ready(function(server)
     }
   end
 
-  if server == "rust" then
-    config["settings"] = {
+  if server.name == "rust" then
+    config.settings = {
       ["rust-analyzer"] = {
         cargo = {
           runBuildScripts = true,
         },
       },
     }
+  end
+
+  if server.name == "emmet_ls" then
+    config.filetypes = { "html", "css", "typescriptreact" }
   end
 
   server:setup(config)

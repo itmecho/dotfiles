@@ -1,8 +1,13 @@
 function ws --description "Kitty workspace management script"
+	set -l projects work gyft
 	set -l project $argv[1]
 
 	if test -z $project
-		echo "project required"
+		set project (echo $projects | sed 's/ /\n/g' | fzf)
+	end
+
+	if test -z $project
+		echo "project is required"
 		return 1
 	end
 
