@@ -43,6 +43,7 @@ vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope file_browser<cr>")
 vim.keymap.set("n", "<leader>fi", "<cmd>Telescope live_grep<cr>")
 vim.keymap.set("n", "<leader>fc", "<cmd>Telescope find_files cwd=~/.config/nvim<cr>")
+vim.keymap.set("n", "<leader>ft", "<cmd>NvimTreeToggle<cr>")
 
 vim.keymap.set("n", "<leader>bn", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>")

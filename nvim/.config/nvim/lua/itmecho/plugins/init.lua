@@ -18,104 +18,21 @@ return require("packer").startup(function(use)
   use({
     "hrsh7th/nvim-cmp",
     requires = { "onsails/lspkind-nvim" },
+    config = require("itmecho.plugins.config.nvim_cmp"),
+  })
+  use({
+    "simrat39/symbols-outline.nvim",
     config = function()
-      local cmp = require("cmp")
-      local lspkind = require("lspkind")
-
-      cmp.setup({
-        formatting = {
-          format = lspkind.cmp_format(),
-        },
-        mapping = {
-          ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.close(),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
-        },
-        sources = {
-          { name = "luasnip" },
-          { name = "nvim_lsp" },
-          { name = "nvim_lua" },
-          { name = "path" },
-          { name = "buffer", keyword_length = 5 },
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
-        },
-      })
+      vim.g.symbols_outline = {
+        width = 60,
+      }
     end,
   })
-  -- use({
-  -- 	"simrat39/symbols-outline.nvim",
-  -- 	config = function()
-  -- 		vim.g.symbols_outline = {
-  -- 			width = 60,
-  -- 		}
-  -- 	end,
-  -- })
 
   use({
     "jose-elias-alvarez/null-ls.nvim",
     requires = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local nl = require("null-ls")
-      local Path = require("plenary.path")
-
-      nl.setup({
-        on_attach = function(client)
-          if client.resolved_capabilities.document_formatting then
-            vim.cmd([[
-            augroup LspFormatting
-                autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-            augroup END
-            ]])
-          end
-        end,
-        -- debug = true,
-        sources = {
-          nl.builtins.code_actions.eslint_d.with({
-            cwd = function()
-              return vim.loop.cwd()
-            end,
-            timeout = 20000,
-          }),
-          nl.builtins.diagnostics.eslint_d.with({
-            cwd = function()
-              return vim.loop.cwd()
-            end,
-            timeout = 20000,
-          }),
-          nl.builtins.diagnostics.protolint,
-          nl.builtins.formatting.black,
-          nl.builtins.formatting.eslint_d.with({
-            condition = function()
-              return Path:new(vim.loop.cwd(), ".eslintrc.js")
-            end,
-            prefer_local = "node_modules/.bin",
-            cwd = function()
-              return vim.loop.cwd()
-            end,
-          }),
-          nl.builtins.formatting.golines,
-          nl.builtins.formatting.prettier.with({
-            condition = function()
-              return not Path:new(vim.loop.cwd(), ".eslintrc.js")
-            end,
-            prefer_local = "node_modules/.bin",
-            cwd = function()
-              return vim.loop.cwd()
-            end,
-          }),
-          nl.builtins.formatting.rustfmt,
-          nl.builtins.formatting.stylua,
-          nl.builtins.formatting.terraform_fmt,
-        },
-      })
-    end,
+    config = require("itmecho.plugins.config.null_ls"),
   })
   use("nvim-lua/lsp_extensions.nvim")
   use({
@@ -138,6 +55,13 @@ return require("packer").startup(function(use)
     end,
   })
 
+  use({
+    "kyazdani42/nvim-tree.lua",
+    config = function()
+      require("nvim-tree").setup()
+    end,
+  })
+
   -- Formatting
   -- use("sbdchd/neoformat")
   -- use("mhartington/formatter.nvim")
@@ -149,51 +73,10 @@ return require("packer").startup(function(use)
   -- Treesitter
   use({
     "nvim-treesitter/nvim-treesitter",
+    before = "neorg",
     run = ":TSUpdate",
     requires = { "nvim-treesitter/nvim-treesitter-textobjects" },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "dockerfile",
-          "fish",
-          "go",
-          "html",
-          "javascript",
-          "lua",
-          "rust",
-          "toml",
-          "tsx",
-          "typescript",
-          "yaml",
-        },
-        highlight = {
-          enable = true,
-        },
-        indent = {
-          enable = true,
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["iP"] = "@parameter.inner",
-            },
-          },
-          swap = {
-            enable = true,
-            swap_next = {
-              ["gsn"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["gsp"] = "@parameter.inner",
-            },
-          },
-        },
-      })
-    end,
+    config = require("itmecho.plugins.config.nvim_treesitter"),
   })
 
   -- Telescope
@@ -204,6 +87,7 @@ return require("packer").startup(function(use)
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzy-native.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
+      { "nvim-telescope/telescope-ui-select.nvim" },
     },
     config = function()
       local ts = require("telescope")
@@ -232,6 +116,7 @@ return require("packer").startup(function(use)
       })
       ts.load_extension("fzy_native")
       ts.load_extension("file_browser")
+      ts.load_extension("ui-select")
     end,
   })
 
@@ -318,8 +203,6 @@ return require("packer").startup(function(use)
       require("Comment").setup()
     end,
   })
-  -- use("tpope/vim-commentary")
-  -- use "tpope/vim-fugitive"
 
   -- Neoterm
   -- use "itmecho/neoterm.nvim"

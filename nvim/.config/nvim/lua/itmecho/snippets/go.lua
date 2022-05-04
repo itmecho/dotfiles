@@ -60,4 +60,18 @@ return {
       }
     )
   ),
+  s(
+    "t.Run",
+    fmta(
+      [[
+        t.Run("<>", func(t *testing.T) {
+          <>
+        })
+      ]],
+      {
+        i(1),
+        i(0),
+      }
+    )
+  ),
 }

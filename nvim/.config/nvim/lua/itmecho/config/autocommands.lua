@@ -1,7 +1,7 @@
 local itmecho = vim.api.nvim_create_augroup("itmecho", {})
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "plugins.lua",
-  command = "source <afile> | PackerCompile",
+  pattern = "itmecho/plugins/*",
+  command = "luafile <afile> | PackerCompile",
   group = itmecho,
 })
 vim.api.nvim_create_autocmd("ColorScheme", {

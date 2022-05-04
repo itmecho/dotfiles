@@ -3,7 +3,7 @@ local lsp_installer = require("nvim-lsp-installer")
 local function on_attach(client)
   -- Only allow null-ls to run formatting
   if client.name ~= "null-ls" then
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
   end
 
   local ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -18,7 +18,7 @@ local function on_attach(client)
   vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { buffer = 0 })
   vim.keymap.set("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { buffer = 0 })
   vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = 0 })
-  vim.keymap.set("n", "ga", "<cmd>Telescope lsp_code_actions theme=cursor<cr>", { buffer = 0 })
+  vim.keymap.set("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", { buffer = 0 })
   vim.keymap.set("n", "gs", "<cmd>Telescope lsp_document_symbols<cr>", { buffer = 0 })
   vim.keymap.set("n", "gS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { buffer = 0 })
   vim.keymap.set("n", "gx", "<cmd>LspRestart<cr>", { buffer = 0 })
@@ -44,7 +44,7 @@ lsp_installer.on_server_ready(function(server)
           path = vim.split(package.path, ";"),
         },
         diagnostics = {
-          globals = { "vim", "s", "i", "c", "fmt", "fmta" },
+          globals = { "vim", "s", "t", "i", "c", "fmt", "fmta" },
         },
         workspace = {
           library = {
