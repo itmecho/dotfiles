@@ -9,6 +9,7 @@ export THEME=tokyonight
 
 wmname LG3D
 
+pkill barrier
 pkill dunst
 pkill picom
 pkill polybar
@@ -22,6 +23,7 @@ bspc monitor DVI-D-0 -d 1 9
 bspc monitor DisplayPort-0 -d 2 3 4 5 6 7 8
 bspc config window_gap 20
 
+barrier &
 dunst &
 nm-applet &
 picom -f &
