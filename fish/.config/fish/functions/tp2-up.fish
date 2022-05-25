@@ -23,4 +23,7 @@ function tp2-up
 		sudo iptables -t nat -D OUTPUT --source $local_ip --destination $local_ip -p tcp --dport 443 -j REDIRECT --to-ports 3000 2>/dev/null
 		sudo iptables -t nat -A OUTPUT --source $local_ip --destination $local_ip -p tcp --dport 443 -j REDIRECT --to-ports 3000
 	end
+
+	cd $CLOUDPATH/teacherportal/tpclient2
+	pnpm run start
 end
