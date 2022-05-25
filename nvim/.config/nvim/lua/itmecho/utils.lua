@@ -1,17 +1,23 @@
 local M = {}
 
-M.close_all_other_buffers = function()
+M.delete_buffers = function(opts)
+  opts = vim.tbl_extend("keep", opts or {}, {
+    keep_current = false,
+  })
+
   local bufs = vim.api.nvim_list_bufs()
   local current_buf = vim.api.nvim_get_current_buf()
   local count = 0
   for _, buf in pairs(bufs) do
-    -- Only close listed buffers
-    local listed = vim.api.nvim_buf_get_option(buf, "buflisted")
+    -- Skip current buffer if keep_current is set
+    if not (buf == current_buf and opts.keep_current) then
+      -- Only close listed buffers
+      local listed = vim.api.nvim_buf_get_option(buf, "buflisted")
 
-    -- Don't close current buffer
-    if buf ~= current_buf and listed then
-      vim.api.nvim_buf_delete(buf, {})
-      count = count + 1
+      if listed then
+        vim.api.nvim_buf_delete(buf, {})
+        count = count + 1
+      end
     end
   end
 

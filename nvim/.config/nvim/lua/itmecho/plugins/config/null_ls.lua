@@ -21,7 +21,6 @@ return function()
           end,
           group = group,
         })
-        P(vim.api.nvim_get_autocmds({ buffer = bufnr, group = group }))
       end
     end,
     -- debug = true,
@@ -53,9 +52,10 @@ return function()
         extra_args = { "-m", "120" },
       }),
       nl.builtins.formatting.prettier.with({
-        condition = function()
-          return not Path:new(vim.loop.cwd(), ".eslintrc.js")
-        end,
+        filetypes = { "css" },
+        -- condition = function()
+        --   return not Path:new(vim.loop.cwd(), ".eslintrc.js")
+        -- end,
         prefer_local = "node_modules/.bin",
         cwd = function()
           return vim.loop.cwd()

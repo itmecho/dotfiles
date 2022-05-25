@@ -87,7 +87,6 @@ return require("packer").startup(function(use)
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzy-native.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
-      { "nvim-telescope/telescope-ui-select.nvim" },
     },
     config = function()
       local ts = require("telescope")
@@ -116,9 +115,10 @@ return require("packer").startup(function(use)
       })
       ts.load_extension("fzy_native")
       ts.load_extension("file_browser")
-      ts.load_extension("ui-select")
     end,
   })
+
+  use({ "stevearc/dressing.nvim", config = function() end })
 
   -- Statusline
   use("nvim-lualine/lualine.nvim")
