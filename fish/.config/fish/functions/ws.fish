@@ -1,5 +1,5 @@
 function ws --description "Kitty workspace management script"
-	set -l projects work gyft
+	set -l projects work eden
 	set -l project $argv[1]
 
 	if test -z $project
@@ -18,15 +18,16 @@ function ws --description "Kitty workspace management script"
 		kitty @ new-window --new-tab --tab-title "fish" --cwd ~/src/CloudExperiments
 		kitty @ focus-tab -m title:neovim
 		nvim
-	case "gyft"
-		kitty @ set-tab-title "gyft-ui"
-		cd ~/src/gyft-ui
-		kitty @ new-window --new-tab --tab-title "gyft" --cwd ~/src/gyft
-		kitty @ new-window --new-tab --tab-title "server" --cwd ~/src/gyft
+	case "eden"
+		kitty @ set-tab-title "eden"
+		cd ~/src/eden
+		kitty @ new-window --new-tab --tab-title "eden-ui" --cwd ~/src/eden/ui
+		kitty @ new-window --new-tab --tab-title "server" --cwd ~/src/eden
 
-		kitty @ send-text -t title:gyft "nvim\n"
-		kitty @ send-text -t title:server "while true; echo 'starting server'; go run ./cmd/server; end\n"
-		kitty @ focus-tab -m title:gyft-ui
+		kitty @ send-text -t title:eden "nvim\n"
+		kitty @ send-text -t title:eden-ui "nvim\n"
+		kitty @ send-text -t title:server "make dev\n"
+		kitty @ focus-tab -m title:eden
 		nvim
 	case '*'
 		echo >&2 "unsupported project '$project'"

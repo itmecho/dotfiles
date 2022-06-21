@@ -4,6 +4,14 @@ return require("packer").startup(function(use)
 
   -- LSP
   use("neovim/nvim-lspconfig")
+  use({
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup()
+    end,
+  })
+
+  -- Completion
   use("hrsh7th/cmp-nvim-lsp")
   use("hrsh7th/cmp-nvim-lua")
   use("hrsh7th/cmp-buffer")
@@ -41,7 +49,15 @@ return require("packer").startup(function(use)
       require("trouble").setup()
     end,
   })
-  use("ray-x/lsp_signature.nvim")
+  use({
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require("lsp_signature").setup({
+        floating_window = false,
+        hint_enable = true,
+      })
+    end,
+  })
   use("williamboman/nvim-lsp-installer")
 
   -- Navigation
@@ -69,6 +85,38 @@ return require("packer").startup(function(use)
 
   -- DAP
   use("mfussenegger/nvim-dap")
+  use({
+    "rcarriga/nvim-dap-ui",
+    requires = { "mfussenegger/nvim-dap" },
+    config = function()
+      local dap, dapui = require("dap"), require("dapui")
+      dapui.setup({
+        sidebar = {
+          elements = {
+            { id = "scopes", size = 1 },
+          },
+          position = "left",
+        },
+        tray = { elements = {} },
+      })
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
+  })
+  use({
+    "leoluz/nvim-dap-go",
+    requires = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dap-go").setup()
+    end,
+  })
 
   -- Treesitter
   use({

@@ -37,9 +37,9 @@ vim.api.nvim_create_user_command("CreatePR", function()
 end, {})
 
 vim.api.nvim_create_user_command("Reset", function()
-  -- Clear all buffers
-  require("itmecho.utils").delete_buffers()
+  local u = require("itmecho.utils")
+  u.delete_buffers()
+  u.stop_all_lsp_clients()
 
-  vim.lsp.stop_client(vim.lsp.get_active_clients())
   vim.cmd([[ tcd $CLOUDPATH ]])
 end, {})

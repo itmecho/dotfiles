@@ -101,4 +101,10 @@ function M.update_lsp_servers()
   install_lsp_servers(true)
 end
 
+function M.stop_all_lsp_clients()
+  local clients = vim.lsp.get_active_clients()
+  vim.lsp.stop_client(clients)
+  print("stopped " .. #clients .. " lsp clients")
+end
+
 return M

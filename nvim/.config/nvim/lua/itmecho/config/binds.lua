@@ -92,6 +92,14 @@ vim.keymap.set("n", "<M-k>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>")
 vim.keymap.set("n", "<M-l>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>")
 vim.keymap.set("n", "<M-;>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
 
+-- DAP
+local dap = require("dap")
+vim.keymap.set("n", "<F1>", dap.continue)
+vim.keymap.set("n", "<F2>", dap.step_over)
+vim.keymap.set("n", "<F3>", dap.step_into)
+vim.keymap.set("n", "<F4>", dap.step_out)
+vim.keymap.set("n", "<leader>B", dap.toggle_breakpoint)
+
 -- Abbreviations
 vim.cmd("cnoreabbrev W! w!")
 vim.cmd("cnoreabbrev Q! q!")
