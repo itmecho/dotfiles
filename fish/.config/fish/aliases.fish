@@ -12,8 +12,7 @@ alias mkdir 'mkdir -p'
 alias uuidgen "uuidgen | tr '[:upper:]' '[:lower:]'"
 alias vi nvim
 alias vim nvim
-alias work 'tmux new-session -s work -c $CLOUDPATH'
-alias gui 'tmux new-session -s gyft-ui -c $HOME/src/gyft-ui'
+alias tf 'terraform'
 
 # Git
 alias g git
