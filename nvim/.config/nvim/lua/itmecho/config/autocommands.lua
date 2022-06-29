@@ -23,3 +23,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   group = itmecho,
 })
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = "*.astro",
+  callback = function()
+    vim.cmd([[ set ft=astro ]])
+  end,
+  group = itmecho,
+})

@@ -21,6 +21,7 @@ vim.o.termguicolors = true
 -- vim.o.timeoutlen = 350
 -- vim.o.updatetime = 300
 vim.o.wildignore = ".git/*,.venv/*,*.pyc"
+vim.o.winbar = "%=%m %f"
 
 if vim.fn.executable("rg") then
   vim.o.grepprg = "rg --vimgrep --no-heading"
