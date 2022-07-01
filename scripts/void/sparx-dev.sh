@@ -1,15 +1,12 @@
 #!/bin/bash
 
-function step() {
-	echo -e "\e[01m==> $@\e[00m"
-}
+set -e
 
-function is_installed() {
-	command -v $1 &>/dev/null
-}
+script_dir=$(dirname $(realpath $0))
+. ${script_dir}/../utils.sh
 
 step "Installing required repo packages"
-sudo xbps-install go curl kubectl
+xinstall go curl kubectl python3-devel jq
 
 is_installed asdf || {
   step "Installing asdf"
