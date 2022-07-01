@@ -44,13 +44,13 @@ else
 	# Linux specific config
 	set -gx KDEV_KUBE_CONTEXT minikube
 
-	source "/opt/google-cloud-sdk/path.fish.inc"
+	source "$HOME/.local/share/google-cloud-sdk/path.fish.inc"
 
 	gpg-connect-agent updatestartuptty /bye >/dev/null
 
 	if test -z $DISPLAY; and test (tty) = "/dev/tty1"
 		startx
 	end
-	source /opt/asdf-vm/asdf.fish
+	source $HOME/.local/share/asdf/asdf.fish
 end
 
