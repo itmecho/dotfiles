@@ -33,6 +33,7 @@ UTILS=(
 	starship
 	stow
 	pinentry-gnome
+	xtools
 )
 X_PKGS=(
 	setxkbmap
@@ -40,6 +41,7 @@ X_PKGS=(
 	xf86-video-amdgpu
 	xorg-minimal
 	xrandr
+	xdg-utils
 )
 APPLICATIONS=(
 	barrier-gui
@@ -55,6 +57,8 @@ APPLICATIONS=(
 )
 XBPS_SRC_PKGS=(
 	polkit-gnome
+	slack
+	spotify
 )
 
 step "Install packages"

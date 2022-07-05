@@ -73,3 +73,18 @@ is_installed bazel || {
 	go install github.com/bazelbuild/bazelisk@latest
 	ln -s ~/src/go/bin/bazelisk ~/.local/bin/bazel
 }
+
+is_installed grpcurl || {
+	step "Installing grpcurl"
+    go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+}
+
+is_installed goimports || {
+	step "Installing goimports"
+	go install golang.org/x/tools/cmd/goimports@latest
+}
+
+is_installed golines || {
+	step "Installing golines"
+	go install github.com/segmentio/golines@latest
+}
