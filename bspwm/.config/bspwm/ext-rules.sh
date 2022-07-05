@@ -4,15 +4,15 @@ id=$1
 class=$2
 instance=$3
 
-function toDesktop() {
+toDesktop() {
 	echo "desktop=$1 follow=on "
 }
 
-function float() {
+float() {
 	echo "state=floating "
 }
 
-function handleMissingClass() {
+handleMissingClass() {
 	comm=$(ps -p "$(xdo pid $id)" -o comm= 2>/dev/null)
 	case $comm in
 		(spotify) toDesktop 4 ;;
@@ -20,7 +20,7 @@ function handleMissingClass() {
 }
 
 case $class in
-	firefox|Brave-Browser)
+	Firefox|firefox|Brave-Browser)
 		toDesktop 1
 		test "$instance" = "Toolkit" && float
 		;;

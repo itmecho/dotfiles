@@ -11,10 +11,10 @@ choice=$(echo "${options}" | rofi -theme $THEME -dmenu -i)
 
 case $choice in
 	'Power off')
-		systemctl poweroff
+		sudo shutdown -h now
 		;;
 	'Reboot')
-		systemctl reboot
+		sudo reboot
 		;;
 	'Exit bspwm')
 		pkill bspwm
