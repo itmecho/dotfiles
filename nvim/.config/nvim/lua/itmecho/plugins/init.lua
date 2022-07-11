@@ -124,6 +124,15 @@ return require("packer").startup(function(use)
 		requires = { "nvim-treesitter/nvim-treesitter-textobjects" },
 		config = require("itmecho.plugins.config.nvim_treesitter"),
 	})
+	use({
+		"nvim-treesitter/nvim-treesitter-context",
+		requires = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesitter-context").setup({
+				enable = true,
+			})
+		end,
+	})
 
 	-- Telescope
 	use({
