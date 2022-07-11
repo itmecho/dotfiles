@@ -1,4 +1,5 @@
 [bar/main]
+wm-restack = bspwm
 monitor = ${env:MONITOR:}
 enable-ipc = true
 
