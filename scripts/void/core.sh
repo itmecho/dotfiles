@@ -33,6 +33,7 @@ UTILS=(
 	starship
 	stow
 	pinentry-gnome
+	playerctl
 	xtools
 )
 X_PKGS=(
@@ -56,13 +57,14 @@ APPLICATIONS=(
 	picom
 )
 XBPS_SRC_PKGS=(
+	discord
 	polkit-gnome
 	slack
 	spotify
 )
 
 step "Install packages"
-sudo xbps-install -y \
+sudo xbps-install -Sy \
 	${X_PKGS[@]} \
 	${UTILS[@]} \
 	${FONTS[@]} \
