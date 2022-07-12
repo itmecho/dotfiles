@@ -1,6 +1,6 @@
 # Dotfiles
 
-# Setup
+## Setup
 
 1. Clone this repository somewhere in your home folder. I use `~/.dotfiles`
 
@@ -14,3 +14,7 @@ git clone https://github.com/itmecho/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 stow alacritty # for example
 ```
+
+## Void Installation
+- `scripts/void/install.sh` - script for installing voidlinux from the live environment
+- `scripts/void/*` - other scripts for setting things up in void linux

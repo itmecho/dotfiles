@@ -52,7 +52,7 @@ return function()
         extra_args = { "-m", "120" },
       }),
       nl.builtins.formatting.prettier.with({
-        filetypes = { "css" },
+        filetypes = { "css", "astro" },
         -- condition = function()
         --   return not Path:new(vim.loop.cwd(), ".eslintrc.js")
         -- end,

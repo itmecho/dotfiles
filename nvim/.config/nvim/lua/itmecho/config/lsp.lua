@@ -60,7 +60,9 @@ lsp_installer.on_server_ready(function(server)
     config.settings = {
       ["rust-analyzer"] = {
         cargo = {
-          runBuildScripts = true,
+          buildScripts = {
+            enable = true,
+          },
         },
       },
     }
