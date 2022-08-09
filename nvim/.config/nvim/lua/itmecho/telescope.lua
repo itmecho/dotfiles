@@ -1,5 +1,6 @@
 local tb = require("telescope.builtin")
 local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
 local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local previewers = require("telescope.previewers")
@@ -10,7 +11,7 @@ local neoterm = require("neoterm")
 
 local M = {}
 
-local function generic_picker(opts)
+M.generic_picker = function(opts)
 	local items = {}
 
 	if opts.items ~= nil then
@@ -36,7 +37,7 @@ local function generic_picker(opts)
 end
 
 M.orca = function()
-	generic_picker({
+	M.generic_picker({
 		prompt_title = "Orca",
 		command = "bazel query 'kind(container_image, //...)' 2>/dev/null | grep 'image$' | sed -E 's/.*:(.*).image/\\1/'",
 		cwd = "~/src/CloudExperiments",
@@ -55,7 +56,7 @@ M.orca = function()
 end
 
 M.gotest = function()
-	generic_picker({
+	M.generic_picker({
 		prompt_title = "Filter test packages",
 		command = "fd _test.go --exec echo {//} | sort | uniq;",
 		mappings = function(prompt_bufnr, map)
@@ -83,7 +84,7 @@ M.cd_to_project = function()
 	tb.find_files({
 		prompt_title = "Sparx Projects",
 		cwd = "~/src/CloudExperiments",
-		find_command = { "fd", "--max-depth=2", "--type=d" },
+		find_command = { "fd", "--max-depth=3", "--type=d" },
 		attach_mappings = function(prompt_bufnr, map)
 			map("i", "<cr>", function(bufnr)
 				local path = "~/src/CloudExperiments/" .. state.get_selected_entry(bufnr).value
@@ -104,7 +105,7 @@ M.file_browser = function()
 		attach_mappings = function(_, map)
 			map("i", "<c-d>", function(bufnr)
 				local path = state.get_selected_entry(bufnr).value
-				vim.cmd("cd " .. path)
+				vim.cmd("tcd " .. path)
 				print("changed directory to " .. path)
 			end)
 			return true
@@ -128,7 +129,7 @@ M.buffers = function()
 end
 
 M.open_web = function()
-	generic_picker({
+	M.generic_picker({
 		items = { "https://play.golang.org" },
 		prompt_title = "Open New Tab",
 		mappings = function(prompt_bufnr, map)
@@ -141,6 +142,42 @@ M.open_web = function()
 			return true
 		end,
 	})
+end
+
+M.pick_commit = function(opts)
+	opts = vim.tbl_deep_extend("keep", opts or {}, {
+		limit = 20,
+	})
+	local git_log = vim.fn.system("git log --oneline | head -" .. opts.limit)
+	local commits = {}
+	for line in git_log:gmatch("[^\r\n]+") do
+		table.insert(commits, line)
+	end
+	pickers.new({}, {
+		prompt_title = "Commit to fixup",
+		finder = finders.new_table({
+			results = commits,
+			entry_maker = function(entry)
+				local commit_hash = entry:match("(%w+)(.+)")
+				return {
+					value = commit_hash,
+					display = entry,
+					ordinal = commit_hash,
+				}
+			end,
+		}),
+		sorter = sorters.get_fzy_sorter(),
+		attach_mappings = function(bufnr)
+			actions.select_default:replace(function()
+				actions.close(bufnr)
+				local selection = action_state.get_selected_entry()
+				if opts.callback ~= nil then
+					opts.callback(selection.value)
+				end
+			end)
+			return true
+		end,
+	}):find()
 end
 
 return M
