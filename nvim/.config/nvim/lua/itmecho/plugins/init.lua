@@ -121,7 +121,10 @@ return require("packer").startup(function(use)
 		"nvim-treesitter/nvim-treesitter",
 		before = "neorg",
 		run = ":TSUpdate",
-		requires = { "nvim-treesitter/nvim-treesitter-textobjects" },
+		requires = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			"nvim-treesitter/playground",
+		},
 		config = require("itmecho.plugins.config.nvim_treesitter"),
 	})
 	use({
@@ -142,6 +145,7 @@ return require("packer").startup(function(use)
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-fzy-native.nvim" },
 			{ "nvim-telescope/telescope-file-browser.nvim" },
+			{ "nvim-telescope/telescope-media-files.nvim" },
 		},
 		config = function()
 			local ts = require("telescope")
@@ -170,6 +174,7 @@ return require("packer").startup(function(use)
 			})
 			ts.load_extension("fzy_native")
 			ts.load_extension("file_browser")
+			ts.load_extension("media_files")
 		end,
 	})
 

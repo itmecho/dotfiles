@@ -14,6 +14,7 @@ float() {
 
 handleMissingClass() {
 	comm=$(ps -p "$(xdo pid $id)" -o comm= 2>/dev/null)
+	echo $comm >> /tmp/bspwmlog
 	case $comm in
 		(spotify) toDesktop 4 ;;
 	esac

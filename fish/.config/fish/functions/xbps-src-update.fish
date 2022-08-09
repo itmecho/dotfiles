@@ -28,7 +28,7 @@ function xbps-src-update
 
 		log "Updating $pkg_name from $pkg_ver to $new_ver"
 
-		./xbps-src pkg $pkg
-		xi $pkg
+		./xbps-src pkg $pkg_name
+		xi $pkg_name
 	end
 end

@@ -43,6 +43,7 @@ X_PKGS=(
 	xorg-minimal
 	xrandr
 	xdg-utils
+	xdo
 )
 APPLICATIONS=(
 	barrier-gui

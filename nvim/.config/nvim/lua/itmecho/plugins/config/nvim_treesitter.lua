@@ -21,6 +21,9 @@ return function()
 		indent = {
 			enable = true,
 		},
+		playground = {
+			enabled = true,
+		},
 		textobjects = {
 			select = {
 				enable = true,
