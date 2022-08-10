@@ -20,9 +20,16 @@ local function run_test()
 
 	local path = vim.fn.expand("%:h")
 
-	require("neoterm").run("go test -v -count=1 ./" .. path .. "/..." .. filter, {
-		mode = "fullscreen",
-	})
+	-- Run in neoterm window
+	-- require("neoterm").run("go test -v -count=1 ./" .. path .. "/..." .. filter, {
+	-- 	mode = "fullscreen",
+	-- })
+
+	-- Run in harpoon terminal 1
+	local ht = require("harpoon.term")
+	ht.gotoTerminal(1)
+	ht.sendCommand(1, "go test -count=1 ./" .. path .. "/..." .. filter)
+	vim.cmd("norm G")
 end
 
 vim.api.nvim_create_user_command("RunTest", run_test, {})

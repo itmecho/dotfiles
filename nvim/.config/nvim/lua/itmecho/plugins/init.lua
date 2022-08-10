@@ -32,7 +32,8 @@ return require("packer").startup(function(use)
 		"simrat39/symbols-outline.nvim",
 		config = function()
 			vim.g.symbols_outline = {
-				width = 60,
+				auto_close = true,
+				width = 25,
 			}
 		end,
 	})
@@ -61,7 +62,13 @@ return require("packer").startup(function(use)
 	use("williamboman/nvim-lsp-installer")
 
 	-- Navigation
-	use({ "ThePrimeagen/harpoon", requires = { { "nvim-lua/plenary.nvim" }, { "nvim-lua/popup.nvim" } } })
+	use({
+		"ThePrimeagen/harpoon",
+		requires = { { "nvim-lua/plenary.nvim" }, { "nvim-lua/popup.nvim" } },
+		config = function()
+			require("harpoon").setup({ global_settings = { enter_on_sendcmd = true } })
+		end,
+	})
 
 	-- Notifications
 	use({
