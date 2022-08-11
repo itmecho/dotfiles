@@ -9,9 +9,6 @@ export THEME=tokyonight
 
 #wmname LG3D
 
-pkill pipewire
-pkill pipewire-pulse
-pkill barrier
 pkill dunst
 pkill picom
 pkill polybar
@@ -26,9 +23,9 @@ bspc monitor DisplayPort-0 -d 2 3 4 5 6 7 8
 # bspc monitor DisplayPort-0 -d 1 2 3 4 5 6 7 8 9
 bspc config window_gap 20
 
-pipewire &
-pipewire-pulse &
-barrier &
+ps -C pipewire | rg -q pipewire || pipewire &
+ps -C pipewire-pulse | rg -q pipewire-pulse || pipewire-pulse &
+ps -C barrier | rg -q barrier || barrier &
 dunst &
 #nm-applet &
 picom -f &
