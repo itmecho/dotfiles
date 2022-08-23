@@ -1,6 +1,6 @@
 return {
   s(
-    "reactfunctioncomponent",
+    'reactfunctioncomponent',
     fmt(
       [[
         export default function {}() {{
@@ -11,7 +11,7 @@ return {
     )
   ),
   s(
-    "remixroute",
+    'remixroute',
     fmt(
       [[
         import {{ ActionFunction, LoaderFunction }} from "remix";
@@ -32,7 +32,7 @@ return {
     )
   ),
   s(
-    "remixloader",
+    'remixloader',
     fmt(
       [[
         export const loader: LoaderFunction = async ({{request}}) => {{
@@ -45,7 +45,7 @@ return {
     )
   ),
   s(
-    "remixaction",
+    'remixaction',
     fmt(
       [[
         export const action: ActionFunction = async ({{request}}) => {{

@@ -1,19 +1,19 @@
 return {
-  s("dbg", {
+  s('dbg', {
     t('fmt.Printf("%+v\\n", '),
     i(1),
-    t(")"),
+    t(')'),
   }),
 
   -- Snippet for creating a new main package
-  s("pmain", {
-    t({ "package main", "", "func main() {", "\t" }),
+  s('pmain', {
+    t({ 'package main', '', 'func main() {', '\t' }),
     i(0),
-    t({ "", "}" }),
+    t({ '', '}' }),
   }),
 
   -- Snippet for adding JSON struct tag
-  s("`j", {
+  s('`j', {
     t('`json:"'),
     i(0),
     t('"`'),
@@ -21,7 +21,7 @@ return {
 
   -- Error checks
   s(
-    "iferr",
+    'iferr',
     fmta(
       [[
         if err != nil {
@@ -32,7 +32,7 @@ return {
     )
   ),
   s(
-    "iferris",
+    'iferris',
     fmta(
       [[
         if errors.Is(err, <>) {
@@ -46,7 +46,7 @@ return {
     )
   ),
   s(
-    "type",
+    'type',
     fmta(
       [[
         type <> <>{
@@ -55,13 +55,13 @@ return {
       ]],
       {
         i(1),
-        c(2, { t("interface"), t("struct") }),
+        c(2, { t('interface'), t('struct') }),
         i(0),
       }
     )
   ),
   s(
-    "t.Run",
+    't.Run',
     fmta(
       [[
         t.Run("<>", func(t *testing.T) {

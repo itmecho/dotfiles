@@ -1,6 +1,6 @@
 return {
   s(
-    "res",
+    'res',
     fmt(
       [[
           resource "{}" "{}" {{
@@ -15,7 +15,7 @@ return {
     )
   ),
   s(
-    "mod",
+    'mod',
     fmt(
       [[
           module "{}" {{

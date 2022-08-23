@@ -1,9 +1,9 @@
-local Path = require("plenary.path")
+local Path = require('plenary.path')
 
 local M = {}
 
 local function gen_component_index(dir, name)
-  local path = dir:joinpath("index.tsx")
+  local path = dir:joinpath('index.tsx')
   path:write(
     string.format(
       [[import { %s } from './%s';
@@ -13,17 +13,17 @@ export default %s;]],
       name,
       name
     ),
-    "w"
+    'w'
   )
   return path
 end
 
 local function gen_component_file(dir, name, opts)
   P(opts)
-  local path = dir:joinpath(name .. ".tsx")
+  local path = dir:joinpath(name .. '.tsx')
   local args = { name }
 
-  local tpl = ""
+  local tpl = ''
 
   if opts.solidjs then
     tpl = tpl .. "import { Component } from 'solid-js';\n"
@@ -37,31 +37,31 @@ local function gen_component_file(dir, name, opts)
   end
 
   if opts.cssModule or opts.makeStyles or opts.solidjs then
-    tpl = tpl .. "\n"
+    tpl = tpl .. '\n'
   end
 
-  tpl = tpl .. "export const %s"
+  tpl = tpl .. 'export const %s'
   if opts.solidjs then
-    tpl = tpl .. ": Component"
+    tpl = tpl .. ': Component'
   end
-  tpl = tpl .. " = () => {\n"
+  tpl = tpl .. ' = () => {\n'
   if opts.makeStyles then
-    tpl = tpl .. "  const classes = useStyles();\n\n"
+    tpl = tpl .. '  const classes = useStyles();\n\n'
   end
-  tpl = tpl .. "  return <></>;\n};"
+  tpl = tpl .. '  return <></>;\n};'
 
-  path:write(string.format(tpl, unpack(args)), "w")
+  path:write(string.format(tpl, unpack(args)), 'w')
   return path
 end
 
 local function gen_component_css_module(dir, name)
-  local path = dir:joinpath(name .. ".module.css")
-  path:write("", "w")
+  local path = dir:joinpath(name .. '.module.css')
+  path:write('', 'w')
   return path
 end
 
 local function gen_component_make_styles(dir, name)
-  local path = dir:joinpath("styles.tsx")
+  local path = dir:joinpath('styles.tsx')
   path:write(
     string.format(
       [[import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -75,19 +75,19 @@ export default useStyles;]],
       name,
       name
     ),
-    "w"
+    'w'
   )
   return path
 end
 
 function M.create_component(opts)
-  opts = vim.tbl_deep_extend("keep", opts or {}, {
+  opts = vim.tbl_deep_extend('keep', opts or {}, {
     cssModule = false,
     makeStyles = false,
     solidjs = false,
   })
 
-  vim.ui.input({ prompt = "Component folder: ", default = "src/components/", completion = "dir" }, function(dir)
+  vim.ui.input({ prompt = 'Component folder: ', default = 'src/components/', completion = 'dir' }, function(dir)
     local base_dir = Path:new(dir)
     if not base_dir:exists() then
       base_dir:mkdir({ parents = true })
@@ -106,7 +106,7 @@ function M.create_component(opts)
       gen_component_make_styles(base_dir, component_name)
     end
 
-    vim.cmd("e " .. component_path.filename)
+    vim.cmd('e ' .. component_path.filename)
   end)
 end
 

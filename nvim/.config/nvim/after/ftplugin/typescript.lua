@@ -4,10 +4,10 @@ vim.bo.tabstop = 2
 vim.bo.shiftwidth = 2
 vim.bo.softtabstop = 2
 
-vim.wo.colorcolumn = "101"
+vim.wo.colorcolumn = '101'
 
-if vim.fn.isdirectory(vim.env.PWD .. "/node_modules") then
-  vim.env.PATH = vim.env.PATH .. ":./node_modules/.bin"
+if vim.fn.isdirectory(vim.env.PWD .. '/node_modules') then
+  vim.env.PATH = vim.env.PATH .. ':./node_modules/.bin'
 end
 
 function ESLint()

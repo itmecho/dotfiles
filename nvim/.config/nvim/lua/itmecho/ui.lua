@@ -3,7 +3,7 @@ local M = {}
 function M.open_float(opts)
   local ui = vim.api.nvim_list_uis()[1]
 
-  opts = vim.tbl_deep_extend("keep", opts or {}, {
+  opts = vim.tbl_deep_extend('keep', opts or {}, {
     bufh = nil,
     delete_buf_on_close = true,
     write_on_close = false,
@@ -22,13 +22,13 @@ function M.open_float(opts)
   local height = math.floor((ui.height * opts.scale) - vim.o.cmdheight - 3)
 
   local winopts = {
-    relative = "editor",
+    relative = 'editor',
     width = width,
     height = height,
     row = 0,
     col = 1,
-    style = "minimal",
-    border = "single",
+    style = 'minimal',
+    border = 'single',
   }
 
   -- If scale isn't 100%, calculate the row and column offsets
@@ -41,12 +41,12 @@ function M.open_float(opts)
 
   local winh = vim.api.nvim_open_win(bufh, true, winopts)
 
-  local group_name = "itmecho_ui_" .. os.date("%s")
+  local group_name = 'itmecho_ui_' .. os.date('%s')
   local augroup = vim.api.nvim_create_augroup(group_name, {})
-  vim.api.nvim_create_autocmd("WinClosed", {
+  vim.api.nvim_create_autocmd('WinClosed', {
     callback = function()
       if opts.write_on_close then
-        vim.cmd("write")
+        vim.cmd('write')
       end
       if opts.delete_buf_on_close then
         vim.api.nvim_buf_delete(bufh, {})

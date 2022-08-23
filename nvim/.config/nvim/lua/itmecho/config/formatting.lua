@@ -1,5 +1,5 @@
 local function stdin_fmt(config)
-  config = vim.tbl_deep_extend("force", config, { stdin = true })
+  config = vim.tbl_deep_extend('force', config, { stdin = true })
   return {
     function()
       return config
@@ -8,41 +8,41 @@ local function stdin_fmt(config)
 end
 
 local function prettier(parser)
-  local exe = ""
-  if vim.fn.exists("./node_modules/.bin/prettier") then
-    exe = "./node_modules/.bin/prettier"
+  local exe = ''
+  if vim.fn.exists('./node_modules/.bin/prettier') then
+    exe = './node_modules/.bin/prettier'
   end
 
   return stdin_fmt({
     exe = exe,
     args = {
-      "--parser=" .. parser,
-      "--stdin-filename",
+      '--parser=' .. parser,
+      '--stdin-filename',
       vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
     },
   })
 end
 
-require("formatter").setup({
+require('formatter').setup({
   silence_missing_config = true,
   filetype = {
-    typescript = prettier("typescript"),
-    typescriptreact = prettier("typescript"),
+    typescript = prettier('typescript'),
+    typescriptreact = prettier('typescript'),
     svelte = stdin_fmt({
-      exe = "./node_modules/.bin/prettier",
+      exe = './node_modules/.bin/prettier',
       args = {
-        "--parser=svelte",
-        "--stdin-filename",
+        '--parser=svelte',
+        '--stdin-filename',
         vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
       },
     }),
     lua = stdin_fmt({
-      exe = "stylua",
-      args = { "--search-parent-directories", "-" },
+      exe = 'stylua',
+      args = { '--search-parent-directories', '-' },
     }),
     rust = stdin_fmt({
-      exe = "rustfmt",
-      args = { "--emit=stdout" },
+      exe = 'rustfmt',
+      args = { '--emit=stdout' },
     }),
     go = {
       function()
@@ -53,25 +53,25 @@ require("formatter").setup({
         -- 	}
         -- end
         return {
-          exe = "golines",
-          args = { "-m", "120", "--base-formatter", "goimports" },
+          exe = 'golines',
+          args = { '-m', '120', '--base-formatter', 'goimports' },
           stdin = true,
         }
       end,
     },
     python = stdin_fmt({
-      exe = "black",
-      args = { "-" },
+      exe = 'black',
+      args = { '-' },
     }),
     terraform = stdin_fmt({
-      exe = "terraform",
-      args = { "fmt", "-" },
+      exe = 'terraform',
+      args = { 'fmt', '-' },
     }),
     proto = stdin_fmt({
-      exe = "clang-format",
+      exe = 'clang-format',
       args = {
-        "--assume-filename=file.proto",
-        "--style=Google",
+        '--assume-filename=file.proto',
+        '--style=Google',
       },
     }),
   },

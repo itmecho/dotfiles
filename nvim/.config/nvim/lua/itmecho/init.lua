@@ -1,12 +1,12 @@
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
-require("itmecho.config.autocommands")
-require("itmecho.config.binds")
-require("itmecho.config.commands")
+require('itmecho.config.autocommands')
+require('itmecho.config.binds')
+require('itmecho.config.commands')
 --require("itmecho.config.formatting")
-require("itmecho.config.lsp")
-require("itmecho.config.options")
-require("itmecho.config.settings")
-require("itmecho.config.statusline")
+require('itmecho.config.lsp')
+require('itmecho.config.options')
+require('itmecho.config.settings')
+require('itmecho.config.statusline')
 
-require("itmecho.global")
+require('itmecho.global')

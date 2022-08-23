@@ -1,11 +1,11 @@
 return {
-  s("uuidgen", {
+  s('uuidgen', {
     f(function()
-      return vim.trim(vim.fn.system("uuidgen"))
+      return vim.trim(vim.fn.system('uuidgen'))
     end),
   }),
-  s("todo", {
-    t("TODO(iain): "),
+  s('todo', {
+    t('TODO(iain): '),
     i(0),
   }),
 }
