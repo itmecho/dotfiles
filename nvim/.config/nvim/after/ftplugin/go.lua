@@ -11,19 +11,23 @@ vim.cmd("command! -bang GoLines call v:lua.RunFormatCommand('golines -m 120 --ba
 
 vim.keymap.set("n", "<leader><leader>t", require("itmecho.telescope").gotest)
 
-local function run_test()
+local ts = require("itmecho.ts")
+
+local function run_test(mode)
 	local filter = ""
-	local name = require("itmecho.ts").get_function_name()
-	if name ~= nil then
-		filter = " -run='" .. name .. "'"
+	if mode ~= "all" then
+		local name = nil
+		if mode == "exact" then
+			name = ts.get_test_name()
+		else
+			name = ts.get_function_name()
+		end
+		if name ~= nil then
+			filter = " -run='" .. name .. "'"
+		end
 	end
 
 	local path = vim.fn.expand("%:h")
-
-	-- Run in neoterm window
-	-- require("neoterm").run("go test -v -count=1 ./" .. path .. "/..." .. filter, {
-	-- 	mode = "fullscreen",
-	-- })
 
 	-- Run in harpoon terminal 1
 	local ht = require("harpoon.term")
@@ -32,4 +36,12 @@ local function run_test()
 	vim.cmd("norm G")
 end
 
-vim.api.nvim_create_user_command("RunTest", run_test, {})
+local test_cmd = function(name, mode)
+	vim.api.nvim_create_user_command(name, function()
+		run_test(mode)
+	end, {})
+end
+
+test_cmd("RunTest", "exact")
+test_cmd("RunTestFunc", "function")
+test_cmd("RunTests", "all")

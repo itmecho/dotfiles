@@ -8,6 +8,7 @@ local sorters = require("telescope.sorters")
 local state = require("telescope.actions.state")
 
 local neoterm = require("neoterm")
+local iutils = require("itmecho.utils")
 
 local M = {}
 
@@ -39,16 +40,23 @@ end
 M.orca = function()
 	M.generic_picker({
 		prompt_title = "Orca",
-		command = "bazel query 'kind(container_image, //...)' 2>/dev/null | grep 'image$' | sed -E 's/.*:(.*).image/\\1/'",
+		command = [[rg -o -r '$1' --no-line-number '".+": "//.+:(.+).image"' BUILD.bazel | sort | uniq]],
 		cwd = "~/src/CloudExperiments",
 		mappings = function(prompt_bufnr, map)
 			map("i", "<cr>", function()
 				actions.close(prompt_bufnr)
-				neoterm.run("orca variant update " .. state.get_selected_entry().value)
+				iutils.run_in_term(1, "orca variant update " .. state.get_selected_entry().value)
+			end)
+			map("i", "<c-d>", function()
+				actions.close(prompt_bufnr)
+				iutils.run_in_term(
+					1,
+					"orca variant update -v default --allow-default " .. state.get_selected_entry().value
+				)
 			end)
 			map("i", "<C-l>", function()
 				actions.close(prompt_bufnr)
-				neoterm.run("orca variant logs " .. state.get_selected_entry().value)
+				iutils.run_in_term(1, "orca variant logs " .. state.get_selected_entry().value)
 			end)
 			return true
 		end,

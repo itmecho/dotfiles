@@ -1,7 +1,9 @@
+local ht = require('harpoon.term')
+
 local M = {}
 
 M.delete_buffers = function(opts)
-  opts = vim.tbl_extend("keep", opts or {}, {
+  opts = vim.tbl_extend('keep', opts or {}, {
     keep_current = false,
   })
 
@@ -12,7 +14,7 @@ M.delete_buffers = function(opts)
     -- Skip current buffer if keep_current is set
     if not (buf == current_buf and opts.keep_current) then
       -- Only close listed buffers
-      local listed = vim.api.nvim_buf_get_option(buf, "buflisted")
+      local listed = vim.api.nvim_buf_get_option(buf, 'buflisted')
 
       if listed then
         vim.api.nvim_buf_delete(buf, {})
@@ -21,21 +23,19 @@ M.delete_buffers = function(opts)
     end
   end
 
-  print("closed " .. count .. " buffers")
+  print('closed ' .. count .. ' buffers')
 end
 
 local function install_lsp_servers(update)
-  local installer = require("nvim-lsp-installer")
-  local servers = require("nvim-lsp-installer.servers")
+  local installer = require('nvim-lsp-installer')
+  local servers = require('nvim-lsp-installer.servers')
 
   local wanted = {
-    "eslint",
-    "gopls",
-    "rust_analyzer",
-    "sumneko_lua",
-    "svelte",
-    "tailwindcss",
-    "tsserver",
+    'gopls',
+    'rust_analyzer',
+    'sumneko_lua',
+    'tailwindcss',
+    'tsserver',
   }
 
   installer.display()
@@ -47,50 +47,19 @@ local function install_lsp_servers(update)
         srv:install()
       end
     else
-      print(server .. " is not a valid lsp server")
+      print(server .. ' is not a valid lsp server')
     end
   end
 end
 
 function M.file_exists(path)
-  local f = io.open(path, "r")
+  local f = io.open(path, 'r')
   if f ~= nil then
     io.close(f)
     return true
   else
     return false
   end
-end
-
-function M.journal()
-  require("itmecho.ui").open_float({ write_on_close = true })
-  local date = os.date("%Y-%m-%d")
-  local home = os.getenv("HOME")
-  local filepath = string.format("%s/Documents/journal/%s.norg", home, date)
-  vim.cmd("edit " .. filepath)
-
-  if not M.file_exists(filepath) then
-    local day = os.date("%-d")
-    local day_suffix = "th"
-    local day_last_digit = string.sub(day, -1)
-    if day_last_digit == "1" then
-      day_suffix = "st"
-    elseif day_last_digit == "2" then
-      day_suffix = "nd"
-    elseif day_last_digit == "3" then
-      day_suffix = "rd"
-    end
-
-    local pretty_date = os.date("%A %-d" .. day_suffix .. " %B, %Y")
-    vim.api.nvim_buf_set_lines(0, 0, 1, true, { "* " .. pretty_date, "" })
-  end
-end
-
-function M.todo()
-  require("itmecho.ui").open_float({ write_on_close = true })
-  local home = os.getenv("HOME")
-  vim.cmd(string.format("edit %s/Documents/todo.norg", home))
-  vim.keymap.set("n", "q", ":q<cr>", { buffer = true })
 end
 
 function M.install_lsp_servers()
@@ -104,7 +73,13 @@ end
 function M.stop_all_lsp_clients()
   local clients = vim.lsp.get_active_clients()
   vim.lsp.stop_client(clients)
-  print("stopped " .. #clients .. " lsp clients")
+  print('stopped ' .. #clients .. ' lsp clients')
+end
+
+function M.run_in_term(term_idx, cmd)
+  ht.gotoTerminal(term_idx)
+  ht.sendCommand(term_idx, cmd)
+  vim.cmd('norm G')
 end
 
 return M
