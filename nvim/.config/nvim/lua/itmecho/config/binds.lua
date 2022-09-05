@@ -32,6 +32,8 @@ vim.keymap.set('v', '<', '<gv')
 
 vim.keymap.set('n', '<esc>', '<cmd>noh<CR><esc>')
 vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>')
 vim.keymap.set('n', '<C-h>', '<cmd>tabprevious<cr>')
 vim.keymap.set('n', '<C-l>', '<cmd>tabnext<cr>')

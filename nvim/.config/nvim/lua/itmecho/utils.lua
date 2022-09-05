@@ -17,7 +17,7 @@ M.delete_buffers = function(opts)
       local listed = vim.api.nvim_buf_get_option(buf, 'buflisted')
 
       if listed then
-        vim.api.nvim_buf_delete(buf, {})
+        vim.api.nvim_buf_delete(buf, { force = vim.api.nvim_buf_get_name(buf):find('term://', 1, true) == 1 })
         count = count + 1
       end
     end
