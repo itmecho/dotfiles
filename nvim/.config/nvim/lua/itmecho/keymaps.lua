@@ -68,7 +68,9 @@ vim.keymap.set('n', '<leader>gp', ':Neogit push<CR>p')
 vim.keymap.set('n', '<leader>gP', ':Neogit push<CR>-up')
 vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<CR>')
 vim.keymap.set('n', '<leader>gB', '<cmd>Neogit branch<CR>')
-vim.keymap.set('n', '<leader>gx', require('gitsigns').blame_line)
+vim.keymap.set('n', '<leader>gx', function()
+  require('gitsigns').blame_line()
+end)
 
 vim.keymap.set('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next({wrap = true})<CR>')
 vim.keymap.set('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
@@ -82,9 +84,11 @@ end)
 vim.keymap.set('n', '<leader>Sp', function()
   require('itmecho.utils').run_in_term(1, 'barx proto')
 end)
-vim.keymap.set('n', '<leader>So', require('itmecho.telescope').orca)
+vim.keymap.set('n', '<leader>So', function() require('itmecho.telescope').orca() end)
 
-vim.keymap.set('n', '<leader>hh', require('harpoon.ui').toggle_quick_menu)
+vim.keymap.set('n', '<leader>hh', function()
+  require('harpoon.ui').toggle_quick_menu()
+end)
 vim.keymap.set('n', '<leader>ha', "<cmd>lua require('harpoon.mark').add_file();require('notify')('Added file')<cr>")
 vim.keymap.set('n', '<leader>h1', "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
 vim.keymap.set('n', '<leader>h2', "<cmd>lua require('harpoon.ui').nav_file(2)<cr>")
@@ -95,8 +99,13 @@ vim.keymap.set('n', '<leader>H2', "<cmd>lua require('harpoon.term').gotoTerminal
 vim.keymap.set('n', '<leader>H3', "<cmd>lua require('harpoon.term').gotoTerminal(3)<cr>")
 vim.keymap.set('n', '<leader>H4', "<cmd>lua require('harpoon.term').gotoTerminal(4)<cr>")
 
-vim.keymap.set('n', 'ghh', require('harpoon.ui').toggle_quick_menu)
-vim.keymap.set('n', 'ghg', "<cmd>lua require('harpoon.mark').add_file();require('notify')('Added file')<cr>")
+vim.keymap.set('n', 'ghh', function()
+  require('harpoon.ui').toggle_quick_menu()
+end)
+vim.keymap.set('n', 'ghg', function()
+  require('harpoon.mark').add_file()
+  require('notify')('Added file')
+end)
 for _, mode in ipairs({ 'n', 't' }) do
   vim.keymap.set(mode, 'gha', "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
   vim.keymap.set(mode, 'ghs', "<cmd>lua require('harpoon.ui').nav_file(2)<cr>")
@@ -107,14 +116,6 @@ for _, mode in ipairs({ 'n', 't' }) do
   vim.keymap.set(mode, 'gtd', "<cmd>lua require('harpoon.term').gotoTerminal(3)<cr>")
   vim.keymap.set(mode, 'gtf', "<cmd>lua require('harpoon.term').gotoTerminal(4)<cr>")
 end
-
--- DAP
-local dap = require('dap')
-vim.keymap.set('n', '<F1>', dap.continue)
-vim.keymap.set('n', '<F2>', dap.step_over)
-vim.keymap.set('n', '<F3>', dap.step_into)
-vim.keymap.set('n', '<F4>', dap.step_out)
-vim.keymap.set('n', '<leader>B', dap.toggle_breakpoint)
 
 -- Abbreviations
 vim.cmd('cnoreabbrev W! w!')

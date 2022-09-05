@@ -44,4 +44,4 @@ vim.api.nvim_create_user_command('Reset', function()
   vim.cmd([[ tcd $CLOUDPATH ]])
 end, {})
 
-vim.api.nvim_create_user_command('GitFixup', require('itmecho.git').fixup, {})
+vim.api.nvim_create_user_command('GitFixup', function() require('itmecho.git').fixup() end, {})

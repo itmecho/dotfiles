@@ -1,32 +1,36 @@
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    print('Installing packer.nvim')
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    print('Enabling packer.nvim')
+    vim.cmd([[packadd packer.nvim]])
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
 return require('packer').startup(function(use)
+  local use_file = function(name)
+    use(require('itmecho.plugins.' .. name))
+  end
   -- Packer
   use({ 'wbthomason/packer.nvim' })
 
   -- LSP
-  use('neovim/nvim-lspconfig')
+  use_file('lsp-setup')
   use({
     'j-hui/fidget.nvim',
     config = function()
-      require('fidget').setup()
+      require('fidget').setup({
+        timer = {
+          fidget_decay = 10000,
+        },
+      })
     end,
-  })
-
-  -- Completion
-  use('hrsh7th/cmp-nvim-lsp')
-  use('hrsh7th/cmp-nvim-lua')
-  use('hrsh7th/cmp-buffer')
-  use('hrsh7th/cmp-path')
-  use({
-    'L3MON4D3/LuaSnip',
-    config = function()
-      require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/lua/itmecho/snippets' })
-    end,
-  })
-  use({ 'saadparwaiz1/cmp_luasnip', requires = { 'L3MON4D3/LuaSnip' } })
-  use({
-    'hrsh7th/nvim-cmp',
-    requires = { 'onsails/lspkind-nvim' },
-    config = require('itmecho.plugins.config.nvim_cmp'),
   })
   use({
     'simrat39/symbols-outline.nvim',
@@ -36,12 +40,6 @@ return require('packer').startup(function(use)
         width = 25,
       }
     end,
-  })
-
-  use({
-    'jose-elias-alvarez/null-ls.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = require('itmecho.plugins.config.null_ls'),
   })
   use('nvim-lua/lsp_extensions.nvim')
   use({
@@ -59,7 +57,25 @@ return require('packer').startup(function(use)
       })
     end,
   })
-  use('williamboman/nvim-lsp-installer')
+  use({
+    'onsails/lspkind.nvim',
+    config = function()
+      require('lspkind').init({ preset = 'codicons' })
+    end,
+  })
+  use('stevearc/dressing.nvim')
+
+  -- Completion
+  use({
+    'L3MON4D3/LuaSnip',
+    config = function()
+      require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/lua/itmecho/snippets' })
+    end,
+  })
+  use({ 'saadparwaiz1/cmp_luasnip', requires = { 'L3MON4D3/LuaSnip' } })
+  use_file('cmp')
+
+  use_file('null_ls')
 
   -- Navigation
   use({
@@ -85,111 +101,14 @@ return require('packer').startup(function(use)
     end,
   })
 
-  -- DAP
-  use('mfussenegger/nvim-dap')
-  use({
-    'rcarriga/nvim-dap-ui',
-    requires = { 'mfussenegger/nvim-dap' },
-    config = function()
-      local dap, dapui = require('dap'), require('dapui')
-      require('dapui').setup({
-        layouts = {
-          {
-            elements = {
-              'scopes',
-            },
-            size = 40,
-            position = 'left',
-          },
-        },
-      })
-
-      dap.listeners.after.event_initialized['dapui_config'] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated['dapui_config'] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited['dapui_config'] = function()
-        dapui.close()
-      end
-    end,
-  })
-  use({
-    'leoluz/nvim-dap-go',
-    requires = { 'mfussenegger/nvim-dap' },
-    config = function()
-      require('dap-go').setup()
-    end,
-  })
-
   -- Treesitter
-  use({
-    'nvim-treesitter/nvim-treesitter',
-    before = 'neorg',
-    run = ':TSUpdate',
-    requires = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/playground',
-    },
-    config = require('itmecho.plugins.config.nvim_treesitter'),
-  })
-  use({
-    'nvim-treesitter/nvim-treesitter-context',
-    requires = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('treesitter-context').setup({
-        enable = true,
-      })
-    end,
-  })
+  use_file('treesitter')
 
   -- Telescope
-  use({
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      { 'nvim-lua/popup.nvim' },
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzy-native.nvim' },
-      { 'nvim-telescope/telescope-file-browser.nvim' },
-      { 'nvim-telescope/telescope-media-files.nvim' },
-    },
-    config = function()
-      local ts = require('telescope')
-      ts.setup({
-        defaults = require('telescope.themes').get_ivy(),
-        color_devicons = true,
-        shorten_path = true,
-        mappings = {
-          i = {
-            ['<C-q>'] = 'send_to_qflist',
-          },
-        },
-        pickers = {
-          find_files = {
-            find_command = { 'fd', '--type', 'f', '--hidden', '--exclude', '.git' },
-          },
-          buffers = {
-            sort_lastused = true,
-            mappings = {
-              i = {
-                ['<c-d>'] = 'delete_buffer',
-              },
-            },
-          },
-        },
-      })
-      ts.load_extension('fzy_native')
-      ts.load_extension('file_browser')
-      ts.load_extension('media_files')
-    end,
-  })
-
-  use({ 'stevearc/dressing.nvim', config = function() end })
+  use_file('telescope')
 
   -- Statusline
-  use('nvim-lualine/lualine.nvim')
-  use('nvim-lua/lsp-status.nvim')
+  use_file('lualine')
 
   -- Git
   use({
@@ -208,36 +127,6 @@ return require('packer').startup(function(use)
     config = function()
       require('gitsigns').setup()
     end,
-  })
-
-  -- Neorg
-  use({
-    'nvim-neorg/neorg',
-    config = function()
-      require('neorg').setup({
-        load = {
-          ['core.defaults'] = {},
-          ['core.norg.dirman'] = {
-            config = {
-              workspaces = {
-                journal = '~/Documents/journal',
-                notes = '~/Documents/notes',
-                presentations = '~/Documents/presentations',
-              },
-            },
-          },
-          ['core.norg.completion'] = {
-            config = {
-              engine = 'nvim-cmp',
-            },
-          },
-          ['core.norg.concealer'] = {},
-          ['core.integrations.nvim-cmp'] = {},
-          ['core.presenter'] = { config = { zen_mode = 'zen-mode' } },
-        },
-      })
-    end,
-    requires = { 'nvim-lua/plenary.nvim', 'folke/zen-mode.nvim' },
   })
 
   -- Misc UI
@@ -275,17 +164,11 @@ return require('packer').startup(function(use)
   -- use "itmecho/neoterm.nvim"
   use('~/src/neoterm.nvim')
 
-  -- Dart
-  use('dart-lang/dart-vim-plugin')
-
   -- Fish
   use('blankname/vim-fish')
 
   -- Kitty
   use('fladson/vim-kitty')
-
-  -- MDX
-  use('jxnblk/vim-mdx-js')
 
   -- Prettier
   use('prettier/vim-prettier')
@@ -302,4 +185,17 @@ return require('packer').startup(function(use)
   use({ 'dracula/vim', as = 'dracula' })
   use('shaunsingh/nord.nvim')
   use('folke/tokyonight.nvim')
+
+  if packer_bootstrap then
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'PackerComplete',
+      callback = function()
+        vim.cmd('colorscheme ' .. vim.env.THEME:lower())
+      end,
+      once = true,
+    })
+    require('packer').sync()
+  else
+    vim.cmd('colorscheme ' .. vim.env.THEME:lower())
+  end
 end)
