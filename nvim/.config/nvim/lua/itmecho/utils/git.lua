@@ -1,4 +1,4 @@
-local ts = require('itmecho.telescope')
+local ts = require('itmecho.utils.telescope')
 local M = {}
 
 M.fixup = function()

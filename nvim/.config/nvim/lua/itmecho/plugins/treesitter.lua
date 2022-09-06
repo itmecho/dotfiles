@@ -1,6 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  run = function()
+  run = function(_, _, mode)
     if vim.fn.exists(':TSUpdate') == 2 then
       vim.cmd(':TSUpdate')
     end

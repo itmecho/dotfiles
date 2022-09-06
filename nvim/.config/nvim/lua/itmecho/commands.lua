@@ -26,7 +26,7 @@ end
 
 vim.api.nvim_create_user_command('GenSolidJSComponent', function(opts)
   local args = parse_args(opts.args)
-  require('itmecho.gen').create_component(args)
+  require('itmecho.utils.gen').create_component(args)
 end, { nargs = '*' })
 
 vim.api.nvim_create_user_command('CreatePR', function()
@@ -44,4 +44,6 @@ vim.api.nvim_create_user_command('Reset', function()
   vim.cmd([[ tcd $CLOUDPATH ]])
 end, {})
 
-vim.api.nvim_create_user_command('GitFixup', function() require('itmecho.git').fixup() end, {})
+vim.api.nvim_create_user_command('GitFixup', function()
+  require('itmecho.utils.git').fixup()
+end, {})

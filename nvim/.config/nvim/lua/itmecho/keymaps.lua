@@ -54,7 +54,7 @@ vim.keymap.set('n', '<leader>bl', '<cmd>Telescope buffers<cr>')
 vim.keymap.set('n', '<leader>bc', "<cmd>lua require('itmecho.utils').delete_buffers({ keep_current = true })<cr>")
 vim.keymap.set('n', '<leader>bx', "<cmd>lua require('itmecho.utils').delete_buffers()<cr>")
 
-vim.keymap.set('n', '<leader>po', "<cmd>lua require('itmecho.telescope').cd_to_project()<CR>")
+vim.keymap.set('n', '<leader>po', "<cmd>lua require('itmecho.utils.telescope').cd_to_project()<CR>")
 vim.keymap.set('n', '<leader>pr', '<cmd>cd ~/src/CloudExperiments<CR>')
 
 vim.keymap.set('n', '<leader>qo', '<cmd>copen<cr>')
@@ -84,7 +84,7 @@ end)
 vim.keymap.set('n', '<leader>Sp', function()
   require('itmecho.utils').run_in_term(1, 'barx proto')
 end)
-vim.keymap.set('n', '<leader>So', function() require('itmecho.telescope').orca() end)
+vim.keymap.set('n', '<leader>So', function() require('itmecho.utils.telescope').orca() end)
 
 vim.keymap.set('n', '<leader>hh', function()
   require('harpoon.ui').toggle_quick_menu()

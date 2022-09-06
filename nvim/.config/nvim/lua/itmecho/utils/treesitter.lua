@@ -2,7 +2,7 @@ local actions = require('telescope.actions')
 local actions_state = require('telescope.actions.state')
 local ts = require('nvim-treesitter.ts_utils')
 local ht = require('harpoon.term')
-local generic_picker = require('itmecho.telescope').generic_picker
+local generic_picker = require('itmecho.utils.telescope').generic_picker
 
 local M = {}
 

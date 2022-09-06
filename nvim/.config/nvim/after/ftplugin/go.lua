@@ -11,7 +11,7 @@ vim.cmd("command! -bang GoLines call v:lua.RunFormatCommand('golines -m 120 --ba
 
 vim.keymap.set('n', '<leader><leader>t', require('itmecho.telescope').gotest)
 
-local ts = require('itmecho.ts')
+local ts = require('itmecho.utils.treesitter')
 
 local function run_test(mode)
   local filter = ''

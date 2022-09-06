@@ -41,7 +41,7 @@ function M.open_float(opts)
 
   local winh = vim.api.nvim_open_win(bufh, true, winopts)
 
-  local group_name = 'itmecho_ui_' .. os.date('%s')
+  local group_name = 'itmecho.utils.ui_' .. os.date('%s')
   local augroup = vim.api.nvim_create_augroup(group_name, {})
   vim.api.nvim_create_autocmd('WinClosed', {
     callback = function()
