@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
     use(require('itmecho.plugins.' .. name))
   end
   -- Packer
-  use({ 'wbthomason/packer.nvim' })
+  use('wbthomason/packer.nvim')
 
   -- LSP
   use_file('lsp-setup')
@@ -94,13 +94,6 @@ return require('packer').startup(function(use)
     end,
   })
 
-  use({
-    'kyazdani42/nvim-tree.lua',
-    config = function()
-      require('nvim-tree').setup()
-    end,
-  })
-
   -- Treesitter
   use_file('treesitter')
 
@@ -121,7 +114,6 @@ return require('packer').startup(function(use)
       })
     end,
   })
-  use('pwntester/octo.nvim')
   use({
     'lewis6991/gitsigns.nvim',
     config = function()
@@ -151,6 +143,7 @@ return require('packer').startup(function(use)
       require('colorizer').setup()
     end,
   })
+  use('tversteeg/registers.nvim')
 
   -- QoL
   use({
@@ -166,9 +159,6 @@ return require('packer').startup(function(use)
 
   -- Fish
   use('blankname/vim-fish')
-
-  -- Kitty
-  use('fladson/vim-kitty')
 
   -- Prettier
   use('prettier/vim-prettier')
