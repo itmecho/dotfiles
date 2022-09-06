@@ -1,5 +1,10 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  run = function()
+    if vim.fn.exists(':TSUpdate') == 2 then
+      vim.cmd(':TSUpdate')
+    end
+  end,
   requires = {
     { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
     'nvim-treesitter/nvim-treesitter-context',
