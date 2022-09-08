@@ -8,7 +8,7 @@ function xbps-src-update
 	log "Updating srcs"
 	git pull
 
-	set packages (fd '.xbps' ./hostdir/binpkgs/ | sed -E 's,.*/(.*)-(([0-9_\.]+)+)\..*$,\1:\2,')
+	set packages (fd '.xbps' ./hostdir/binpkgs/ | sed -E 's,.*/(.*)-(([0-9_\.]+)+)\..*$,\1,' | sort | uniq)
 	log "Found installed packages"
 	for pkg in $packages
 		echo "    $pkg"

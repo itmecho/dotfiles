@@ -33,6 +33,7 @@ source $HOME/.config/themes/$THEME.theme
 
 bind \ea $HOME/.config/tmux/manage.fish
 bind \ew "tmux new-session -s work -c $CLOUDPATH"
+bind \cb select-branch
 
 if test (uname) = "Darwin"
 	# MacOS specific config

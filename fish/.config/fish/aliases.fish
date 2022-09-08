@@ -19,6 +19,7 @@ alias g git
 alias ga 'git add'
 alias gapa 'git add --interactive --patch'
 alias gb 'git switch'
+alias gbb 'git branch -a --format "%(refname:short)" | fzf | sed "s,origin/,," | xargs git switch'
 alias gc 'git commit'
 alias gco 'git checkout'
 alias gcq 'git commit --amend --no-edit'
