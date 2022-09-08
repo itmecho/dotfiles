@@ -1,9 +1,9 @@
 local itmecho = vim.api.nvim_create_augroup('itmecho', {})
-vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern = 'itmecho/plugins/*',
-  command = 'luafile <afile> | PackerCompile',
-  group = itmecho,
-})
+-- vim.api.nvim_create_autocmd('BufWritePost', {
+--   pattern = '*itmecho/plugins*',
+--   command = 'luafile <afile> | PackerCompile',
+--   group = itmecho,
+-- })
 vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     require('nvim-web-devicons').setup()

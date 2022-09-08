@@ -47,3 +47,11 @@ end, {})
 vim.api.nvim_create_user_command('GitFixup', function()
   require('itmecho.utils.git').fixup()
 end, {})
+
+vim.api.nvim_create_user_command('GoPlayground', function()
+  require('itmecho.utils.go').playground()
+end, {})
+
+vim.api.nvim_create_user_command('FindProto', function()
+  require('itmecho.utils.work').find_proto()
+end, {})

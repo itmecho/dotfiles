@@ -9,8 +9,6 @@ vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 vim.cmd("command! -bang GoLines call v:lua.RunFormatCommand('golines -m 120 --base-formatter=gofmt')")
 
-vim.keymap.set('n', '<leader><leader>t', require('itmecho.telescope').gotest)
-
 local ts = require('itmecho.utils.treesitter')
 
 local function run_test(mode)

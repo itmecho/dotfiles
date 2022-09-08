@@ -23,16 +23,6 @@ return require('packer').startup(function(use)
   -- LSP
   use_file('lsp-setup')
   use({
-    'j-hui/fidget.nvim',
-    config = function()
-      require('fidget').setup({
-        timer = {
-          fidget_decay = 10000,
-        },
-      })
-    end,
-  })
-  use({
     'simrat39/symbols-outline.nvim',
     config = function()
       vim.g.symbols_outline = {
@@ -151,6 +141,9 @@ return require('packer').startup(function(use)
     config = function()
       require('Comment').setup()
     end,
+  })
+  use({
+    'ggandor/leap.nvim',
   })
 
   -- Neoterm
