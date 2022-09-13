@@ -14,6 +14,9 @@ end)
 local nnoremap = function(left, right, opts)
   vim.keymap.set('n', left, right, opts)
 end
+local tnoremap = function(left, right, opts)
+  vim.keymap.set('t', left, right, opts)
+end
 local vnoremap = function(left, right, opts)
   vim.keymap.set('n', left, right, opts)
 end
@@ -48,10 +51,10 @@ nnoremap('<leader>tf', "<cmd>lua require'neoterm'.open({mode='fullscreen'})<CR>"
 nnoremap('<leader>ts', ':NeotermRun ', { silent = false })
 nnoremap('<leader>tr', '<cmd>NeotermRerun<CR>')
 nnoremap('<leader>tx', '<cmd>NeotermExit<CR>')
-nnoremap('<leader>tc', '<cmd>NeotermClose<CR>')
-nnoremap('<leader>tt', '<cmd>NeotermToggle<CR>')
-nnoremap('<leader>tn', '<C-\\><C-n>')
-nnoremap('<leader>tx', '<cmd>NeotermExit<CR>')
+tnoremap('<leader>tc', '<cmd>NeotermClose<CR>')
+tnoremap('<leader>tt', '<cmd>NeotermToggle<CR>')
+tnoremap('<leader>tn', '<C-\\><C-n>')
+tnoremap('<leader>tx', '<cmd>NeotermExit<CR>')
 
 -- Files
 nnoremap('<leader>ff', '<cmd>Telescope find_files<cr>')
@@ -79,6 +82,7 @@ end)
 nnoremap('<leader>So', function()
   require('itmecho.utils.work').orca()
 end)
+nnoremap('<leader>ft', '<cmd>Telescope grep_string search=TODO(iain)<cr>')
 
 -- Git
 nnoremap('<leader>gs', '<cmd>Neogit<CR>')
