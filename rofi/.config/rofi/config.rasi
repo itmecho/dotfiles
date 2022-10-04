@@ -3,5 +3,3 @@ configuration {
   show-icons: true;
   font: "Roboto 12";
 }
-
-@theme "nord"

@@ -34,14 +34,27 @@ return {
           end,
           timeout = 20000,
         }),
+        nl.builtins.diagnostics.buf.with({
+          condition = function()
+            local check = Path:new(vim.loop.cwd()):joinpath('buf.yaml'):exists()
+            if check then
+              print('enabled buf fmt')
+            end
+            return check
+          end,
+        }),
         nl.builtins.diagnostics.eslint_d.with({
           cwd = function()
             return vim.loop.cwd()
           end,
           timeout = 20000,
         }),
-        nl.builtins.diagnostics.protolint,
         nl.builtins.formatting.black,
+        nl.builtins.formatting.buf.with({
+          condition = function()
+            return Path:new(vim.loop.cwd()):joinpath('buf.yaml'):exists()
+          end,
+        }),
         nl.builtins.formatting.eslint_d.with({
           condition = function()
             return Path:new(vim.loop.cwd(), '.eslintrc.js')

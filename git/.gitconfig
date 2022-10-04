@@ -26,7 +26,6 @@
 [alias]
 	new-branch = "!f() { git fetch origin develop:develop && git switch -c $1 develop; }; f"
 	prune-local = !git fetch -p && git branch -vv | rg gone | awk '{print $1}' | xargs -r git branch -D
-	rebase-develop = !git fetch origin develop:develop && git rebase -i develop
 	review = ! gh pr list -l team/leibniz --search 'review:required draft:false' --web
 	pr = !gh pr create -d --assignee itmecho -l team/leibniz --reviewer supersparks/leibniz
 	a = add
@@ -36,3 +35,4 @@
 	d = diff
 	cfu = commit --fixup
 	w = worktree
+	rd = !git switch develop && git pull && git switch - && git log --oneline | head -n 20 | fzf | cut -d' ' -f1 | xargs git rebase --onto develop -i

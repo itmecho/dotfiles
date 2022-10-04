@@ -7,7 +7,9 @@ vim.bo.softtabstop = 4
 
 vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-vim.cmd("command! -bang GoLines call v:lua.RunFormatCommand('golines -m 120 --base-formatter=gofmt')")
+vim.api.nvim_create_user_command('GoToTests', function()
+  require('itmecho.utils.go').go_to_tests()
+end, {})
 
 local ts = require('itmecho.utils.treesitter')
 

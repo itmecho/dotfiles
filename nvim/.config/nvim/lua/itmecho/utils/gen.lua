@@ -64,13 +64,15 @@ local function gen_component_make_styles(dir, name)
   local path = dir:joinpath('styles.tsx')
   path:write(
     string.format(
-      [[import { makeStyles, Theme } from '@material-ui/core/styles';
+      [[
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme: Theme) => ({
 
 });
 
-export default useStyles;]],
+export default useStyles;
+]],
       name,
       name,
       name

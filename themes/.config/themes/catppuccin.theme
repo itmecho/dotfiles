@@ -1,0 +1,8 @@
+export THEME=catppuccin
+export THEME_BG=24273a
+export THEME_FG=cad3f5
+export THEME_BLACK=181926
+export THEME_RED=ed8796
+export THEME_GREEN=a6da95
+export THEME_YELLOW=eed49f
+export THEME_BLUE=8aadf4

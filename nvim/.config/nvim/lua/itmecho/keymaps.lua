@@ -18,7 +18,7 @@ local tnoremap = function(left, right, opts)
   vim.keymap.set('t', left, right, opts)
 end
 local vnoremap = function(left, right, opts)
-  vim.keymap.set('n', left, right, opts)
+  vim.keymap.set('v', left, right, opts)
 end
 
 -- QoL
@@ -33,6 +33,17 @@ nnoremap('<leader>y', '"+y')
 nnoremap('<leader>y', '"+y')
 vnoremap('>', '>gv')
 vnoremap('<', '<gv')
+vnoremap('<C-j>', ":m '>+1<cr>gv=gv")
+vnoremap('<C-k>', ":m '<-2<cr>gv=gv")
+
+-- Selection
+nnoremap('vf', 'ggVG')
+
+-- Find/replace
+nnoremap('<leader>rl', '"ryiw:s/<c-r>r//g<left><left>')
+nnoremap('<leader>rf', '"ryiw:%s/<c-r>r//g<left><left>')
+vnoremap('<leader>rl', '"ry:s/<c-r>r//g<left><left>')
+vnoremap('<leader>rf', '"ry:%s/<c-r>r//g<left><left>')
 
 -- Quickfix
 nnoremap('<leader>qo', '<cmd>copen<cr>')
@@ -94,6 +105,9 @@ nnoremap('<leader>gB', '<cmd>Neogit branch<CR>')
 nnoremap('<leader>gx', function()
   require('gitsigns').blame_line()
 end)
+nnoremap('<leader>gX', function()
+  require('gitsigns').blame_line({ full = true })
+end)
 
 -- Diagnostics
 nnoremap('<leader>dn', '<cmd>lua vim.diagnostic.goto_next({wrap = true})<CR>')
@@ -103,18 +117,6 @@ nnoremap('<leader>dd', '<cmd>TroubleToggle lsp_document_diagnostics<CR>')
 nnoremap('<leader>dw', '<cmd>TroubleToggle lsp_workspace_diagnostics<CR>')
 
 -- Harpoon
-nnoremap('<leader>hh', function()
-  require('harpoon.ui').toggle_quick_menu()
-end)
-nnoremap('<leader>ha', "<cmd>lua require('harpoon.mark').add_file();require('notify')('Added file')<cr>")
-nnoremap('<leader>h1', "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
-nnoremap('<leader>h2', "<cmd>lua require('harpoon.ui').nav_file(2)<cr>")
-nnoremap('<leader>h3', "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
-nnoremap('<leader>h4', "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
-nnoremap('<leader>H1', "<cmd>lua require('harpoon.term').gotoTerminal(1)<cr>")
-nnoremap('<leader>H2', "<cmd>lua require('harpoon.term').gotoTerminal(2)<cr>")
-nnoremap('<leader>H3', "<cmd>lua require('harpoon.term').gotoTerminal(3)<cr>")
-nnoremap('<leader>H4', "<cmd>lua require('harpoon.term').gotoTerminal(4)<cr>")
 nnoremap('ghh', function()
   require('harpoon.ui').toggle_quick_menu()
 end)

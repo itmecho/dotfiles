@@ -133,7 +133,19 @@ return require('packer').startup(function(use)
       require('colorizer').setup()
     end,
   })
-  use('tversteeg/registers.nvim')
+  use({
+    'anuvyklack/windows.nvim',
+    requires = {
+      'anuvyklack/middleclass',
+      'anuvyklack/animation.nvim',
+    },
+    config = function()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+      require('windows').setup()
+    end,
+  })
 
   -- QoL
   use({
@@ -168,6 +180,15 @@ return require('packer').startup(function(use)
   use({ 'dracula/vim', as = 'dracula' })
   use('shaunsingh/nord.nvim')
   use('folke/tokyonight.nvim')
+  use({
+    'catppuccin/nvim',
+    as = 'catppuccin',
+    config = function()
+      require('catppuccin').setup({
+        transparent_background = true,
+      })
+    end,
+  })
 
   if packer_bootstrap then
     vim.api.nvim_create_autocmd('User', {

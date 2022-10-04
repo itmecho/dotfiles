@@ -1,9 +1,4 @@
 local itmecho = vim.api.nvim_create_augroup('itmecho', {})
--- vim.api.nvim_create_autocmd('BufWritePost', {
---   pattern = '*itmecho/plugins*',
---   command = 'luafile <afile> | PackerCompile',
---   group = itmecho,
--- })
 vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     require('nvim-web-devicons').setup()
@@ -27,6 +22,13 @@ vim.api.nvim_create_autocmd('BufRead', {
   pattern = '*.astro',
   callback = function()
     vim.cmd([[ set ft=astro ]])
+  end,
+  group = itmecho,
+})
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'NeogitCommitMessage',
+  callback = function()
+    vim.cmd([[ startinsert ]])
   end,
   group = itmecho,
 })

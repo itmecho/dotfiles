@@ -1,8 +1,8 @@
 /* Useful reference: https://www.mankier.com/5/rofi-theme#Layouti */
 
 * {
-  background-color: #1D202F;
-  color: #c0caf5;
+  background-color: #494d64;
+  color: #cad3f5;
   margin: 0;
   padding: 0;
   font: "Roboto 12";
@@ -15,7 +15,7 @@
 
 prompt {
   padding: 10 25;
-  background-color: #7aa2f7;
+  background-color: #a6da95;
   color: #24283b;
 }
 
@@ -35,7 +35,7 @@ element {
 element selected,
 element-icon selected,
 element-text selected {
-  background-color: #24283b;
+  background-color: #6e738d;
 }
 
 /* vim:set ft=css: */

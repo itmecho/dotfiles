@@ -51,7 +51,7 @@ return {
         lualine_b = {
           { 'filetype', colored = 1 },
         },
-        lualine_c = { 'diagnostics' },
+        lualine_c = { "require('lsp-status').status()" },
         lualine_x = {
           { 'filename', path = 1 },
         },

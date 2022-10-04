@@ -4,7 +4,8 @@
 #   dracula
 #   nord
 #   tokyonight
-export THEME=tokyonight
+#   catppuccin
+export THEME=catppuccin
 . $HOME/.config/themes/$THEME.theme
 
 #wmname LG3D
@@ -26,6 +27,7 @@ bspc config window_gap 20
 ps -C pipewire | rg -q pipewire || pipewire &
 ps -C pipewire-pulse | rg -q pipewire-pulse || pipewire-pulse &
 ps -C barrier | rg -q barrier || barrier &
+ps -C ckb-next | rg -q ckb-next || ckb-next -b &
 dunst &
 #nm-applet &
 picom -f &

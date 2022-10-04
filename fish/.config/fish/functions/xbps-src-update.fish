@@ -8,13 +8,15 @@ function xbps-src-update
 	log "Updating srcs"
 	git pull
 
-	set packages (fd '.xbps' ./hostdir/binpkgs/ | sed -E 's,.*/(.*)-(([0-9_\.]+)+)\..*$,\1,' | sort | uniq)
+	set -l packages (fd '.xbps' ./hostdir/binpkgs/ | sed -E 's,./hostdir/binpkgs/(.*/)?(.*)-(([0-9_\.]+)+)\..*$,\1\2,' | sort | uniq)
 	log "Found installed packages"
 	for pkg in $packages
-		echo "    $pkg"
+		set -f ver (ls "./hostdir/binpkgs/$pkg"* | tail -1 | sed -E 's,./hostdir/binpkgs/(.*/)?(.*)-(([0-9_\.]+)+)\..*$,\3,')
+		set -f -a package_versions "$pkg:$ver"
+		echo "    $pkg: $ver"
 	end
 
-	for pkg in $packages;
+	for pkg in $package_versions;
 		set pkg_name (echo $pkg | cut -d':' -f1)
 		set pkg_ver (echo $pkg | cut -d':' -f2)
 		set ver (./xbps-src show $pkg_name | awk '/version:/ {print $2}')
@@ -28,7 +30,9 @@ function xbps-src-update
 
 		log "Updating $pkg_name from $pkg_ver to $new_ver"
 
-		./xbps-src pkg $pkg_name
-		xi $pkg_name
+		set -f pkg (echo $pkg_name | sed -E 's/(.*\/)*(.*):.*/\2/')
+
+		./xbps-src pkg $pkg
+		xi $pkg
 	end
 end

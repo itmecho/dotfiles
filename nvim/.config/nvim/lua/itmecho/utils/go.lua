@@ -26,4 +26,11 @@ func main() {
   vim.keymap.set('n', '<leader>r', '<cmd>!go run .<cr>', { buffer = 0 })
 end
 
+M.go_to_tests = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local file = vim.api.nvim_buf_get_name(bufnr)
+  local test_file = file:gsub('.go$', '_test.go')
+  vim.cmd('edit ' .. test_file)
+end
+
 return M
