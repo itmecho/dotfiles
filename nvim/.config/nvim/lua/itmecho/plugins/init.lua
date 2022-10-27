@@ -111,6 +111,9 @@ return require('packer').startup(function(use)
     end,
   })
 
+  -- Neorg
+  use_file('neorg')
+
   -- Misc UI
   use({
     'kyazdani42/nvim-web-devicons',

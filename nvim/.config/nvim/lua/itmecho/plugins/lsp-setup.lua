@@ -27,6 +27,18 @@ return {
         if client.name ~= 'null-ls' then
           client.server_capabilities.documentFormattingProvider = false
         end
+        vim.keymap.set('n', 'gd', 'Telescope lsp_definitions')
+        vim.keymap.set('n', 'gD', 'lua vim.lsp.buf.declaration()')
+        vim.keymap.set('n', 'gT', 'Telescope lsp_type_definitions')
+        vim.keymap.set('n', 'gr', 'Telescope lsp_references')
+        vim.keymap.set('n', 'gI', 'Telescope lsp_implementations')
+        vim.keymap.set('n', 'gR', 'lua vim.lsp.buf.rename()')
+        vim.keymap.set('n', 'ga', 'lua vim.lsp.buf.code_action()')
+        vim.keymap.set('n', 'gs', 'Telescope lsp_document_symbols')
+        vim.keymap.set('n', 'gS', 'Telescope lsp_dynamic_workspace_symbols')
+        vim.keymap.set('n', 'gx', 'LspRestart')
+        vim.keymap.set('n', 'go', 'SymbolsOutline')
+        vim.keymap.set('n', 'K', 'lua vim.lsp.buf.hover()')
       end,
       servers = {
         astro = {},

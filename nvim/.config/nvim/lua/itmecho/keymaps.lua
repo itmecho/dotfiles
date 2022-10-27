@@ -96,7 +96,7 @@ end)
 nnoremap('<leader>ft', '<cmd>Telescope grep_string search=TODO(iain)<cr>')
 
 -- Git
-nnoremap('<leader>gs', '<cmd>Neogit<CR>')
+nnoremap('<leader>gs', '<cmd>lua require("neogit").open()<CR>')
 nnoremap('<leader>gl', ':Neogit pull<CR>p')
 nnoremap('<leader>gp', ':Neogit push<CR>p')
 nnoremap('<leader>gP', ':Neogit push<CR>-up')

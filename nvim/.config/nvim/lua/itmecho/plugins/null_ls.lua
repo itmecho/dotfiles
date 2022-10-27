@@ -3,7 +3,6 @@ return {
   requires = { 'nvim-lua/plenary.nvim' },
   config = function()
     local nl = require('null-ls')
-    local Path = require('plenary.path')
 
     nl.setup({
       on_attach = function(client, bufnr)
@@ -26,24 +25,23 @@ return {
           })
         end
       end,
-      -- debug = true,
+      debug = true,
       sources = {
         nl.builtins.code_actions.eslint_d.with({
-          cwd = function()
-            return vim.loop.cwd()
+          condition = function(utils)
+            return utils.has_file('.eslintrc.js')
           end,
           timeout = 20000,
         }),
         nl.builtins.diagnostics.buf.with({
-          condition = function()
-            local check = Path:new(vim.loop.cwd()):joinpath('buf.yaml'):exists()
-            if check then
-              print('enabled buf fmt')
-            end
-            return check
+          condition = function(utils)
+            return utils.has_file({ 'buf.yaml' })
           end,
         }),
         nl.builtins.diagnostics.eslint_d.with({
+          condition = function(utils)
+            return utils.has_file({ '.eslintrc.js' })
+          end,
           cwd = function()
             return vim.loop.cwd()
           end,
@@ -51,13 +49,13 @@ return {
         }),
         nl.builtins.formatting.black,
         nl.builtins.formatting.buf.with({
-          condition = function()
-            return Path:new(vim.loop.cwd()):joinpath('buf.yaml'):exists()
+          condition = function(utils)
+            return utils.has_file({ 'buf.yaml' })
           end,
         }),
         nl.builtins.formatting.eslint_d.with({
-          condition = function()
-            return Path:new(vim.loop.cwd(), '.eslintrc.js')
+          condition = function(utils)
+            return utils.has_file({ '.eslintrc.js' })
           end,
           prefer_local = 'node_modules/.bin',
           cwd = function()
@@ -69,9 +67,6 @@ return {
         }),
         nl.builtins.formatting.prettier.with({
           filetypes = { 'css', 'astro' },
-          -- condition = function()
-          --   return not Path:new(vim.loop.cwd(), ".eslintrc.js")
-          -- end,
           prefer_local = 'node_modules/.bin',
           cwd = function()
             return vim.loop.cwd()
@@ -80,7 +75,6 @@ return {
         nl.builtins.formatting.rustfmt,
         nl.builtins.formatting.stylua,
         nl.builtins.formatting.terraform_fmt,
-        nl.builtins.formatting.zigfmt,
       },
     })
   end,
