@@ -29,7 +29,7 @@ return {
       sources = {
         nl.builtins.code_actions.eslint_d.with({
           condition = function(utils)
-            return utils.has_file('.eslintrc.js')
+            return utils.has_file({ '.eslintrc.js' })
           end,
           timeout = 20000,
         }),
@@ -66,7 +66,7 @@ return {
           extra_args = { '-m', '120' },
         }),
         nl.builtins.formatting.prettier.with({
-          filetypes = { 'css', 'astro' },
+          filetypes = { 'svelte', 'css', 'astro' },
           prefer_local = 'node_modules/.bin',
           cwd = function()
             return vim.loop.cwd()
