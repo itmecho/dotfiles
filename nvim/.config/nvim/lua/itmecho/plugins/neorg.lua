@@ -31,8 +31,8 @@ return {
         ['core.norg.dirman'] = {
           config = {
             workspaces = {
-              presentations = '~/Documents/presentations',
-              work = '~/Documents/work',
+              personal = '~/.local/share/neorg/personal',
+              work = '~/.local/share/neorg/work',
             },
           },
         },

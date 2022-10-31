@@ -136,6 +136,9 @@ for _, mode in ipairs({ 'n', 't' }) do
 end
 
 -- Abbreviations
+vim.cmd('cnoreabbrev N Neorg')
+vim.cmd('cnoreabbrev NW Neorg workspace')
+vim.cmd('cnoreabbrev NI Neorg index')
 vim.cmd('cnoreabbrev W! w!')
 vim.cmd('cnoreabbrev Q! q!')
 vim.cmd('cnoreabbrev Qa! qa!')
