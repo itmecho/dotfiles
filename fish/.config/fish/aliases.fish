@@ -13,6 +13,7 @@ alias uuidgen "uuidgen | tr '[:upper:]' '[:lower:]'"
 alias vi nvim
 alias vim nvim
 alias tf 'terraform'
+alias nw 'kitty @ set-tab-title neorg && nvim -c "Neorg workspace work"'
 
 # Git
 alias g git
