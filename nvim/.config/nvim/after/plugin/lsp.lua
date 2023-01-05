@@ -12,6 +12,9 @@ if PluginLoaded('lsp-zero.nvim') then
   lsp.nvim_workspace()
 
   lsp.on_attach(function(client, bufnr)
+    if client.name ~= 'null-ls' then
+      client.server_capabilities.documentFormattingProvider = false
+    end
     local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set('n', 'gd', 'Telescope lsp_definitions', opts)

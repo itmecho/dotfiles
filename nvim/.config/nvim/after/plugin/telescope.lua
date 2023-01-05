@@ -6,11 +6,15 @@ if PluginLoaded('telescope.nvim') then
     shorten_path = true,
     extensions = {
       file_browser = {
-        theme = 'ivy'
+        theme = 'ivy',
+      },
+      ['ui-select'] = {
+        require('telescope.themes').get_dropdown(),
       },
     },
   })
   ts.load_extension('file_browser')
+  ts.load_extension('ui-select')
 
   local builtin = require('telescope.builtin')
   vim.keymap.set('n', '<leader>ff', builtin.find_files)

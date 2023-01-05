@@ -51,6 +51,8 @@ vim.cmd('syntax on')
 
 vim.g.mapleader = ' '
 
+vim.g.catppuccin_flavour = 'macchiato'
+
 vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
 
 vim.g.diagnostic_enable_underline = 1

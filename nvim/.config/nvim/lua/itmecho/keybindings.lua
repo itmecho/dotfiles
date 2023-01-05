@@ -33,8 +33,8 @@ vim.keymap.set('n', '<C-k>', '<cmd>cprev<cr>')
 vim.keymap.set('n', '<leader>fp', '<cmd>FindProto<cr>')
 
 -- Work
-vim.keymap.set('n', '<leader>po', "<cmd>lua require('itmecho.utils.work').cd_to_project()<CR>")
-vim.keymap.set('n', '<leader>pr', '<cmd>cd ~/src/CloudExperiments<CR>')
+vim.keymap.set('n', '<leader>po', "<cmd>lua require('itmecho.utils.sparx').cd_to_project()<CR>")
+vim.keymap.set('n', '<leader>pr', '<cmd>tcd ~/src/CloudExperiments<CR>')
 
 -- Abbreviations
 vim.cmd('cnoreabbrev N Neorg')

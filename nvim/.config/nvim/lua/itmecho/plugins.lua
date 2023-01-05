@@ -3,7 +3,7 @@ local ensure_packer = function()
   local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-    vim.cmd [[packadd packer.nvim]]
+    vim.cmd.packadd('packer.nvim')
     return true
   end
   return false
@@ -12,9 +12,9 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use({ "catppuccin/nvim", as = "catppuccin" })
-  use {
+  use('wbthomason/packer.nvim')
+  use({ 'catppuccin/nvim', as = 'catppuccin' })
+  use({
     'VonHeikemen/lsp-zero.nvim',
     requires = {
       -- LSP Support
@@ -33,18 +33,21 @@ return require('packer').startup(function(use)
       -- Snippets
       { 'L3MON4D3/LuaSnip' },
       { 'rafamadriz/friendly-snippets' },
-    }
-  }
+    },
+  })
 
   use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
   use('nvim-treesitter/nvim-treesitter-textobjects')
   use('nvim-treesitter/nvim-treesitter-context')
 
+  use('jose-elias-alvarez/null-ls.nvim')
+
   use('nvim-lua/plenary.nvim')
   use('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
   use('nvim-telescope/telescope-file-browser.nvim')
+  use('nvim-telescope/telescope-ui-select.nvim')
 
-  use({'nvim-lualine/lualine.nvim', requires = {'nvim-lua/lsp-status.nvim'}})
+  use({ 'nvim-lualine/lualine.nvim', requires = { 'nvim-lua/lsp-status.nvim' } })
 
   use('tpope/vim-fugitive')
 
@@ -52,7 +55,9 @@ return require('packer').startup(function(use)
 
   use('itmecho/neoterm.nvim')
 
-  use({'nvim-neorg/neorg', requires = {'folke/zen-mode.nvim'}})
+  use({ 'nvim-neorg/neorg', requires = { 'folke/zen-mode.nvim' } })
+
+  use('lukas-reineke/indent-blankline.nvim')
 
   if packer_bootstrap then
     require('packer').sync()
