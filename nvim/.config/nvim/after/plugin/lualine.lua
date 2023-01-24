@@ -41,7 +41,7 @@ if PluginLoaded('lualine.nvim') then
     options = {
       globalstatus = true,
       icons_enabled = true,
-      theme = vim.env.THEME:lower(),
+      theme = vim.env.THEME:lower() or 'catppuccin',
     },
     sections = {
       lualine_a = { 'mode' },
