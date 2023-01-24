@@ -5,6 +5,7 @@ function update-nvim
     git clean -dfX
     make clean
     make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.local" CMAKE_BUILD_TYPE=RelWithDebInfo
+	rm -Rf /home/iain/.local/share/nvim
     make install
     cd $previous_dir
 end

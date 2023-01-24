@@ -9,6 +9,12 @@ if PluginLoaded('lsp-zero.nvim') then
     'rust_analyzer',
   })
 
+  lsp.configure('tsserver', {
+    flags = {
+      debounce_text_changes = 300,
+    },
+  })
+
   lsp.nvim_workspace()
 
   lsp.on_attach(function(client, bufnr)
@@ -17,7 +23,7 @@ if PluginLoaded('lsp-zero.nvim') then
     end
     local opts = { buffer = bufnr, remap = false }
 
-    vim.keymap.set('n', 'gd', 'Telescope lsp_definitions', opts)
+    vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', opts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gT', '<cmd>Telescope lsp_type_definitions<cr>', opts)
     vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)

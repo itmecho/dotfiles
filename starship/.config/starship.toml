@@ -6,6 +6,7 @@ $git_branch\
 $kubernetes\
 $cmd_duration\
 $line_break\
+$nix_shell\
 $jobs\
 $character\
 """
@@ -18,3 +19,7 @@ symbol = ""
 
 [git_branch]
 style = "bold yellow"
+
+[nix_shell]
+format = '[\(nix-shell\)]($style) '
+style = 'green'

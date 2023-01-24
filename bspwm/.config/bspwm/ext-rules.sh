@@ -21,7 +21,7 @@ handleMissingClass() {
 }
 
 case $class in
-	Firefox|firefox|Brave-Browser)
+	Firefox|firefox|Brave-Browser|vivaldi-stable)
 		toDesktop 1
 		test "$instance" = "Toolkit" && float
 		;;

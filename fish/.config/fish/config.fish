@@ -22,6 +22,7 @@ set -g fish_user_paths \
    $HOME/.yarn/bin \
    $HOME/.istioctl/bin
 
+fish_vi_key_bindings
 fzf_key_bindings
 starship init fish | source
 
