@@ -1,0 +1,6 @@
+% sparx, release
+
+# Run change monkey
+./tools/release/change_monkey.py -f <component> <commit>
+
+$ component: fd --type d --maxdepth 3 | sed 's/\/$//'

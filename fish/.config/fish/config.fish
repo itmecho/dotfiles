@@ -29,7 +29,7 @@ starship init fish | source
 source ~/.config/fish/aliases.fish
 
 # Default to tokynight theme
-set -q THEME; or set -gx THEME tokyonight
+set -q THEME; or set -gx THEME catppuccin
 source $HOME/.config/themes/$THEME.theme
 
 bind \ea $HOME/.config/tmux/manage.fish
@@ -46,13 +46,18 @@ else
 	# Linux specific config
 	set -gx KDEV_KUBE_CONTEXT minikube
 
-	source "$HOME/.local/share/google-cloud-sdk/path.fish.inc"
+	test -f /opt/google-cloud-sdk/path.fish.inc && source "/opt/google-cloud-sdk/path.fish.inc"
 
 	gpg-connect-agent updatestartuptty /bye >/dev/null
 
-	if test -z $DISPLAY; and test (tty) = "/dev/tty1"
-		startx
-	end
-	source $HOME/.local/share/asdf/asdf.fish
+	# if test -z $DISPLAY; and test (tty) = "/dev/tty1"
+	# 	startx
+	# end
+	test -f /opt/asdf-vm/asdf.fish && source /opt/asdf-vm/asdf.fish
 end
 
+
+# pnpm
+set -gx PNPM_HOME "/home/iain/.local/share/pnpm"
+set -gx PATH "$PNPM_HOME" $PATH
+# pnpm end

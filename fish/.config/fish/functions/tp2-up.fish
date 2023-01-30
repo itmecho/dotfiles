@@ -18,7 +18,7 @@ function tp2-up
 		sudo touch $dnsmasq_conf
 		echo "address=/devserver.test.sparxmaths.uk/$local_ip" | sudo tee $dnsmasq_conf >/dev/null
 		echo "address=/.devserver.test.sparxmaths.uk/$local_ip" | sudo tee -a $dnsmasq_conf >/dev/null
-		sudo sv restart dnsmasq
+		sudo systemctl restart dnsmasq
 		echo "forwarding $local_ip:443 to $local_ip:3000"
 		sudo iptables -t nat -D OUTPUT --source $local_ip --destination $local_ip -p tcp --dport 443 -j REDIRECT --to-ports 3000 2>/dev/null
 		sudo iptables -t nat -A OUTPUT --source $local_ip --destination $local_ip -p tcp --dport 443 -j REDIRECT --to-ports 3000
