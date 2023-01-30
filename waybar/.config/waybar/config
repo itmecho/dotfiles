@@ -1,0 +1,26 @@
+{
+	"output": "DP-1",
+    "layer": "top",
+	"height": 40,
+    "modules-left": ["cpu", "memory"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "tray"],
+	"cpu": {
+		"format": "󰻠  {}%",
+	},
+	"memory": {
+		"format": "  {}%",
+	},
+    "clock": {
+		"interval": 1,
+		"timezone": "Europe/London",
+		"format": "  {:%a, %d. %b  %H:%M:%S}",
+        "format-alt": "  {}"
+    },
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-icons": {
+			"default": ["󰖀", "󰕾"],
+		},
+	},
+}
