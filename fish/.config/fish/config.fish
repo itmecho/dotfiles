@@ -14,6 +14,8 @@ set -gx CLOUDPATH $HOME/src/CloudExperiments
 set -gx FZF_DEFAULT_COMMAND 'fd -H'
 set -gx FZF_DEFAULT_OPTS ' --no-exact'
 set -gx GPG_TTY (tty)
+set -gx USE_GKE_GCLOUD_AUTH_PLUGIN True
+set -gx PROD_CONTEXT_NAME sparx-production
 
 set -g fish_user_paths \
    $GOPATH/bin \
@@ -53,7 +55,7 @@ else
 	# if test -z $DISPLAY; and test (tty) = "/dev/tty1"
 	# 	startx
 	# end
-	test -f /opt/asdf-vm/asdf.fish && source /opt/asdf-vm/asdf.fish
+	# test -f /opt/asdf-vm/asdf.fish && source /opt/asdf-vm/asdf.fish
 end
 
 

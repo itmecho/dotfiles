@@ -1,8 +1,9 @@
 # General
 alias bat 'bat --theme Dracula'
 alias cat 'bat -pp'
-alias cb 'xclip -i -selection clipboard'
+alias cb 'wl-copy'
 alias cdc 'cd $CLOUDPATH'
+alias cdd 'cd ~/.dotfiles'
 alias cdcp 'cd (cd $CLOUDPATH; fd --max-depth 2 --type d | fzf)'
 alias cdn 'cd ~/Documents/notes'
 alias l 'ls -lh'
@@ -14,6 +15,7 @@ alias vi nvim
 alias vim nvim
 alias tf 'terraform'
 alias nw 'kitty @ set-tab-title neorg && nvim -c "Neorg workspace work"'
+alias spx 'cd $CLOUDPATH && nix-shell ~/.config/nix/work.nix --command fish'
 
 # Git
 alias g git
