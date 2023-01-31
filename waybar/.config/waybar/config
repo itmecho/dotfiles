@@ -1,7 +1,7 @@
 {
 	"output": "DP-1",
     "layer": "top",
-	"height": 40,
+	"height": 50,
     "modules-left": ["cpu", "memory"],
     "modules-center": ["clock"],
     "modules-right": ["pulseaudio", "tray"],
@@ -22,5 +22,6 @@
 		"format-icons": {
 			"default": ["󰖀", "󰕾"],
 		},
+		"on-click": "pavucontrol",
 	},
 }
