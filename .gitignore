@@ -1,3 +1,4 @@
 **/packer_compiled.*
 /nvim/.config/nvim/.netrwhist
 nvim/.config/nvim/lazy-lock.json
+fish/.config/fish/conf.d/nix.fish
