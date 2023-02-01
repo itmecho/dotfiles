@@ -6,7 +6,7 @@
     "modules-center": ["clock"],
     "modules-right": ["pulseaudio", "tray"],
 	"cpu": {
-		"format": "󰻠  {}%",
+		"format": "󰻠  {usage}%",
 	},
 	"memory": {
 		"format": "  {}%",
