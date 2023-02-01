@@ -10,6 +10,7 @@ with pkgs; mkShell {
 		bazel_5
 		go
 		postgresql_14
+		grpcurl
 	];
 
 	shellHook = ''
