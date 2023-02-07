@@ -1,0 +1,10 @@
+% kubectl, logs
+
+# Follow the logs of a running pod in the current context & namespace
+kubectl logs -f <pod>
+
+# Follow the logs for a deployment in the current context & namespace
+kubectl logs -f deploy/<deployment>
+
+$ pod: kubectl get pods --- --column 1
+$ deployment: kubectl get deploy --- --column 1
