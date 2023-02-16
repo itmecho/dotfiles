@@ -64,8 +64,9 @@ return {
         nl.builtins.formatting.golines.with({
           extra_args = { '-m', '120' },
         }),
+        nl.builtins.formatting.phpcsfixer,
         nl.builtins.formatting.prettier.with({
-          filetypes = { 'svelte', 'css', 'astro' },
+          filetypes = { 'typescript', 'svelte', 'css', 'astro' },
           prefer_local = 'node_modules/.bin',
           cwd = function()
             return vim.loop.cwd()
@@ -76,5 +77,5 @@ return {
         nl.builtins.formatting.terraform_fmt,
       },
     })
-  end
+  end,
 }
