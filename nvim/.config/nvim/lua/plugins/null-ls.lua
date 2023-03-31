@@ -1,15 +1,6 @@
 return {
   'jose-elias-alvarez/null-ls.nvim',
   config = function()
-    require('itmecho.utils.mason').ensure_installed({
-      'buf',
-      'golines',
-      'eslint_d',
-      'prettier',
-      'rustfmt',
-      'stylua',
-    })
-
     local nl = require('null-ls')
     nl.setup({
       on_attach = function(client, bufnr)

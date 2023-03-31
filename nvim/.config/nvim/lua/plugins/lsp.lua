@@ -24,7 +24,7 @@ return {
 
     lsp.ensure_installed({
       'tsserver',
-      'sumneko_lua',
+      'lua_ls',
       'gopls',
       'rust_analyzer',
     })
@@ -60,5 +60,5 @@ return {
     end)
 
     lsp.setup()
-  end
+  end,
 }
