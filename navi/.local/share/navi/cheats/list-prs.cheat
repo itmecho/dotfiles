@@ -1,0 +1,16 @@
+% github, pr, list
+
+# List My PRs
+gh pr list -A "@me"
+
+# List Leibniz PRs
+gh pr list -S "team-review-requested:supersparks/leibniz -author:@me"
+
+# List open PRs for a user
+gh pr list -A <user>
+
+# Open a user's PR in the browser
+gh pr view --web <user_pr>
+
+$ user: gh api orgs/supersparks/members --paginate | jq -r '.[].login'
+$ user_pr: gh pr list -A <user> --- --column 1 --delimiter '\t'

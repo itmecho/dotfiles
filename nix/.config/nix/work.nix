@@ -16,5 +16,6 @@ with pkgs; mkShell {
 		nodejs-16_x
 		nodePackages.pnpm
 		jdk11
+		protobuf3_20
 	];
 }

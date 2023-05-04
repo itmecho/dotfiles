@@ -1,0 +1,11 @@
+% kubectl, deployment, config
+
+# Get the config for a running deployment
+kubectl get configmap <configMapName> -o yaml
+
+# Get the config for a running deployment
+kubectl get secret <secretMapName> -o yaml
+
+$ deploymentName: kubectl get deploy --- --column 1
+$ configMapName: kubectl get deploy <deploymentName> -o jsonpath='{.spec.template.spec.containers[0].envFrom[0].configMapRef.name}'
+$ secretMapName: kubectl get deploy <deploymentName> -o jsonpath='{.spec.template.spec.containers[0].envFrom[1].secretRef.name}'

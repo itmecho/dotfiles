@@ -10,8 +10,8 @@ function tp2-up
 		echo "    Now make sure your first DNS server in Network is set to 127.0.0.1"
 	else
 		set -l route_data (ip route get 1.1.1.1)
-		set -l local_interface (echo $route_data | awk '/1.1.1.1/ {print $5}')
 		set -l local_ip (echo $route_data | awk '/1.1.1.1/ {print $7}')
+		set -l local_interface (echo $route_data | awk '/1.1.1.1/ {print $5}')
 		set -l dnsmasq_conf /etc/dnsmasq.d/sparx.conf
 		echo "configuring dnsmasq"
 		sudo rm -f $dnsmasq_conf

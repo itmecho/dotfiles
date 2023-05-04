@@ -3,7 +3,7 @@
 set fish_greeting
 
 set -gx SHELL /usr/bin/fish
-test (uname) = "Darwin"; and set -gx SHELL /usr/local/bin/fish
+test (uname) = Darwin; and set -gx SHELL /usr/local/bin/fish
 
 set -gx BARX_NO_REMOTE_CACHE 1
 set -gx TERM xterm-256color
@@ -16,13 +16,14 @@ set -gx FZF_DEFAULT_OPTS ' --no-exact'
 set -gx GPG_TTY (tty)
 set -gx USE_GKE_GCLOUD_AUTH_PLUGIN True
 set -gx PROD_CONTEXT_NAME sparx-production
+set -gx NVIM_APPNAME nvim-LazyVim
 
 set -g fish_user_paths \
-   $GOPATH/bin \
-   $HOME/.local/bin \
-   $HOME/.cargo/bin \
-   $HOME/.yarn/bin \
-   $HOME/.istioctl/bin
+    $GOPATH/bin \
+    $HOME/.local/bin \
+    $HOME/.cargo/bin \
+    $HOME/.yarn/bin \
+    $HOME/.istioctl/bin
 
 fish_vi_key_bindings
 fzf_key_bindings
@@ -38,24 +39,24 @@ bind \ea $HOME/.config/tmux/manage.fish
 bind \ew "tmux new-session -s work -c $CLOUDPATH"
 bind \cb select-branch
 
-if test (uname) = "Darwin"
-	# MacOS specific config
-	set -gx KDEV_KUBE_CONTEXT docker-desktop
+if test (uname) = Darwin
+    # MacOS specific config
+    set -gx KDEV_KUBE_CONTEXT docker-desktop
 
-	source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
-	source /usr/local/opt/asdf/libexec/asdf.fish
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+    source /usr/local/opt/asdf/libexec/asdf.fish
 else
-	# Linux specific config
-	set -gx KDEV_KUBE_CONTEXT minikube
+    # Linux specific config
+    set -gx KDEV_KUBE_CONTEXT minikube
 
-	test -f /opt/google-cloud-sdk/path.fish.inc && source "/opt/google-cloud-sdk/path.fish.inc"
+    test -f /opt/google-cloud-sdk/path.fish.inc && source "/opt/google-cloud-sdk/path.fish.inc"
 
-	gpg-connect-agent updatestartuptty /bye >/dev/null
+    gpg-connect-agent updatestartuptty /bye >/dev/null
 
-	# if test -z $DISPLAY; and test (tty) = "/dev/tty1"
-	# 	startx
-	# end
-	# test -f /opt/asdf-vm/asdf.fish && source /opt/asdf-vm/asdf.fish
+    # if test -z $DISPLAY; and test (tty) = "/dev/tty1"
+    # 	startx
+    # end
+    test -f /opt/asdf-vm/asdf.fish && source /opt/asdf-vm/asdf.fish
 end
 
 

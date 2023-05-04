@@ -12,7 +12,5 @@ function gu
 	barx gazelle
 	ga .
 	gs
-	# echo "Press Enter to commit..."
-	# read cont
-	# gc -m "Upgrade $pkg"
+	gc -m "Upgrade $pkg"
 end
