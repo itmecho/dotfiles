@@ -2,7 +2,7 @@
 
 set fish_greeting
 
-set -gx SHELL /usr/bin/fish
+set -gx SHELL (which fish)
 test (uname) = Darwin; and set -gx SHELL /usr/local/bin/fish
 
 set -gx BARX_NO_REMOTE_CACHE 1

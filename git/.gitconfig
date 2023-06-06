@@ -36,3 +36,5 @@
 	cfu = commit --fixup
 	w = worktree
 	rd = !git switch develop && git pull && git switch - && git log --oneline | head -n 20 | fzf | cut -d' ' -f1 | xargs git rebase --onto develop -i
+[safe]
+	directory = /etc/nixos

@@ -24,9 +24,3 @@ tab_bar_min_tabs 1
 window_padding_width 25
 
 include overrides.${OVERRIDE}.conf
-
-
-# BEGIN_KITTY_THEME
-# Catppuccin-Macchiato
-include current-theme.conf
-# END_KITTY_THEME
