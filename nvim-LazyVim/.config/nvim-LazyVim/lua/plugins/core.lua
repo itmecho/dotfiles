@@ -10,6 +10,13 @@ return {
   },
   { "alpha-nvim",       enabled = false },
   {
+    "TimUntersberger/neogit",
+    lazy = false,
+    keys = {
+      ['<leader>gg'] = 'Neogit',
+    }
+  },
+  {
     "L3MON4D3/LuaSnip",
     lazy = false,
     config = function()

@@ -28,9 +28,7 @@ map("v", ">", ">gv")
 local util = require("lazyvim.util")
 
 -- lazygit
-map("n", "<leader>gg", function()
-  util.float_term({ "lazygit" }, { cwd = util.get_root() })
-end, { desc = "Lazygit (root dir)" })
+map("n", "<leader>gg", '<cmd>Neogit<cr>', { desc = "Neogit (root dir)" })
 
 -- floating terminal
 map("n", "<leader>ft", function()
