@@ -9,6 +9,7 @@ return {
     },
   },
   { "alpha-nvim",       enabled = false },
+  { "folke/noice.nvim", enabled = false },
   {
     "TimUntersberger/neogit",
     lazy = false,

@@ -22,7 +22,7 @@
                 kubectl
                 kubectx
                 (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-                bazel_5
+                bazel
                 go
                 postgresql_14
                 grpcurl
