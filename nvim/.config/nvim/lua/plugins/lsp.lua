@@ -27,6 +27,7 @@ return {
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { buffer = bufnr })
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { buffer = bufnr })
         vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { buffer = bufnr })
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr })
       end)
 
       require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
