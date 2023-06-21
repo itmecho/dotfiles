@@ -19,6 +19,7 @@ return {
       })
     end
   },
+  { 'nvim-treesitter/nvim-treesitter-context' },
   { 'nvim-treesitter/playground' },
   { 'lukas-reineke/indent-blankline.nvim' },
   {

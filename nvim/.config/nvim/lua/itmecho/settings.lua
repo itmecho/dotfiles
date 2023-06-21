@@ -4,6 +4,7 @@ opt.cursorline = true
 opt.hlsearch = true
 opt.laststatus = 3
 opt.mouse = ""
+opt.number = true
 opt.relativenumber = true
 opt.smartcase = true
 opt.splitright = true
