@@ -22,22 +22,37 @@ return {
       lsp.on_attach(function(_, bufnr)
         vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, { buffer = bufnr })
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr })
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr })
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, { buffer = bufnr })
-        vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, { buffer = bufnr })
+        vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { buffer = bufnr })
+        vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = bufnr })
+        vim.keymap.set('n', 'gI', '<cmd>Telescope lsp_implementations<cr>', { buffer = bufnr })
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { buffer = bufnr })
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { buffer = bufnr })
-        vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { buffer = bufnr })
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr })
         vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { buffer = bufnr })
+        vim.keymap.set('n', '<leader>cs', '<cmd>Telescope lsp_document_symbols<cr>', { buffer = bufnr })
+        vim.keymap.set('n', '<leader>ct', '<cmd>Telescope lsp_type_definitions<cr>', { buffer = bufnr })
       end)
 
-      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+      local lspconfig = require('lspconfig')
 
+      lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+
+      lspconfig.stylelint_lsp.setup({
+        filetypes = { 'css' },
+      })
+      lspconfig.cssmodules_ls.setup({
+        on_attach = function(client)
+          -- avoid accepting `definitionProvider` responses from this LSP
+          client.server_capabilities.definitionProvider = false
+        end,
+        init_options = {
+          camelCase = 'false',
+        },
+      })
       lsp.setup()
     end,
   },
-  { 'j-hui/fidget.nvim' },
+  { 'j-hui/fidget.nvim', config = true },
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },

@@ -7,7 +7,10 @@ local mapn = function(lhs, rhs, options)
   vim.keymap.set('n', lhs, rhs, opts)
 end
 
-mapn('<leader>pb', '<cmd>Ex<cr>', { desc = "File explorer" })
+mapn('<esc>', '<esc>:noh<cr>')
+vim.keymap.set('v', '>', '>gv')
+vim.keymap.set('v', '<', '<gv')
+
 
 -- Buffers
 mapn('<leader>bd', function()

@@ -15,5 +15,6 @@ vim.g.mapleader = ' '
 
 require('lazy').setup('plugins')
 
+require('itmecho.global')
 require('itmecho.settings')
 require('itmecho.keymaps')

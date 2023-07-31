@@ -13,9 +13,7 @@
           let
             pkgs = import nixpkgs { inherit system; };
             pkgs_22-11 = import nixpkgs_22-11 { inherit system; };
-          in {
-            devShells.default = pkgs.mkShell {
-              buildInputs = with pkgs; [
+            inputs = with pkgs; [
                 python39
                 libxcrypt
                 terraform
@@ -31,6 +29,13 @@
                 jdk11
                 protobuf3_20
               ];
+          in {
+            packages.containerImage = pkgs.dockerTools.buildLayeredImage {
+              name = "spxbuilder";
+              contents = inputs;
+            };
+            devShells.default = pkgs.mkShell {
+              buildInputs = inputs;
             };
           }
         );
