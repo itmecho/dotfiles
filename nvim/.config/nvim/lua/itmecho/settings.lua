@@ -5,6 +5,7 @@ opt.hlsearch = true
 opt.laststatus = 3
 opt.mouse = ""
 opt.number = true
+opt.foldenable = false
 opt.relativenumber = true
 opt.smartcase = true
 opt.splitright = true

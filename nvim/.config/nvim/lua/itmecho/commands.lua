@@ -1,0 +1,11 @@
+vim.api.nvim_create_user_command('GoPlay', require('itmecho.utils.go').playground, {})
+vim.api.nvim_create_user_command('GHOpen', require('itmecho.utils.git').open_file_in_remote, {})
+
+vim.api.nvim_create_user_command('HexToRGB', function(args)
+  vim.cmd("normal \"vy")
+  local hex = vim.fn.getreg('v')
+  local rgb = require('itmecho.utils.colour').hexToRGB(hex, args.args)
+  vim.fn.setreg('v', rgb)
+  vim.cmd('normal gv')
+  vim.cmd("normal \"vp")
+end, { nargs = 1, range = true })

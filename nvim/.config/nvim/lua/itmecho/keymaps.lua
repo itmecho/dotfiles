@@ -10,7 +10,10 @@ end
 mapn('<esc>', '<esc>:noh<cr>')
 vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('n', ']q', vim.cmd.cnext)
+vim.keymap.set('n', '[q', vim.cmd.cprev)
 
+vim.keymap.set('i', '<c-u>', "<c-r>=tolower(trim(system('uuidgen')))<cr>")
 
 -- Buffers
 mapn('<leader>bd', function()

@@ -14,9 +14,14 @@ return {
 
       { 'hrsh7th/nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
       { 'L3MON4D3/LuaSnip' },
     },
     config = function()
+      require('luasnip.loaders.from_lua').load({ paths = { '~/.config/nvim/lua/itmecho/snippets' } })
+
       local lsp = require('lsp-zero').preset({})
 
       lsp.on_attach(function(_, bufnr)
@@ -36,6 +41,8 @@ return {
       local lspconfig = require('lspconfig')
 
       lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+      lspconfig.ocamllsp.setup({})
+      lspconfig.clangd.setup({})
 
       lspconfig.stylelint_lsp.setup({
         filetypes = { 'css' },
@@ -50,18 +57,32 @@ return {
         },
       })
       lsp.setup()
+
+      local cmp = require('cmp')
+
+      cmp.setup({
+        sources = {
+          { name = 'luasnip' },
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+          { name = 'path' },
+        },
+      })
     end,
   },
   { 'j-hui/fidget.nvim', config = true },
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    lazy = false,
     opts = {
       mode = 'document_diagnostics',
+      height = 15,
     },
     keys = {
       { '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', 'Document diagnostics' },
       { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Workspace diagnostics' },
+      { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', 'Trouble Quickfix' },
     },
   },
 }
