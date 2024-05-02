@@ -22,7 +22,12 @@ return {
       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     end,
   },
-  { 'nvim-treesitter/nvim-treesitter-context' },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {
+      multiline_threshold = 1,
+    },
+  },
   { 'nvim-treesitter/playground' },
   { 'lukas-reineke/indent-blankline.nvim' },
   {
@@ -62,5 +67,30 @@ return {
     config = function()
       require('luasnip.loaders.from_lua').load({ paths = { '../itmecho/snippets' } })
     end,
+  },
+  { 'nvim-neotest/nvim-nio' },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = true,
+    keys = {
+      -- stylua: ignore start
+      { '<leader>a', function() require'harpoon':list():add() end, desc = 'Add current buffer to harpoon' },
+      { '<leader>h', function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end, desc = 'Toggle Harpoon quickmenu' },
+      { '<leader>j', function() require'harpoon':list():select(1) end, desc = 'Go to harpoon entry 1' },
+      { '<leader>k', function() require'harpoon':list():select(2) end, desc = 'Go to harpoon entry 2' },
+      { '<leader>l', function() require'harpoon':list():select(3) end, desc = 'Go to harpoon entry 3' },
+      { '<leader>;', function() require'harpoon':list():select(4) end, desc = 'Go to harpoon entry 4' },
+      -- stylua: ignore end
+    },
+  },
+  {
+    'stevearc/oil.nvim',
+    config = true,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    keys = {
+      { '-', '<cmd>Oil<cr>', desc = 'Open parent directory' },
+    },
   },
 }

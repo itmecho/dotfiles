@@ -9,6 +9,10 @@ local settings = {
     textwidth = 120,
     expandtab = false,
   },
+
+  [{ 'markdown' }] = {
+    wrap = false,
+  },
 }
 
 local group = vim.api.nvim_create_augroup('itmecho_ftsettings', { clear = true })

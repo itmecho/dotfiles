@@ -13,6 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = ' '
 
+vim.filetype.add({ extension = { templ = "templ" } })
+
 require('lazy').setup('plugins')
 
 require('itmecho.global')

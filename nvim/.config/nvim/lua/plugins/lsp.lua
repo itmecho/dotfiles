@@ -61,6 +61,12 @@ return {
       local cmp = require('cmp')
 
       cmp.setup({
+        preselect = cmp.PreselectMode.Item,
+        view = {
+          docs = {
+            auto_open = true,
+          },
+        },
         sources = {
           { name = 'luasnip' },
           { name = 'nvim_lsp' },
@@ -70,19 +76,36 @@ return {
       })
     end,
   },
-  { 'j-hui/fidget.nvim', config = true },
+  -- { 'j-hui/fidget.nvim', config = true },
   {
     'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
-    opts = {
-      mode = 'document_diagnostics',
-      height = 15,
-    },
+    config = true,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    branch = 'dev',
     keys = {
-      { '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', 'Document diagnostics' },
-      { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Workspace diagnostics' },
-      { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', 'Trouble Quickfix' },
+      { '<leader>xd', '<cmd>Trouble diagnostics toggle<cr>' },
+      { '<leader>xq', '<cmd>Trouble quickfix toggle<cr>' },
+      {
+        '<c-j>',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').next({ skip_groups = true, jump = true })
+          else
+            pcall(vim.cmd.cnext)
+          end
+        end,
+      },
+      {
+        '<c-k>',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').prev({ skip_groups = true, jump = true })
+          else
+            pcall(vim.cmd.cprev)
+          end
+        end,
+      },
     },
   },
 }

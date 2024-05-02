@@ -36,6 +36,7 @@ return {
         html = { require('formatter.defaults.prettier') },
         javascript = commonPrettierESLint('javascript'),
         javascriptreact = commonPrettierESLint('javascriptreact'),
+        markdown = { prettierWithParser('markdown') },
         svelte = { prettierWithParser('svelte') },
         typescript = commonPrettierESLint('typescript'),
         typescriptreact = commonPrettierESLint('typescriptreact'),
@@ -51,6 +52,20 @@ return {
           },
         },
         rust = { require('formatter.filetypes.rust').rustfmt },
+        sql = {
+          {
+            exe = 'sql-formatter',
+            args = { '-l', 'postgresql' },
+            stdin = true,
+          },
+        },
+        templ = {
+          {
+            exe = 'templ',
+            args = { 'fmt' },
+            stdin = true,
+          },
+        },
         terraform = {
           {
             exe = 'terraform',

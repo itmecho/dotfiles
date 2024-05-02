@@ -11,9 +11,19 @@ return {
         desc = 'Toggle breakpoint',
       },
       {
+        '<leader>xB',
+        function()
+          local condition = vim.fn.input("Condition: ")
+          require('dap').set_breakpoint(condition)
+        end,
+        desc = 'Toggle breakpoint',
+      },
+      {
         '<leader>xc',
         function()
+          require('dap.ext.vscode').load_launchjs()
           require('dap').continue()
+
         end,
         desc = 'Continue',
       },
@@ -32,6 +42,13 @@ return {
         desc = 'Close',
       },
       {
+        '<leader>xh',
+        function()
+          require('dap').step_out()
+        end,
+        desc = 'Step out',
+      },
+      {
         '<leader>xj',
         function()
           require('dap').step_over()
@@ -48,7 +65,15 @@ return {
       {
         '<leader>xl',
         function()
-          require('dap.ext.vscode').load_launchjs('./launch.json')
+          print('stepping into')
+          require('dap').step_into()
+        end,
+        desc = 'Step into',
+      },
+      {
+        '<leader>xl',
+        function()
+          require('dap.ext.vscode').load_launchjs()
         end,
         desc = 'Load launch.json from the current directory',
       },
@@ -56,7 +81,7 @@ return {
   },
   {
     'rcarriga/nvim-dap-ui',
-    dependencies = { 'mfussenegger/nvim-dap' },
+    dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
     config = function()
       local dap, dapui = require('dap'), require('dapui')
       dapui.setup({
@@ -69,6 +94,13 @@ return {
               { id = 'breakpoints', size = 0.3 },
             },
           },
+          {
+            position = 'bottom',
+            size = 10,
+            elements = {
+              { id = 'repl', size = 1},
+            },
+          }
         },
       })
 

@@ -12,6 +12,10 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('n', ']q', vim.cmd.cnext)
 vim.keymap.set('n', '[q', vim.cmd.cprev)
+vim.keymap.set('n', ']t', vim.cmd.tabnext)
+vim.keymap.set('n', '[t', vim.cmd.tabprev)
+
+vim.keymap.set('v', '<leader>y', '"+y')
 
 vim.keymap.set('i', '<c-u>', "<c-r>=tolower(trim(system('uuidgen')))<cr>")
 
