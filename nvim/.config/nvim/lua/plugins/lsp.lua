@@ -11,7 +11,6 @@ return {
         end,
       },
       { 'williamboman/mason-lspconfig.nvim' },
-
       { 'hrsh7th/nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
@@ -76,7 +75,7 @@ return {
       })
     end,
   },
-  -- { 'j-hui/fidget.nvim', config = true },
+  { 'j-hui/fidget.nvim', config = true },
   {
     'folke/trouble.nvim',
     lazy = false,

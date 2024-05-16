@@ -1,6 +1,13 @@
 local M = {}
 
+local password_cache = {}
+
 local function get_secret(name)
+  if password_cache[name] ~= nil then
+    print('using cached password for '..name)
+    return password_cache[name]
+  end
+
   local project = 'sparx-web-test'
   if name:match('live') then
     project = 'sparx-production'
@@ -20,26 +27,40 @@ local function get_secret(name)
   if status[1] ~= 0 then
     error('failed to get secret')
   end
+
+  password_cache[name] = output
   return output
 end
 
-function M.connect(env, db)
-  if env ~= 'test2' and env ~= 'test1' and env ~= 'live' then
-    error('unsupported env: ' .. env)
+---@class ConnectOpts
+---@field env string
+
+---@param db string
+---@param opts ConnectOpts|nil
+function M.connect(db, opts)
+  opts = vim.tbl_extend('keep', opts or {}, {
+    env = "test2",
+    readonly = false,
+  })
+
+  if opts.env ~= 'test2' and opts.env ~= 'test1' and opts.env ~= 'live' then
+    error('unsupported env: ' .. opts.env)
     return
   end
 
   local secret_name = 'test2-cloudsql-proxyuser-password'
-  if env == 'test1' then
+  if opts.env == 'test1' then
     secret_name = 'test1-cloudsql-proxyuser-password'
   end
-  if env == 'live' then
+  if opts.env == 'live' then
     secret_name = 'live-cloudsql-proxyuser-password'
   end
 
   local password = get_secret(secret_name)
 
-  return 'postgres://proxyuser:' .. password .. '@localhost:5444/' .. db .. '?sslmode=disable'
+  local conn_string = 'postgres://proxyuser:' .. password .. '@localhost:5444/' .. db .. '?sslmode=disable'
+
+  return conn_string
 end
 
 return M
