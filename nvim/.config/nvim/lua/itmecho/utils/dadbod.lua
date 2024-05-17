@@ -4,7 +4,7 @@ local password_cache = {}
 
 local function get_secret(name)
   if password_cache[name] ~= nil then
-    print('using cached password for '..name)
+    print('using cached password for ' .. name)
     return password_cache[name]
   end
 
@@ -32,35 +32,32 @@ local function get_secret(name)
   return output
 end
 
----@class ConnectOpts
----@field env string
+--- Starts cloudsqlproxy in the background
+---
+---@param instance any
+---@param port any
+function M.start_cloudsqlproxy(instance, port)
+  local cmd = string.format('cloud_sql_proxy -instances=%s=tcp:%d', instance, port)
 
----@param db string
----@param opts ConnectOpts|nil
-function M.connect(db, opts)
-  opts = vim.tbl_extend('keep', opts or {}, {
-    env = "test2",
-    readonly = false,
+  vim.fn.jobstart(cmd, {
+    on_exit = function(_, status)
+      if status ~= 0 then
+        error('got non-zero status when running cloud sql proxy for ' .. instance)
+      end
+    end,
   })
+end
 
-  if opts.env ~= 'test2' and opts.env ~= 'test1' and opts.env ~= 'live' then
-    error('unsupported env: ' .. opts.env)
-    return
-  end
-
-  local secret_name = 'test2-cloudsql-proxyuser-password'
-  if opts.env == 'test1' then
-    secret_name = 'test1-cloudsql-proxyuser-password'
-  end
-  if opts.env == 'live' then
-    secret_name = 'live-cloudsql-proxyuser-password'
-  end
-
+-- Returns a connection string where the value of the secret referenced by secret_name
+-- is used as the password.
+---@param db string
+---@param username string
+---@param secret_name string
+---@param port integer
+function M.connstring(db, username, secret_name, port)
   local password = get_secret(secret_name)
 
-  local conn_string = 'postgres://proxyuser:' .. password .. '@localhost:5444/' .. db .. '?sslmode=disable'
-
-  return conn_string
+  return string.format('postgres://%s:%s@127.0.0.1:%d/%s?sslmode=disable', username, password, port, db)
 end
 
 return M
