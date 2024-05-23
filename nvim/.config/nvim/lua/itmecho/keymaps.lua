@@ -10,8 +10,10 @@ end
 mapn('<esc>', '<esc>:noh<cr>')
 vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('n', ']q', vim.cmd.cnext)
-vim.keymap.set('n', '[q', vim.cmd.cprev)
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
+vim.keymap.set('n', ']q', '<cmd>cnext<cr>zz')
+vim.keymap.set('n', '[q', '<cmd>cprev<cr>zz')
 vim.keymap.set('n', ']t', vim.cmd.tabnext)
 vim.keymap.set('n', '[t', vim.cmd.tabprev)
 
@@ -23,7 +25,7 @@ vim.keymap.set('i', '<c-u>', "<c-r>=tolower(trim(system('uuidgen')))<cr>")
 mapn('<leader>bd', function()
   local bufnr = vim.api.nvim_get_current_buf()
   vim.api.nvim_buf_delete(bufnr)
-end, { desc = "Delete current buffer" })
+end, { desc = 'Delete current buffer' })
 
 mapn('<leader>bD', function()
   local buffers = vim.api.nvim_list_bufs()
@@ -33,4 +35,4 @@ mapn('<leader>bD', function()
       vim.api.nvim_buf_delete(bufnr)
     end
   end
-end, { desc = "Delete all buffers excluding the current buffer" })
+end, { desc = 'Delete all buffers excluding the current buffer' })
