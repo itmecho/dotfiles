@@ -71,12 +71,20 @@ return {
         desc = 'Step into',
       },
       {
-        '<leader>xl',
+        '<leader>xr',
         function()
-          require('dap.ext.vscode').load_launchjs()
+          require('dap').run_to_cursor()
         end,
-        desc = 'Load launch.json from the current directory',
+        desc = 'Step into',
       },
+      {
+        '<leader>xs',
+        function()
+          local widgets = require('dap.ui.widgets')
+          widgets.centered_float(widgets.scopes)
+        end,
+        desc = 'Toggle Floating scopes',
+      }
     },
   },
   {

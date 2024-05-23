@@ -25,23 +25,63 @@ return {
 
       lsp.on_attach(function(_, bufnr)
         vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, { buffer = bufnr })
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr })
         vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { buffer = bufnr })
         vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = bufnr })
         vim.keymap.set('n', 'gI', '<cmd>Telescope lsp_implementations<cr>', { buffer = bufnr })
-        vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { buffer = bufnr })
-        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { buffer = bufnr })
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr })
         vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { buffer = bufnr })
         vim.keymap.set('n', '<leader>cs', '<cmd>Telescope lsp_document_symbols<cr>', { buffer = bufnr })
         vim.keymap.set('n', '<leader>ct', '<cmd>Telescope lsp_type_definitions<cr>', { buffer = bufnr })
+        vim.keymap.set('n', '<leader>h', function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+        end, { buffer = bufnr })
       end)
 
       local lspconfig = require('lspconfig')
 
-      lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
-      lspconfig.ocamllsp.setup({})
-      lspconfig.clangd.setup({})
+      lspconfig.lua_ls.setup(lsp.nvim_lua_ls({
+        settings = {
+          Lua = {
+            hint = {
+              enable = true,
+              arrayIndex = 'Auto',
+              await = true,
+              paramName = true,
+              paramType = true,
+              semicolon = true,
+              setType = true,
+            },
+          },
+        },
+      }))
+      lspconfig.gopls.setup({
+        settings = {
+          gopls = {
+            hints = {
+              rangeVariableTypes = true,
+              parameterNames = true,
+              constantValues = true,
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              functionTypeParameters = true,
+            },
+          },
+        },
+      })
+      lspconfig.tsserver.setup({
+        init_options = {
+          preferences = {
+            includeInlayParameterNameHints = 'all',
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+      })
 
       lspconfig.stylelint_lsp.setup({
         filetypes = { 'css' },

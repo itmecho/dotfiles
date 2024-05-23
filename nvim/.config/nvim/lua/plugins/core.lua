@@ -61,7 +61,6 @@ return {
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-rhubarb' },
   { 'lewis6991/gitsigns.nvim' },
-  { 'numToStr/Comment.nvim', config = true },
   {
     'L3MON4D3/LuaSnip',
     config = function()
