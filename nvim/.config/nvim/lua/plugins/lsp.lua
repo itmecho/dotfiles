@@ -121,7 +121,6 @@ return {
     lazy = false,
     config = true,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    branch = 'dev',
     keys = {
       { '<leader>xd', '<cmd>Trouble diagnostics toggle<cr>' },
       { '<leader>xq', '<cmd>Trouble quickfix toggle<cr>' },
