@@ -16,6 +16,12 @@ vim.keymap.set('n', ']q', '<cmd>cnext<cr>zz')
 vim.keymap.set('n', '[q', '<cmd>cprev<cr>zz')
 vim.keymap.set('n', ']t', vim.cmd.tabnext)
 vim.keymap.set('n', '[t', vim.cmd.tabprev)
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.goto_next({ wrap = true, float = true })
+end)
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.goto_prev({ wrap = true, float = true })
+end)
 
 vim.keymap.set('v', '<leader>y', '"+y')
 
@@ -36,3 +42,5 @@ mapn('<leader>bD', function()
     end
   end
 end, { desc = 'Delete all buffers excluding the current buffer' })
+
+vim.keymap.set('v', '<leader>cf', "<cmd>Format<cr>")

@@ -32,6 +32,13 @@ return {
             stdin = true,
           },
         },
+        blade = {
+          {
+            exe = 'blade-formatter',
+            args = { '--stdin' },
+            stdin = true,
+          },
+        },
         css = { require('formatter.defaults.prettier') },
         html = { require('formatter.defaults.prettier') },
         javascript = commonPrettierESLint('javascript'),
@@ -51,6 +58,7 @@ return {
             stdin = true,
           },
         },
+        php = { require('formatter.filetypes.php').pint },
         rust = { require('formatter.filetypes.rust').rustfmt },
         sql = {
           {
@@ -70,6 +78,13 @@ return {
           {
             exe = 'terraform',
             args = { 'fmt', '-' },
+            stdin = true,
+          },
+        },
+        zig = {
+          {
+            exe = 'zig',
+            args = { 'fmt', '--stdin' },
             stdin = true,
           },
         },

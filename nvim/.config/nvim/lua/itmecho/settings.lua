@@ -21,3 +21,10 @@ opt.expandtab = true
 opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.tabstop = 2
+
+vim.g.zig_fmt_autosave = 0
+
+vim.diagnostic.config({
+  float = true,
+  underline = true,
+})
