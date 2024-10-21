@@ -23,3 +23,6 @@ require('itmecho.keymaps')
 require('itmecho.ft-settings')
 
 require('itmecho.commands')
+
+vim.cmd.cnoreabbrev('Qa', 'qa')
+vim.cmd.cnoreabbrev('Q', 'q')

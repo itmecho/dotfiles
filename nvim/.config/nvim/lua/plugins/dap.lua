@@ -21,7 +21,7 @@ return {
       {
         '<leader>xc',
         function()
-          require('dap.ext.vscode').load_launchjs()
+          -- require('dap.ext.vscode').load_launchjs()
           require('dap').continue()
 
         end,

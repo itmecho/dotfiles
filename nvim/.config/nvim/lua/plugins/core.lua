@@ -12,7 +12,6 @@ return {
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     config = function()
-
       vim.opt.foldmethod = 'expr'
       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
@@ -107,5 +106,33 @@ return {
     keys = {
       { '-', '<cmd>Oil<cr>', desc = 'Open parent directory' },
     },
+  },
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('octo').setup()
+    end,
+  },
+  {
+    'stevearc/aerial.nvim',
+    config = true,
+    keys = {
+      { '<leader>do', '<cmd>AerialToggle right<cr>', desc = 'Open the Aerial symbols outline buffer' },
+    },
+  },
+  {
+    -- 'itmecho/neoterm.nvim',
+    dir = '/Users/iainearl/src/neoterm.nvim',
+    config = function()
+      require('neoterm').setup()
+      vim.keymap.set('n', '<leader>tt', '<cmd>NeotermToggle<cr>', {})
+      vim.keymap.set('t', '<leader>tt', '<cmd>NeotermToggle<cr>', {})
+      vim.keymap.set('t', '<leader>tn', '<c-\\><c-n>', {})
+    end,
   },
 }

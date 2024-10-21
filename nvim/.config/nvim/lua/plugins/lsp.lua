@@ -95,6 +95,7 @@ return {
           camelCase = 'false',
         },
       })
+      lspconfig.jedi_language_server.setup({})
       lsp.setup()
 
       local cmp = require('cmp')

@@ -11,7 +11,12 @@ return {
     -- Find
     { '<leader>ff', '<cmd>Telescope find_files<cr>', desc = 'Find files' },
     { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'List buffers' },
-    { '<leader>fh', '<cmd>Telescope help_tags<cr>', desc = 'List buffers' },
+    { '<leader>fh', '<cmd>Telescope help_tags<cr>', desc = 'List helptags' },
+    {
+      '<leader>fp',
+      string.format('<cmd>Telescope find_files find_command=fd,--type,f,.proto$ cwd=%s<cr>', os.getenv('CLOUDPATH')),
+      desc = 'List proto files',
+    },
 
     -- Search
     { '<leader>sg', '<cmd>Telescope live_grep<cr>', desc = 'Live grep' },

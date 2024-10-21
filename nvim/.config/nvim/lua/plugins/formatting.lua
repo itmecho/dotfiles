@@ -27,7 +27,7 @@ return {
               '--max-len',
               '120',
               '--base-formatter',
-              'gofmt',
+              'goimports-reviser',
             },
             stdin = true,
           },

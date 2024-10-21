@@ -1,6 +1,13 @@
 local M = {}
 
+local secret_cache = {}
+
 function M.get_secret(project, name)
+  local key = string.format('%s:%s', project, name)
+  if secret_cache[key] ~= nil then
+    return secret_cache[key]
+  end
+
   local cmd = string.format('gcloud secrets versions access latest --secret %s --project %s', name, project)
 
   print(string.format('fetching secret %s from %s', name, project))
@@ -16,6 +23,8 @@ function M.get_secret(project, name)
   if status[1] ~= 0 then
     error('failed to get secret')
   end
+
+  secret_cache[key] = output
 
   return output
 end

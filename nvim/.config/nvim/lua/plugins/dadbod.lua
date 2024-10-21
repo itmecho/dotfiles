@@ -55,6 +55,7 @@ return {
       make_db('test2-wondesyncdb', 'test2_wondesyncdb', settings.maths.test),
       make_db('live-schooldb (ro)', 'schooldb', settings.maths.live_readonly),
       make_db('live-wondesyncdb (ro)', 'wondesyncdb', settings.maths.live_readonly),
+      make_db('live-assessmentdb (ro)', 'assessmentdb', settings.maths.live_readonly),
       make_db('test2_readingdb', 'englishdb-test2', settings.reader.test),
     }
   end,

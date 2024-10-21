@@ -44,3 +44,6 @@ mapn('<leader>bD', function()
 end, { desc = 'Delete all buffers excluding the current buffer' })
 
 vim.keymap.set('v', '<leader>cf', "<cmd>Format<cr>")
+
+vim.keymap.set('v', '<leader>64', "c<c-r>=system('echo \"<c-r>\"\" | base64 -d | tr -d \"\\n\"')<cr><esc>")
+vim.keymap.set('v', '<leader><leader>64', "c<c-r>=system('echo \"<c-r>\"\" | base64 | tr -d \"\\n\"')<cr><esc>")
