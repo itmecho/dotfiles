@@ -17,6 +17,11 @@ return {
       string.format('<cmd>Telescope find_files find_command=fd,--type,f,.proto$ cwd=%s<cr>', os.getenv('CLOUDPATH')),
       desc = 'List proto files',
     },
+    {
+      '<leader>fk',
+      string.format('<cmd>Telescope find_files find_command=fd,--type,f cwd=%s<cr>', os.getenv('CLOUDPATH')..'/kustomize'),
+      desc = 'Find kustomize files',
+    },
 
     -- Search
     { '<leader>sg', '<cmd>Telescope live_grep<cr>', desc = 'Live grep' },

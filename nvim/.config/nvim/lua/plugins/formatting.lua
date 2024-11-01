@@ -4,11 +4,25 @@ local prettierWithParser = function(parser)
   end
 end
 
-local commonPrettierESLint = function(ft)
-  return {
-    require('formatter.filetypes.' .. ft).prettier,
-    require('formatter.filetypes.' .. ft).eslint_d,
-  }
+local rootContains = function(file)
+  local lspconfig = require('lspconfig')
+  local root_dir = lspconfig.util.root_pattern(file)(vim.api.nvim_buf_get_name(0))
+  return root_dir ~= nil
+end
+
+local jsOrTs = function(ft)
+  if rootContains('package.json') then
+    return {
+      require('formatter.filetypes.' .. ft).prettier,
+      require('formatter.filetypes.' .. ft).eslint_d,
+    }
+  elseif rootContains('deno.json') then
+    return {
+      require('formatter.defaults.denofmt')(),
+    }
+  end
+
+  return nil
 end
 
 return {
@@ -41,12 +55,12 @@ return {
         },
         css = { require('formatter.defaults.prettier') },
         html = { require('formatter.defaults.prettier') },
-        javascript = commonPrettierESLint('javascript'),
-        javascriptreact = commonPrettierESLint('javascriptreact'),
+        javascript = jsOrTs('javascript'),
+        javascriptreact = jsOrTs('javascriptreact'),
         markdown = { prettierWithParser('markdown') },
         svelte = { prettierWithParser('svelte') },
-        typescript = commonPrettierESLint('typescript'),
-        typescriptreact = commonPrettierESLint('typescriptreact'),
+        typescript = jsOrTs('typescript'),
+        typescriptreact = jsOrTs('typescriptreact'),
         ocaml = {
           {
             exe = 'ocamlformat',
