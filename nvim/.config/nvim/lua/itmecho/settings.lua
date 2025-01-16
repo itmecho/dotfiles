@@ -10,6 +10,7 @@ opt.relativenumber = true
 opt.smartcase = true
 opt.splitright = true
 opt.splitbelow = true
+opt.signcolumn = "yes"
 opt.termguicolors = true
 opt.undofile = true
 opt.undolevels = 10000

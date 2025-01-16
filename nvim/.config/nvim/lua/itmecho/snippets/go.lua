@@ -15,7 +15,7 @@ return {
     t({'",', '}' }),
   }),
   s('dbg', {
-    t({'fmt.Printf("%+v\n", '}),
+    t({'fmt.Printf("%+v\\n", '}),
     i(1),
     t({")"}),
   }),

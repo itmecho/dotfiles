@@ -26,3 +26,18 @@ require('itmecho.commands')
 
 vim.cmd.cnoreabbrev('Qa', 'qa')
 vim.cmd.cnoreabbrev('Q', 'q')
+vim.cmd.cnoreabbrev('Wq', 'Wq')
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = 'ConformStartFormat',
+  callback = function(event)
+    print('running ' .. event.data.formatter.name)
+  end
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = 'ConformEndFormat',
+  callback = function(event)
+    print(string.format('finished running %s: exitcode=%s', event.data.formatter.name, event.data.code))
+  end
+})

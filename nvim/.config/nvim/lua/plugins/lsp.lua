@@ -1,29 +1,19 @@
 return {
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
+    'neovim/nvim-lspconfig',
     dependencies = {
-      { 'neovim/nvim-lspconfig' },
       {
         'williamboman/mason.nvim',
-        build = function()
-          pcall(vim.cmd, 'MasonUpdate')
-        end,
+        config = true,
       },
-      { 'williamboman/mason-lspconfig.nvim' },
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'L3MON4D3/LuaSnip' },
+      {
+        'williamboman/mason-lspconfig.nvim',
+        config = true,
+      },
+      { 'saghen/blink.cmp' },
     },
     config = function()
-      require('luasnip.loaders.from_lua').load({ paths = { '~/.config/nvim/lua/itmecho/snippets' } })
-
-      local lsp = require('lsp-zero').preset({})
-
-      lsp.on_attach(function(_, bufnr)
+      local on_attach = function(_, bufnr)
         vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, { buffer = bufnr })
         vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { buffer = bufnr })
         vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = bufnr })
@@ -35,121 +25,81 @@ return {
         vim.keymap.set('n', '<leader>h', function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, { buffer = bufnr })
-      end)
+      end
 
       local lspconfig = require('lspconfig')
-
-      lspconfig.lua_ls.setup(lsp.nvim_lua_ls({
-        settings = {
-          Lua = {
-            hint = {
-              enable = true,
-              arrayIndex = 'Auto',
-              await = true,
-              paramName = true,
-              paramType = true,
-              semicolon = true,
-              setType = true,
+      local servers = {
+        cssls = {},
+        cssmodules_ls = {
+          on_attach = function(client)
+            -- avoid accepting `definitionProvider` responses from this LSP
+            client.server_capabilities.definitionProvider = false
+          end,
+          init_options = {
+            camelCase = 'false',
+          },
+        },
+        emmet_ls = {},
+        eslint = {},
+        golangci_lint_ls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              hints = {
+                rangeVariableTypes = true,
+                parameterNames = true,
+                constantValues = true,
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                functionTypeParameters = true,
+              },
             },
           },
         },
-      }))
-      lspconfig.gopls.setup({
-        settings = {
-          gopls = {
-            hints = {
-              rangeVariableTypes = true,
-              parameterNames = true,
-              constantValues = true,
-              assignVariableTypes = true,
-              compositeLiteralFields = true,
-              compositeLiteralTypes = true,
-              functionTypeParameters = true,
+        lua_ls = {
+          settings = {
+            Lua = {
+              hint = {
+                enable = true,
+                arrayIndex = 'Auto',
+                await = true,
+                paramName = true,
+                paramType = true,
+                semicolon = true,
+                setType = true,
+              },
             },
           },
         },
-      })
-      lspconfig.tsserver.setup({
-        root_dir = lspconfig.util.root_pattern("package.json"),
-        single_file_support = false,
-        init_options = {
-          preferences = {
-            includeInlayParameterNameHints = 'all',
-            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            includeInlayFunctionParameterTypeHints = true,
-            includeInlayVariableTypeHints = true,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = true,
-            includeInlayEnumMemberValueHints = true,
+        stylelint_lsp = {
+          filetypes = { 'css' },
+        },
+        tailwindcss = {},
+        templ = {},
+        ts_ls = {
+          root_dir = lspconfig.util.root_pattern('package.json'),
+          single_file_support = false,
+          init_options = {
+            preferences = {
+              includeInlayParameterNameHints = 'all',
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
           },
         },
-      })
-      lspconfig.denols.setup({
-        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-      })
+      }
 
-      lspconfig.stylelint_lsp.setup({
-        filetypes = { 'css' },
-      })
-      lspconfig.cssmodules_ls.setup({
-        on_attach = function(client)
-          -- avoid accepting `definitionProvider` responses from this LSP
-          client.server_capabilities.definitionProvider = false
-        end,
-        init_options = {
-          camelCase = 'false',
-        },
-      })
-      lspconfig.jedi_language_server.setup({})
-      lsp.setup()
-
-      local cmp = require('cmp')
-
-      cmp.setup({
-        preselect = cmp.PreselectMode.Item,
-        view = {
-          docs = {
-            auto_open = true,
-          },
-        },
-        sources = {
-          { name = 'luasnip' },
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
-          { name = 'path' },
-        },
-      })
+      for server, config in pairs(servers) do
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        config.on_attach = on_attach
+        lspconfig[server].setup(config)
+      end
     end,
   },
   { 'j-hui/fidget.nvim', config = true },
-  {
-    'folke/trouble.nvim',
-    lazy = false,
-    config = true,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    keys = {
-      { '<leader>xd', '<cmd>Trouble diagnostics toggle<cr>' },
-      { '<leader>xq', '<cmd>Trouble quickfix toggle<cr>' },
-      {
-        '<c-j>',
-        function()
-          if require('trouble').is_open() then
-            require('trouble').next({ skip_groups = true, jump = true })
-          else
-            pcall(vim.cmd.cnext)
-          end
-        end,
-      },
-      {
-        '<c-k>',
-        function()
-          if require('trouble').is_open() then
-            require('trouble').prev({ skip_groups = true, jump = true })
-          else
-            pcall(vim.cmd.cprev)
-          end
-        end,
-      },
-    },
-  },
 }
