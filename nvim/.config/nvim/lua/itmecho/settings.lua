@@ -15,7 +15,8 @@ opt.termguicolors = true
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200
-opt.winbar = "%=%f"
+opt.winbar = "%=%f%m"
+opt.winborder = 'rounded'
 
 -- Default indentation 2 spaces
 opt.expandtab = true

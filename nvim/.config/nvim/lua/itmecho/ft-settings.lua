@@ -1,9 +1,32 @@
 local settings = {
+  [{ 'bzl' }] = {
+    tabstop = 4,
+    shiftwidth = 4,
+    expandtab = true,
+  },
+  [{ 'c' }] = {
+    tabstop = 2,
+    shiftwidth = 2,
+    expandtab = true,
+    textwidth = 80,
+    colorcolumn = '80',
+    autoindent = true,
+  },
+  [{ 'lua' }] = {
+    textwidth = 80,
+    colorcolumn = '80',
+  },
+  [{ 'blade' }] = {
+    tabstop = 2,
+    shiftwidth = 2,
+    expandtab = true,
+    autoindent = true,
+  },
   [{ 'proto' }] = {
-    commentstring = '// %s'
+    commentstring = '// %s',
   },
   [{ 'sql' }] = {
-    commentstring = '-- %s'
+    commentstring = '-- %s',
   },
   [{ 'proto', 'typescript', 'typescriptreact' }] = {
     colorcolumn = '100',
@@ -17,8 +40,18 @@ local settings = {
     textwidth = 120,
     expandtab = false,
   },
-  [{ 'markdown' }] = {
-    wrap = false,
+  [{ 'php' }] = {
+    tabstop = 4,
+    shiftwidth = 4,
+    textwidth = 80,
+    colorcolumn = '80',
+    expandtab = true,
+    autoindent = true,
+  },
+  [{ 'zig' }] = {
+    expandtab = true,
+    tabstop = 4,
+    shiftwidth = 4,
   },
 }
 
@@ -36,15 +69,14 @@ for pattern, values in pairs(settings) do
   })
 end
 
-local extra_filetypes = {'gotmpl'}
+local extra_filetypes = { 'gotmpl' }
 
 for _, ft in pairs(extra_filetypes) do
   vim.api.nvim_create_autocmd('BufRead', {
     group = group,
-    pattern = '*.'..ft,
+    pattern = '*.' .. ft,
     callback = function()
       vim.opt.filetype = ft
     end,
   })
 end
-

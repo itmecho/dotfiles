@@ -19,4 +19,31 @@ function M.defer_call(fn, ...)
   end
 end
 
+function M.root_pattern(targets, exclude)
+  return function(source)
+    local root_dir = vim.fs.root(source, function(name)
+      for _, target in ipairs(targets) do
+        if target == name then
+          return true
+        end
+      end
+      return false
+    end)
+    print(root_dir)
+    if root_dir == nil then
+      return nil
+    end
+
+    exclude = exclude or {}
+
+    for _, pattern in ipairs(exclude) do
+      if root_dir:match(pattern) ~= nil then
+        return nil
+      end
+    end
+
+    return root_dir
+  end
+end
+
 return M

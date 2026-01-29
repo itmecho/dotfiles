@@ -6,29 +6,13 @@ return {
         'williamboman/mason.nvim',
         config = true,
       },
-      {
-        'williamboman/mason-lspconfig.nvim',
-        config = true,
-      },
       { 'saghen/blink.cmp' },
     },
     config = function()
-      local on_attach = function(_, bufnr)
-        vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, { buffer = bufnr })
-        vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { buffer = bufnr })
-        vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = bufnr })
-        vim.keymap.set('n', 'gI', '<cmd>Telescope lsp_implementations<cr>', { buffer = bufnr })
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr })
-        vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { buffer = bufnr })
-        vim.keymap.set('n', '<leader>cs', '<cmd>Telescope lsp_document_symbols<cr>', { buffer = bufnr })
-        vim.keymap.set('n', '<leader>ct', '<cmd>Telescope lsp_type_definitions<cr>', { buffer = bufnr })
-        vim.keymap.set('n', '<leader>h', function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-        end, { buffer = bufnr })
-      end
-
-      local lspconfig = require('lspconfig')
       local servers = {
+        biome = {},
+        bzl = {},
+        clangd = {},
         cssls = {},
         cssmodules_ls = {
           on_attach = function(client)
@@ -39,9 +23,11 @@ return {
             camelCase = 'false',
           },
         },
-        emmet_ls = {},
+        elixirls = {
+          cmd = { '/Users/iainearl/.local/share/nvim/mason/bin/elixir-ls' },
+          cmd_env = { SHELL = 'bash' },
+        },
         eslint = {},
-        golangci_lint_ls = {},
         gopls = {
           settings = {
             gopls = {
@@ -57,6 +43,18 @@ return {
             },
           },
         },
+        golangci_lint_ls = {
+          init_options = {
+            command = {
+              'golangci-lint',
+              'run',
+              '--output.json.path=stdout',
+              '--output.tab.path=/dev/null',
+              '--show-stats=false',
+            },
+          },
+        },
+        intelephense = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -69,16 +67,34 @@ return {
                 semicolon = true,
                 setType = true,
               },
+              workspace = {
+                checkThirdParty = false,
+                telemetry = { enable = false },
+                library = {
+                  '${3rd}/love2d/library',
+                },
+              },
+            },
+          },
+        },
+        ols = {},
+        pylsp = {},
+        ruff = {},
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              check = { command = 'clippy' },
+              checkOnSave = true,
             },
           },
         },
         stylelint_lsp = {
           filetypes = { 'css' },
         },
+        svelte = {},
         tailwindcss = {},
-        templ = {},
+				templ = {},
         ts_ls = {
-          root_dir = lspconfig.util.root_pattern('package.json'),
           single_file_support = false,
           init_options = {
             preferences = {
@@ -92,14 +108,35 @@ return {
             },
           },
         },
+        zls = {},
       }
 
-      for server, config in pairs(servers) do
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        config.on_attach = on_attach
-        lspconfig[server].setup(config)
+      local on_attach = function(_, bufnr)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+        vim.keymap.set('n', 'grt', vim.lsp.buf.type_definition)
+        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action)
+        vim.keymap.set('n', '<leader>ci', function()
+          vim.lsp.buf.code_action({
+            filter = function(a)
+              return a.kind == 'source.organizeImports'
+            end,
+            apply = true,
+          })
+        end, { buffer = bufnr })
+        vim.keymap.set('n', '<leader>h', function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+        end, { buffer = bufnr })
+      end
+
+      for server, cfg in pairs(servers) do
+        vim.lsp.config(
+          server,
+          vim.tbl_deep_extend('force', cfg, {
+            on_attach = on_attach,
+          })
+        )
+        vim.lsp.enable(server)
       end
     end,
   },
-  { 'j-hui/fidget.nvim', config = true },
 }
