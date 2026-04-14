@@ -2,6 +2,13 @@ return {
   {
     'mfussenegger/nvim-dap',
     lazy = false,
+    config = function()
+      local dap = require('dap')
+      dap.adapters.codelldb = {
+        type = 'executable',
+        command = 'codelldb',
+      }
+    end,
     keys = {
       {
         '<leader>xb',
@@ -13,7 +20,7 @@ return {
       {
         '<leader>xB',
         function()
-          local condition = vim.fn.input("Condition: ")
+          local condition = vim.fn.input('Condition: ')
           require('dap').set_breakpoint(condition)
         end,
         desc = 'Toggle breakpoint',
@@ -23,7 +30,6 @@ return {
         function()
           -- require('dap.ext.vscode').load_launchjs()
           require('dap').continue()
-
         end,
         desc = 'Continue',
       },
@@ -84,7 +90,7 @@ return {
           widgets.centered_float(widgets.scopes)
         end,
         desc = 'Toggle Floating scopes',
-      }
+      },
     },
   },
   {
@@ -99,16 +105,9 @@ return {
             size = 60,
             elements = {
               { id = 'scopes', size = 0.7 },
-              { id = 'breakpoints', size = 0.3 },
+              -- { id = 'breakpoints', size = 0.3 },
             },
           },
-          {
-            position = 'bottom',
-            size = 10,
-            elements = {
-              { id = 'repl', size = 1},
-            },
-          }
         },
       })
 

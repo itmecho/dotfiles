@@ -12,7 +12,7 @@ return {
         flavour = 'macchiato',
         auto_integrations = true,
       })
-      vim.cmd.colorscheme('catppuccin')
+      vim.cmd.colorscheme('catppuccin-nvim')
     end,
   },
   {
@@ -57,6 +57,7 @@ return {
       { '<leader>pv', '<cmd>Octo pr view<cr>' },
       { '<leader>pb', '<cmd>Octo pr browser<cr>' },
     },
+    cmd = {'Octo'},
   },
   {
     'folke/todo-comments.nvim',

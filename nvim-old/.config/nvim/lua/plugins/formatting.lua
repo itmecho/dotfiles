@@ -10,6 +10,14 @@ local rootContains = function(files)
 end
 
 local autoPrettier = function()
+  if rootContains({ '.oxfmtrc.json' }) then
+    local formatters = { 'oxfmt' }
+    if rootContains({ '.oxlintrc.json' }) then
+      table.insert(formatters, 1, 'oxlint')
+    end
+    return formatters
+  end
+
   if rootContains({ 'deno.json' }) then
     return { 'deno_fmt' }
   end
@@ -34,6 +42,7 @@ return {
   'stevearc/conform.nvim',
   opts = {
     formatters_by_ft = {
+      astro = autoPrettier,
       c = { 'clang-format' },
       css = { 'prettier' },
       go = { 'goimports-reviser', 'golines' },
@@ -61,6 +70,9 @@ return {
       },
       ['goimports-reviser'] = {
         prepend_args = { '-rm-unused' },
+      },
+      oxlint = {
+        prepend_args = { '--fix-suggestions', '--fix-dangerously' },
       },
       sql_formatter = function(bufnr)
         if bufContentContains(bufnr, '$1') then

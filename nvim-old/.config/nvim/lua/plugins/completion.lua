@@ -5,7 +5,7 @@ return {
   },
   {
     'saghen/blink.cmp',
-    version = '*',
+    version = '1.*',
     dependencies = {
       {
         'folke/lazydev.nvim',
@@ -39,6 +39,7 @@ return {
       },
       snippets = { preset = 'luasnip' },
       completion = {
+        accept = { auto_brackets = { enabled = false }, },
         documentation = {
           auto_show = true,
         },

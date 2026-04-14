@@ -15,7 +15,7 @@ opt.termguicolors = true
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200
-opt.winbar = "%=%f%m"
+opt.winbar = "%=%{fnamemodify(getcwd(), ':t')}: %f%m"
 opt.winborder = 'rounded'
 
 -- Default indentation 2 spaces

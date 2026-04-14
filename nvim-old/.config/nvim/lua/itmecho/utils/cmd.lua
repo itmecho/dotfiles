@@ -1,5 +1,22 @@
 local M = {}
 
+-- Track the current floating window and buffer managed by float_cmd
+local current_float = {
+  win = nil,
+  buf = nil,
+}
+
+local function close_current_float()
+  if current_float.win and vim.api.nvim_win_is_valid(current_float.win) then
+    vim.api.nvim_win_close(current_float.win, true)
+  end
+  if current_float.buf and vim.api.nvim_buf_is_valid(current_float.buf) then
+    vim.api.nvim_buf_delete(current_float.buf, { force = true })
+  end
+  current_float.win = nil
+  current_float.buf = nil
+end
+
 M.float_cmd = function(cmd, opts)
   if cmd == nil or cmd == '' or type(cmd) ~= 'string' then
     error('cmd is a required string')
@@ -8,6 +25,9 @@ M.float_cmd = function(cmd, opts)
   opts = vim.tbl_deep_extend('keep', opts or {}, {
     title = 'Output',
   })
+
+  -- Close existing floating window if it exists
+  close_current_float()
 
   -- Save current window to restore focus later
   local prev_win = vim.api.nvim_get_current_win()
@@ -35,6 +55,10 @@ M.float_cmd = function(cmd, opts)
     title = ' ' .. opts.title .. ' ',
     title_pos = 'center',
   })
+
+  -- Track this window and buffer as the current managed float
+  current_float.win = win
+  current_float.buf = buf
 
   -- Set up autocommands for resize on focus (separate group so it persists after command exits)
   local resize_augroup = vim.api.nvim_create_augroup('FloatCmdResize' .. buf, { clear = true })
@@ -102,7 +126,8 @@ M.float_cmd = function(cmd, opts)
   })
 
   -- Run command in terminal buffer (handles ANSI color codes)
-  vim.fn.termopen(cmd, {
+  vim.fn.jobstart(cmd, {
+    term = true,
     on_exit = function(_, exit_code)
       vim.schedule(function()
         -- Clean up scroll autocommand group (resize group persists)
@@ -119,7 +144,9 @@ M.float_cmd = function(cmd, opts)
         if exit_code == 0 then
           -- Success: close after 3 seconds
           vim.defer_fn(function()
-            if vim.api.nvim_win_is_valid(win) then
+            if current_float.win == win then
+              close_current_float()
+            elseif vim.api.nvim_win_is_valid(win) then
               vim.api.nvim_win_close(win, true)
             end
           end, 3000)
@@ -141,7 +168,9 @@ M.float_cmd = function(cmd, opts)
 
   -- Allow closing with 'q'
   vim.keymap.set('n', 'q', function()
-    if vim.api.nvim_win_is_valid(win) then
+    if current_float.win == win then
+      close_current_float()
+    elseif vim.api.nvim_win_is_valid(win) then
       vim.api.nvim_win_close(win, true)
     end
   end, { buffer = buf, nowait = true })
