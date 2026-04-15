@@ -3,6 +3,12 @@ function P(v)
   print(vim.inspect(v))
 end
 
+-- Global function to force reload a module if it's already in the cache
+function R(module)
+  package.loaded[module] = nil
+  return require(module)
+end
+
 -- Leaders
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
@@ -32,25 +38,36 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
-vim.g.zig_fmt_autosave = 0
-
 -- Keymaps
-local nopts = { silent = true, noremap = true }
+local ucmd = require('itmecho.util.cmd')
+local nopts = function(desc)
+  return { silent = true, noremap = true, desc = desc }
+end
 
-vim.keymap.set('n', '<esc>', '<esc>:noh<cr>', nopts)
+vim.keymap.set('n', '<esc>', '<esc>:noh<cr>', nopts('Clear search highlight on Escape'))
 -- Center search results
 for _, lhs in ipairs({ 'n', 'N', '}', '{', '<c-d>', '<c-u>' }) do
-  vim.keymap.set('n', lhs, lhs .. 'zz', nopts)
+  vim.keymap.set('n', lhs, lhs .. 'zz', nopts(string.format('Vertical center after %s', lhs)))
 end
 vim.keymap.set('n', '<leader>Sg', function()
-  require('itmecho.util.cmd').float_cmd('spxdev gen gazelle', { title = 'Gazelle' })
-end)
+  ucmd.float_cmd('spxdev gen gazelle', { title = 'Gazelle' })
+end, nopts('Generate gazelle in a floating window'))
+
 vim.keymap.set('n', '<leader>Sp', function()
-  require('itmecho.util.cmd').float_cmd('spxdev gen proto', { title = 'Proto' })
-end)
+  ucmd.float_cmd('spxdev gen proto', { title = 'Proto' })
+end, nopts('Generate gazelle and proto in a floating window'))
+
 vim.keymap.set('n', '<leader>SP', function()
-  require('itmecho.util.cmd').float_cmd('spxdev gen gazelle && spxdev gen proto', { title = 'Gazelle & Proto' })
-end)
+  ucmd.float_cmd('spxdev gen gazelle && spxdev gen proto', { title = 'Gazelle & Proto' })
+end, nopts('Generate proto in a floating window'))
+
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Copy selection to system clipboard' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Reselect after right shift' })
+vim.keymap.set('v', '<', '<gv', { desc = 'Reselect after leftright shift' })
+
+vim.keymap.set('n', '<leader>g', function()
+  ucmd.tmux_popup('lazygit')
+end, nopts('Open lazygit in a tmux popup'))
 
 -- Diagnostics
 vim.diagnostic.config({

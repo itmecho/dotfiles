@@ -32,6 +32,7 @@ local ensure_installed = {
   'tailwindcss-language-server',
   'typescript-language-server',
 }
+
 local installed = require('mason-registry').get_installed_package_names()
 local missing = vim
   .iter(ensure_installed)

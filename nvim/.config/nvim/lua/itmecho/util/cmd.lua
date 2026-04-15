@@ -212,12 +212,22 @@ M.tmux_popup = function(cmd, opts)
   vim.fn.system(table.concat(tmux_cmd, ' '))
 end
 
-function M.job_lines(cmd, callback)
-  return vim.fn.jobstart(cmd, {
+--- @class JobStartOpts
+--- @field cmd string The command to run
+--- @field callback function Called with each line of output
+--- @field skip_empty_lines boolean? Whether to skip empty lines
+
+--- Starts a job and calls a callback for each line of stdout output.
+--- @param opts JobStartOpts Options table
+function M.job_lines(opts)
+  assert(opts.cmd and #opts.cmd > 0, 'cmd must be defined')
+  assert(opts.callback ~= nil, 'callback must be defined')
+
+  return vim.fn.jobstart(opts.cmd, {
     on_stdout = function(_, data)
       for _, line in ipairs(data) do
-        if line ~= '' then
-          callback(line)
+        if line ~= '' or not opts.skip_empty_lines then
+          opts.callback(line)
         end
       end
     end,

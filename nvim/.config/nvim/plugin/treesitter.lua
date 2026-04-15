@@ -1,6 +1,34 @@
 vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' })
 
-local ensure_installed = { 'go', 'lua', 'typescript', 'tsx' }
+local ensure_installed = {
+  'astro',
+  'bash',
+  'c',
+  'caddy',
+  'css',
+  'csv',
+  'diff',
+  'dockerfile',
+  'fish',
+  'go',
+  'gomod',
+  'gosum',
+  'gotmpl',
+  'gowork',
+  'hcl',
+  'html',
+  'json',
+  'jsx',
+  'lua',
+  'make',
+  'markdown',
+  'markdown_inline',
+  'nix',
+  'odin',
+  'tsx',
+  'typescript',
+  'yaml',
+}
 local installed = require('nvim-treesitter.config').get_installed()
 local missing = vim
   .iter(ensure_installed)
@@ -15,6 +43,6 @@ vim.api.nvim_create_autocmd('FileType', {
     -- Enable treesitter highlighting and disable regex syntax
     pcall(vim.treesitter.start)
     -- Enable treesitter-based indentation
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end,
 })
