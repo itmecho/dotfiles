@@ -25,13 +25,12 @@ vim.keymap.set('n', '<leader>xB', function()
   dap.set_breakpoint(vim.fn.input('Condition: '))
 end, { desc = 'Toggle breakpoint' })
 vim.keymap.set('n', '<leader>xc', dap.continue, { desc = 'DAP continue' })
-vim.keymap.set('n', '<leader>xr', dap.restart, { desc = 'DAP restart' })
 vim.keymap.set('n', '<leader>xx', dap.close, { desc = 'DAP close' })
 vim.keymap.set('n', '<leader>xh', dap.step_out, { desc = 'DAP step out' })
 vim.keymap.set('n', '<leader>xj', dap.step_over, { desc = 'DAP step over' })
 vim.keymap.set('n', '<leader>xk', dap.step_back, { desc = 'DAP step back' })
 vim.keymap.set('n', '<leader>xl', dap.step_into, { desc = 'DAP step into' })
-vim.keymap.set('n', '<leader>xr', dap.run_to_cursor, { desc = 'DAP step into' })
+vim.keymap.set('n', '<leader>xr', dap.run_to_cursor, { desc = 'DAP run to cursor' })
 vim.keymap.set('n', '<leader>xu', dapui.toggle, { desc = 'DAP toggle UI' })
 
 -- Hook up DAP UI
@@ -47,3 +46,5 @@ end
 dap.listeners.before.event_exited.dapui_config = function()
   dapui.close()
 end
+
+require('dap-go').setup()
